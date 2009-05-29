@@ -197,88 +197,7 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>49853DBD0FCF900100710767</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>XstrumentView.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>49853DBE0FCF900100710767</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>XstrumentView.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>493105950FCFBDF300598B56</string>
-						<key>history</key>
-						<array>
-							<string>493105940FCFBDF300598B56</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {750, 720}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>627 -71 750 761 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>493104940FCF9DA200598B56</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>XstrumentView.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>493104950FCF9DA200598B56</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>XstrumentView.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>493105960FCFBDF300598B56</string>
-						<key>history</key>
-						<array>
-							<string>493105680FCFB73900598B56</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {711, 656}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>65 102 711 697 0 0 1440 878 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -312,8 +231,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -356,7 +273,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>10</integer>
+									<integer>9</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -391,6 +308,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -408,7 +327,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>493105930FCFBDF300598B56</string>
+										<string>4931059A0FD0272300598B56</string>
 										<key>history</key>
 										<array>
 											<string>493105890FCFBDF300598B56</string>
@@ -630,8 +549,6 @@
 		<string>1C78EAAD065D492600B07095</string>
 		<string>49853D770FCF811700710767</string>
 		<string>/Users/rfielding/cocoa/Xstrument/Xstrument.xcodeproj</string>
-		<string>493104940FCF9DA200598B56</string>
-		<string>49853DBD0FCF900100710767</string>
 	</array>
 	<key>WindowString</key>
 	<string>223 136 999 741 0 0 1440 878 </string>
