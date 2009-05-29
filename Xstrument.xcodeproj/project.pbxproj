@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		4931045C0FCF983300598B56 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4931045B0FCF983300598B56 /* CoreAudioKit.framework */; };
+		493104600FCF984400598B56 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4931045F0FCF984400598B56 /* AudioUnit.framework */; };
+		493104640FCF986100598B56 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493104630FCF986100598B56 /* CoreMIDI.framework */; };
+		493104680FCF987700598B56 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493104670FCF987700598B56 /* AudioToolbox.framework */; };
+		49853D690FCF7C2F00710767 /* XstrumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */; };
+		49853D730FCF810D00710767 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49853D720FCF810D00710767 /* OpenGL.framework */; };
+		49853D810FCF812900710767 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49853D800FCF812900710767 /* GLUT.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -22,6 +29,14 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* Xstrument_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Xstrument_Prefix.pch; sourceTree = "<group>"; };
+		4931045B0FCF983300598B56 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = /System/Library/Frameworks/CoreAudioKit.framework; sourceTree = "<absolute>"; };
+		4931045F0FCF984400598B56 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
+		493104630FCF986100598B56 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
+		493104670FCF987700598B56 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		49853D670FCF7C2F00710767 /* XstrumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XstrumentView.h; sourceTree = "<group>"; };
+		49853D680FCF7C2F00710767 /* XstrumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XstrumentView.m; sourceTree = "<group>"; };
+		49853D720FCF810D00710767 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		49853D800FCF812900710767 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Xstrument.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xstrument.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -32,6 +47,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				49853D730FCF810D00710767 /* OpenGL.framework in Frameworks */,
+				49853D810FCF812900710767 /* GLUT.framework in Frameworks */,
+				4931045C0FCF983300598B56 /* CoreAudioKit.framework in Frameworks */,
+				493104600FCF984400598B56 /* AudioUnit.framework in Frameworks */,
+				493104640FCF986100598B56 /* CoreMIDI.framework in Frameworks */,
+				493104680FCF987700598B56 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +69,12 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				493104670FCF987700598B56 /* AudioToolbox.framework */,
+				493104630FCF986100598B56 /* CoreMIDI.framework */,
+				4931045F0FCF984400598B56 /* AudioUnit.framework */,
+				4931045B0FCF983300598B56 /* CoreAudioKit.framework */,
+				49853D800FCF812900710767 /* GLUT.framework */,
+				49853D720FCF810D00710767 /* OpenGL.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -79,6 +106,8 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				49853D670FCF7C2F00710767 /* XstrumentView.h */,
+				49853D680FCF7C2F00710767 /* XstrumentView.m */,
 			);
 			name = Xstrument;
 			sourceTree = "<group>";
@@ -167,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				49853D690FCF7C2F00710767 /* XstrumentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
