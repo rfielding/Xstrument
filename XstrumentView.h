@@ -21,10 +21,12 @@
 	
 	uint64_t lastTime;
 	uint64_t thisTime;
-	int counter;
+	uint64_t intervalEstimate;
+	int intervalCount;
 }
 -(void) sendMIDIPacketCmd:(int)cmd andNote:(int)note andVol:(int)vol;
 -(void) stopSound;
 -(void) buildSynth;
 -(void) invalidateLoop;
+-(void) intervalTick;
 @end

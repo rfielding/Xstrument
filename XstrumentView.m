@@ -36,7 +36,8 @@
 	glMaterialfv(GL_FRONT,GL_DIFFUSE,mat);
 	
 	[self invalidateLoop];
-	counter = 0;
+	intervalCount = 0;
+	intervalEstimate = 0;
 	lastTime = mach_absolute_time();
 	thisTime = mach_absolute_time();
 }
@@ -69,7 +70,6 @@
 
 - (void)drawRect:(NSRect)rect
 {
-	counter++;
 	float radius = 2.0f;
 	float theta = 0.0f;
 	float lightX = 1;
@@ -99,9 +99,14 @@
 	{
 		glCallList(displayList);
 	}
-	if(counter % 2)
+	//Blink to estimated rhythm (distance between last keystrokes)
+	if(intervalEstimate>0)
 	{
-		glutSolidTorus(0.3, 1.8, 25, 31);
+		uint64_t now = mach_absolute_time();
+		if((now/intervalEstimate) % 2)
+		{
+			glutSolidTorus(0.3, 1.8, 25, 31);
+		}
 	}
 	glFinish();
 }
@@ -123,12 +128,38 @@
 	[self performSelector:@selector(invalidateLoop) withObject:self afterDelay:1/24.0];
 }
 
-- (void)keyDown:(NSEvent*)e
+- (void)intervalTick
 {
-	[self sendMIDIPacketCmd:0x90 andNote:32 andVol:90];
 	//Get a time diff;
 	lastTime = thisTime;
 	thisTime = mach_absolute_time();
+	intervalCount++;
+	if(intervalCount == 1)
+	{
+		intervalEstimate = thisTime - lastTime;
+	}
+	if(intervalCount > 1)
+	{
+		intervalEstimate = (intervalEstimate + (thisTime - lastTime))/2;
+	}
+}
+
+- (void)keyDown:(NSEvent*)e
+{
+	int i=0;
+	NSString* chars = [e characters];
+	for(i=0; i < [chars length]; i++)
+	{
+		unichar k = [chars characterAtIndex:i];
+		switch(k)
+		{
+			case '!': [self intervalTick];
+				break;
+			default:
+				intervalCount = 0;
+		}
+	}
+	[self sendMIDIPacketCmd:0x90 andNote:32 andVol:90];
 }
 
 - (void)keyUp:(NSEvent*)e
@@ -199,7 +230,7 @@
 	ItemCount nDests = MIDIGetNumberOfDestinations();
 	for(i=0;i<nDests;i++)
 	{
-		printf("midiSend %d %d %d %d\n", i,cmd, note, vol);
+		//printf("midiSend %d %d %d %d\n", i,cmd, note, vol);
 		MIDIEndpointRef dest = MIDIGetDestination(i);
 		MIDISend(gOutputPort, dest, pktList);
 	}
