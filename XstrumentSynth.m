@@ -4,6 +4,9 @@
 //
 //  Created by Robert Fielding on 5/29/09.
 //  Copyright 2009 Check Point Software. All rights reserved.
+/*
+ Code originates from the MIDI echo example app for XCode Cocoa examples
+ */
 //
 
 #import "XstrumentSynth.h"

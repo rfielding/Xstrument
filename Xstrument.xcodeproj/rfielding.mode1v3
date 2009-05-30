@@ -328,15 +328,15 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>493107BC0FD0CB0100598B56</string>
+										<string>493107EE0FD0D09200598B56</string>
 										<key>history</key>
 										<array>
-											<string>4931078C0FD0C94100598B56</string>
-											<string>493107A90FD0CB0100598B56</string>
-											<string>493107AA0FD0CB0100598B56</string>
-											<string>493107AB0FD0CB0100598B56</string>
-											<string>493107AC0FD0CB0100598B56</string>
-											<string>493107AD0FD0CB0100598B56</string>
+											<string>493107C60FD0CDBC00598B56</string>
+											<string>493107C70FD0CDBC00598B56</string>
+											<string>493107C80FD0CDBC00598B56</string>
+											<string>493107C90FD0CDBC00598B56</string>
+											<string>493107CA0FD0CDBC00598B56</string>
+											<string>493107CB0FD0CDBC00598B56</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -582,6 +582,25 @@
 											<string>493107B90FD0CB0100598B56</string>
 											<string>493107BA0FD0CB0100598B56</string>
 											<string>493107BB0FD0CB0100598B56</string>
+											<string>493107CC0FD0CDBC00598B56</string>
+											<string>493107CD0FD0CDBC00598B56</string>
+											<string>493107CE0FD0CDBC00598B56</string>
+											<string>493107CF0FD0CDBC00598B56</string>
+											<string>493107D00FD0CDBC00598B56</string>
+											<string>493107D10FD0CDBC00598B56</string>
+											<string>493107D20FD0CDBC00598B56</string>
+											<string>493107D30FD0CDBC00598B56</string>
+											<string>493107D40FD0CDBC00598B56</string>
+											<string>493107D50FD0CDBC00598B56</string>
+											<string>493107D60FD0CDBC00598B56</string>
+											<string>493107D70FD0CDBC00598B56</string>
+											<string>493107D80FD0CDBC00598B56</string>
+											<string>493107D90FD0CDBC00598B56</string>
+											<string>493107DA0FD0CDBC00598B56</string>
+											<string>493107DB0FD0CDBC00598B56</string>
+											<string>493107DC0FD0CDBC00598B56</string>
+											<string>493107DD0FD0CDBC00598B56</string>
+											<string>493107DE0FD0CDBC00598B56</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -779,9 +798,9 @@
 		<string>493106780FD0AA1700598B56</string>
 		<string>4931056E0FCFB74100598B56</string>
 		<string>4931056F0FCFB74100598B56</string>
+		<string>49853D770FCF811700710767</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>1C78EAAD065D492600B07095</string>
-		<string>49853D770FCF811700710767</string>
 		<string>/Users/rfielding/cocoa/Xstrument/Xstrument.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -815,14 +834,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {738, 277}}</string>
+								<string>{{0, 0}, {738, 421}}</string>
 								<key>RubberWindowFrame</key>
 								<string>630 226 738 559 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>277pt</string>
+							<string>421pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -839,14 +858,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 282}, {738, 236}}</string>
+								<string>{{0, 426}, {738, 92}}</string>
 								<key>RubberWindowFrame</key>
 								<string>630 226 738 559 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
 							<key>Proportion</key>
-							<string>236pt</string>
+							<string>92pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -875,7 +894,7 @@
 			<key>WindowToolGUID</key>
 			<string>49853D770FCF811700710767</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

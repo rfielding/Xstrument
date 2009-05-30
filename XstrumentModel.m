@@ -101,10 +101,46 @@
 
 -(void)keyDownAt:(uint64_t)now withKeys:(NSString*)chars
 {
-	[xsynth sendMIDIPacketCmd:0x90 andNote:32 andVol:90];
+	int i=0;
+	int note=0;
+	for(i=0; i<[chars length]; i++)
+	{
+		unichar c = [chars characterAtIndex:i];
+		switch(c)
+		{
+			case 'd':
+			case 'k':
+				diatonicLocation+=2;
+				break;
+			case 'f':
+			case 'j':
+				diatonicLocation+=1;
+				break;
+			case 'v':
+			case 'm':
+				diatonicLocation-=1;
+				break;
+			case 'c':
+			case ',':
+				diatonicLocation-=2;
+				break;
+			case 's':
+			case 'l':
+				diatonicLocation+=3;
+				break;
+			case 'x':
+			case '.':
+				diatonicLocation-=3;
+				break;
+		}
+	}
+	//Just make sure we are alive
+	note = scaleShape[(diatonicLocation%7)]+12*(diatonicLocation/7);
+	[xsynth sendMIDIPacketCmd:0x90 andNote:note andVol:90];
 }
 
 -(void)keyUpAt:(uint64_t)now withKeys:(NSString*)chars
 {
+	[xsynth sendMIDIPacketCmd:0x90 andNote:32 andVol:0];
 }
 @end

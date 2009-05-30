@@ -14,7 +14,6 @@
  software without explicit permission.  
  
  OpenGL code started from The Hillengrass Cocoa book.
- MIDI code started from Midi echo in the XCode examples.
  */
 //
 
