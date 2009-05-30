@@ -45,8 +45,8 @@
 	timePlayed=0;
 	
 	chromaticLocation = CHROMATICNOTES*4;
-	diatonicLocation = DIATONICNOTES*4;
-	
+	diatonicLocation = DIATONICNOTES*2;
+	chromaticBase = DIATONICNOTES*2;
 	//Make diatonic scale shape (minor based... not major based)
 	for(i=0; i<2;i++)
 	{
@@ -108,6 +108,8 @@
 		unichar c = [chars characterAtIndex:i];
 		switch(c)
 		{
+				
+			//Chromatic relative rows
 			case 'a':
 			case ';':
 				diatonicLocation+=4;
@@ -123,14 +125,6 @@
 			case 'f':
 			case 'j':
 				diatonicLocation+=1;
-				break;
-			case 'g':
-			case 'h':
-				diatonicLocation+=5;
-				break;
-			case 'b':
-			case 'n':
-				diatonicLocation-=5;
 				break;
 			case 'v':
 			case 'm':
@@ -148,11 +142,12 @@
 			case '/':
 				diatonicLocation-=4;
 				break;
+				
 		}
 	}
 	//Just make sure we are alive
-	note = scaleShape[(diatonicLocation%7)]+12*(diatonicLocation/7);
-	[xsynth sendMIDIPacketCmd:0x90 andNote:note andVol:90];
+	chromaticLocation = scaleShape[(diatonicLocation%7)]+12*(diatonicLocation/7) + note;
+	[xsynth sendMIDIPacketCmd:0x90 andNote:chromaticLocation andVol:90];
 }
 
 -(void)keyUpAt:(uint64_t)now withKeys:(NSString*)chars

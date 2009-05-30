@@ -30,6 +30,7 @@
 	uint64_t tickA;
 	uint64_t tickB;
 	
+	int chromaticBase;
 	int chromaticLocation;
 	int diatonicLocation;
 	

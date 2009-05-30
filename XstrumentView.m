@@ -81,10 +81,13 @@
 {
 	//Just show some junk on the screen now so that we can tell that timing
 	//and MIDI and keyboard are all working
+	int i=0;
 	float radius = 2.0f;
 	float theta = 0.0f;
 	float lightX = 1;
-    glClearColor(0.2, 0.4, 0.1, 0.0);
+	float x=0.0f;
+	float y=0.0f;
+    glClearColor(0.0f , 0.0f, 0.0f, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glMatrixMode(GL_MODELVIEW);
@@ -96,6 +99,34 @@
 	GLfloat lightPosition[] = {lightX, 1, 3, 0.0};
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	
+	glBegin(GL_LINE_STRIP);
+	glNormal3f(0.0f,0.0f,1.0f);
+	
+	for(i=0; i<128; i++)
+	{
+		glColor3f(0.0f, i/512.0f, 0.0f);
+		//This is the radius
+		float startRadius = 0.10* i / 12.0f;
+		float stopRadius = 0.10* (i + 12) / 12.0f;
+		
+		float startAngle = (((M_PI*2)/12) * (i % 12));
+		float stopAngle = (((M_PI*2)/12) * ((i + 1) % 12));
+		
+		x = stopRadius*cos(startAngle);
+		y = -stopRadius*sin(startAngle);
+		glVertex3f(x,y, 0);
+		x = stopRadius*cos(stopAngle);
+		y = -stopRadius*sin(stopAngle);
+		glVertex3f(x,y, 0);
+		x = startRadius*cos(stopAngle);
+		y = -startRadius*sin(stopAngle);
+		glVertex3f(x,y, 0);
+		x = stopRadius*cos(stopAngle);
+		y = -stopRadius*sin(stopAngle);
+		glVertex3f(x,y, 0);		
+	}
+	glEnd();
+	/*
 	if(!displayList)
 	{
 		displayList = glGenLists(1);
@@ -110,6 +141,7 @@
 	{
 		glCallList(displayList);
 	}
+	 */
 	//Blink to estimated rhythm (distance between last keystrokes)
 	/*
 	if(timeA < timeB)
