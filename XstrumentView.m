@@ -148,7 +148,14 @@
 
 - (void)keyDown:(NSEvent*)e
 {
-	[xmodel keyDownAt:mach_absolute_time() withKeys:[e characters]];
+	if([e isARepeat])
+	{
+		//Ignore repeats
+	}
+	else
+	{
+		[xmodel keyDownAt:mach_absolute_time() withKeys:[e characters]];
+	}
 }
 
 - (void)keyUp:(NSEvent*)e

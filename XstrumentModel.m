@@ -110,43 +110,43 @@
 		{
 			case 'a':
 			case ';':
-				diatonicLocation+=5;
+				diatonicLocation+=4;
 				break;
 			case 's':
 			case 'l':
-				diatonicLocation+=4;
+				diatonicLocation+=3;
 				break;
 			case 'd':
 			case 'k':
-				diatonicLocation+=3;
+				diatonicLocation+=2;
 				break;
 			case 'f':
 			case 'j':
-				diatonicLocation+=2;
+				diatonicLocation+=1;
 				break;
 			case 'g':
 			case 'h':
-				diatonicLocation+=1;
+				diatonicLocation+=5;
 				break;
 			case 'b':
 			case 'n':
-				diatonicLocation-=1;
+				diatonicLocation-=5;
 				break;
 			case 'v':
 			case 'm':
-				diatonicLocation-=2;
+				diatonicLocation-=1;
 				break;
 			case 'c':
 			case ',':
-				diatonicLocation-=3;
+				diatonicLocation-=2;
 				break;
 			case 'x':
 			case '.':
-				diatonicLocation-=4;
+				diatonicLocation-=3;
 				break;
 			case 'z':
 			case '/':
-				diatonicLocation-=5;
+				diatonicLocation-=4;
 				break;
 		}
 	}
@@ -157,6 +157,6 @@
 
 -(void)keyUpAt:(uint64_t)now withKeys:(NSString*)chars
 {
-	[xsynth sendMIDIPacketCmd:0x90 andNote:32 andVol:0];
+	//[xsynth stopSound];
 }
 @end
