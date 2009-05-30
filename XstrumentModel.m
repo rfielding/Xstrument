@@ -108,29 +108,45 @@
 		unichar c = [chars characterAtIndex:i];
 		switch(c)
 		{
-			case 'd':
-			case 'k':
-				diatonicLocation+=2;
-				break;
-			case 'f':
-			case 'j':
-				diatonicLocation+=1;
-				break;
-			case 'v':
-			case 'm':
-				diatonicLocation-=1;
-				break;
-			case 'c':
-			case ',':
-				diatonicLocation-=2;
+			case 'a':
+			case ';':
+				diatonicLocation+=5;
 				break;
 			case 's':
 			case 'l':
+				diatonicLocation+=4;
+				break;
+			case 'd':
+			case 'k':
 				diatonicLocation+=3;
+				break;
+			case 'f':
+			case 'j':
+				diatonicLocation+=2;
+				break;
+			case 'g':
+			case 'h':
+				diatonicLocation+=1;
+				break;
+			case 'b':
+			case 'n':
+				diatonicLocation-=1;
+				break;
+			case 'v':
+			case 'm':
+				diatonicLocation-=2;
+				break;
+			case 'c':
+			case ',':
+				diatonicLocation-=3;
 				break;
 			case 'x':
 			case '.':
-				diatonicLocation-=3;
+				diatonicLocation-=4;
+				break;
+			case 'z':
+			case '/':
+				diatonicLocation-=5;
 				break;
 		}
 	}
