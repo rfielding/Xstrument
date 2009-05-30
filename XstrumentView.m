@@ -73,20 +73,22 @@
 	glViewport(0,0,baseRect.size.width, baseRect.size.height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(60.0, baseRect.size.width/baseRect.size.height, 0.2, 7);
+	gluPerspective(60.0, baseRect.size.width/baseRect.size.height, 0.2, 32);
 }
 
 
 - (void)drawRect:(NSRect)rect
 {
-	//Just show some junk on the screen now so that we can tell that timing
-	//and MIDI and keyboard are all working
 	int i=0;
 	float radius = 2.0f;
 	float theta = 0.0f;
 	float lightX = 1;
-	float x=0.0f;
-	float y=0.0f;
+	float xa=0.0f;
+	float ya=0.0f;
+	float xb=0.0f;
+	float yb=0.0f;
+	float xavg=0;
+	float yavg=0;
     glClearColor(0.0f , 0.0f, 0.0f, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
@@ -99,60 +101,31 @@
 	GLfloat lightPosition[] = {lightX, 1, 3, 0.0};
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	
+	//Render 3 dimensionally, so we can bump the UI when the user touches something
+	//as feedback.
 	glBegin(GL_LINE_STRIP);
-	glNormal3f(0.0f,0.0f,1.0f);
-	
 	for(i=0; i<128; i++)
 	{
-		glColor3f(0.0f, i/512.0f, 0.0f);
+		glColor3f(0.0f, 1, 0.0f);
 		//This is the radius
-		float startRadius = 0.10* i / 12.0f;
-		float stopRadius = 0.10* (i + 12) / 12.0f;
+		float startDistance = -(i)/16.0f;
+		float stopDistance = -(i+1)/16.0f;
 		
 		float startAngle = (((M_PI*2)/12) * (i % 12));
 		float stopAngle = (((M_PI*2)/12) * ((i + 1) % 12));
+
 		
-		x = stopRadius*cos(startAngle);
-		y = -stopRadius*sin(startAngle);
-		glVertex3f(x,y, 0);
-		x = stopRadius*cos(stopAngle);
-		y = -stopRadius*sin(stopAngle);
-		glVertex3f(x,y, 0);
-		x = startRadius*cos(stopAngle);
-		y = -startRadius*sin(stopAngle);
-		glVertex3f(x,y, 0);
-		x = stopRadius*cos(stopAngle);
-		y = -stopRadius*sin(stopAngle);
-		glVertex3f(x,y, 0);		
+		xa = cos(startAngle);
+		ya = -sin(startAngle);
+		xb = cos(stopAngle);
+		yb = -sin(stopAngle);
+		xavg = (xa+xb)/2;
+		yavg = (ya+yb)/2;
+		glNormal3f(cos(xavg),-sin(yavg),0.0f);	
+		glVertex3f(xa,ya, startDistance);
+		glVertex3f(xb,yb, stopDistance);
 	}
 	glEnd();
-	/*
-	if(!displayList)
-	{
-		displayList = glGenLists(1);
-		glNewList(displayList,GL_COMPILE_AND_EXECUTE);
-		glTranslatef(0,0,0);
-		glutSolidTorus(0.3, 0.9, 35, 31);
-		glTranslatef(0, 0, -1.2);
-		glutSolidCone(1, 1, 17, 17);
-		glEndList();
-	}
-	else
-	{
-		glCallList(displayList);
-	}
-	 */
-	//Blink to estimated rhythm (distance between last keystrokes)
-	/*
-	if(timeA < timeB)
-	{
-		uint64_t now = mach_absolute_time();
-		if((now/(timeB-timeA)) % 2)
-		{
-			glutSolidTorus(0.3, 1.8, 25, 31);
-		}
-	}
-	 */
 	glFinish();
 }
  
