@@ -16,26 +16,13 @@ software without explicit permission.
 //
 
 #import <Cocoa/Cocoa.h>
-#import <CoreAudio/CoreAudio.h>
-#import <AudioUnit/AudioUnit.h>
-#import <CoreMIDI/CoreMIDI.h>
-#import <AudioToolbox/AudioToolbox.h>
-#include <mach/mach_time.h>
-
+#import "XstrumentModel.h"
+#import "XstrumentSynth.h"
 
 @interface XstrumentView : NSOpenGLView {
 	int displayList;
-	MIDIPortRef gOutputPort;
-	Byte midiBuffer[1024];
-	
-	uint64_t lastTime;
-	uint64_t thisTime;
-	uint64_t intervalEstimate;
-	int intervalCount;
+	XstrumentModel* xmodel;
 }
--(void) sendMIDIPacketCmd:(int)cmd andNote:(int)note andVol:(int)vol;
--(void) stopSound;
--(void) buildSynth;
 -(void) invalidateLoop;
 -(void) intervalTick;
 @end

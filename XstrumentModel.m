@@ -13,11 +13,98 @@
  which means that you have no right to sell this or modified copies of this 
  software without explicit permission.  
  */
+/*
+ The timeA/timeB pair specify a time interval that can be used for echo
+ 
+ The tickA/tickB pair specify the last time MIDI messages were sent versus the current time.
+ When determining what MIDI messages need to be sent, we iterate echoNote echoVol buffers from
+ 
+     tickA < i <= tickB
+ 
+ We play those notes as we iterate.  Then we zero out the notes that we have played while writing
+ forward (at decreased volume and 1 interval away) any echoes we need to write.  We presume that
+ the echo decreases at such a rate that a single note will never propagate all the way around the buffer.
+ 
+ Presume for the moment that we only handle note down events.  
+ */
 //
 
 #import "XstrumentModel.h"
 
 
 @implementation XstrumentModel
+-(id)init
+{
+	int i=0;
+	
+	timeA=0;
+	timeB=0;
+	tickA=0;
+	tickB=0;
+	timeCycled=0;
+	timePlayed=0;
+	
+	chromaticLocation = CHROMATICNOTES*4;
+	diatonicLocation = DIATONICNOTES*4;
+	
+	//Make diatonic scale shape (minor based... not major based)
+	for(i=0; i<2;i++)
+	{
+		scaleShape[0] = i*12 + 0;
+		scaleShape[1] = i*12 + 2;
+		scaleShape[2] = i*12 + 3;
+		scaleShape[3] = i*12 + 5;
+		scaleShape[4] = i*12 + 7;
+		scaleShape[5] = i*12 + 9;
+		scaleShape[6] = i*12 + 10;
+	}
+	scaleShape[DIATONICNOTES*2]=24;
+	for(i=0;i<BEATBUFFER*TICKSPERBEAT;i++)
+	{
+		echoVol[i] = 0;
+		echoNote[i] = 0;
+	}
+	for(i=0;i<1024;i++)
+	{
+		keyDownCount[i]=0;
+	}
+	xsynth = [[XstrumentSynth alloc] init];
+	return self;
+}
 
+-(void)tickAt:(uint64_t)now
+{
+}
+
+-(BOOL)nextCycleAt:(uint64_t)now
+{
+	if(timeA < timeB)
+	{
+		if( (now-timeCycled)/(timeB-timeA) > 1)
+		{
+			timeCycled = now;
+			return YES;
+		}
+	}
+	return NO;
+}
+
+-(void)tickStartAt:(uint64_t)now
+{
+	timeA = now;
+}
+
+-(void)tickStopAt:(uint64_t)now
+{
+	timeB = now;
+}
+
+-(void)keyDownAt:(uint64_t)now withKeys:(NSString*)chars
+{
+	[xsynth sendMIDIPacketCmd:0x90 andNote:32 andVol:90];
+}
+
+-(void)keyUpAt:(uint64_t)now withKeys:(NSString*)chars
+{
+}
 @end

@@ -12,12 +12,17 @@
  Like the official Samchillian software, this is only for non commercial use, 
  which means that you have no right to sell this or modified copies of this 
  software without explicit permission.  
+ 
+ OpenGL code started from The Hillengrass Cocoa book.
+ MIDI code started from Midi echo in the XCode examples.
  */
 //
 
 #import "XstrumentView.h"
+#import "XstrumentModel.h"
 #import <GLUT/glut.h>
 #import <math.h>
+#include <mach/mach_time.h>
 
 @implementation XstrumentView
 
@@ -44,17 +49,13 @@
 	glMaterialfv(GL_FRONT,GL_AMBIENT,mat);
 	glMaterialfv(GL_FRONT,GL_DIFFUSE,mat);
 	
+	xmodel = [[XstrumentModel alloc] init];	
 	[self invalidateLoop];
-	intervalCount = 0;
-	intervalEstimate = 0;
-	lastTime = mach_absolute_time();
-	thisTime = mach_absolute_time();
 }
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code here.
+    if (self) {		
     }
     return self;
 }
@@ -79,6 +80,8 @@
 
 - (void)drawRect:(NSRect)rect
 {
+	//Just show some junk on the screen now so that we can tell that timing
+	//and MIDI and keyboard are all working
 	float radius = 2.0f;
 	float theta = 0.0f;
 	float lightX = 1;
@@ -109,21 +112,22 @@
 		glCallList(displayList);
 	}
 	//Blink to estimated rhythm (distance between last keystrokes)
-	if(intervalEstimate>0)
+	/*
+	if(timeA < timeB)
 	{
 		uint64_t now = mach_absolute_time();
-		if((now/intervalEstimate) % 2)
+		if((now/(timeB-timeA)) % 2)
 		{
 			glutSolidTorus(0.3, 1.8, 25, 31);
 		}
 	}
+	 */
 	glFinish();
 }
  
 
 - (void)awakeFromNib
 {
-	[self buildSynth];
 }
 
 - (BOOL)acceptsFirstResponder
@@ -133,129 +137,26 @@
 
 - (void)invalidateLoop
 {
-	[self setNeedsDisplay:YES];
+	[self intervalTick];
 	[self performSelector:@selector(invalidateLoop) withObject:self afterDelay:1/24.0];
 }
 
 - (void)intervalTick
 {
-	//Get a time diff;
-	lastTime = thisTime;
-	thisTime = mach_absolute_time();
-	intervalCount++;
-	if(intervalCount == 1)
-	{
-		intervalEstimate = thisTime - lastTime;
-	}
-	if(intervalCount > 1)
-	{
-		intervalEstimate = (intervalEstimate + (thisTime - lastTime))/2;
-	}
+	[xmodel tickAt:mach_absolute_time()];
+	[self setNeedsDisplay:YES];
 }
 
 - (void)keyDown:(NSEvent*)e
 {
-	int i=0;
-	NSString* chars = [e characters];
-	for(i=0; i < [chars length]; i++)
-	{
-		unichar k = [chars characterAtIndex:i];
-		switch(k)
-		{
-			case '!': [self intervalTick];
-				break;
-			default:
-				intervalCount = 0;
-		}
-	}
-	[self sendMIDIPacketCmd:0x90 andNote:32 andVol:90];
+	[xmodel keyDownAt:mach_absolute_time() withKeys:[e characters]];
 }
 
 - (void)keyUp:(NSEvent*)e
 {
-	[self sendMIDIPacketCmd:0x90 andNote:32 andVol:0];
+	[xmodel keyUpAt:mach_absolute_time() withKeys:[e characters]];
 }
 
-/**
- Do synthesizer setup
- */
-- (void)buildSynth
-{
-	int i=0;
-	int n=0;
-	for(i=0;i<1024;i++)
-	{
-		midiBuffer[i] = 0x00;
-	}
-	gOutputPort = (MIDIPortRef)0;
-	
-	MIDIClientRef client = NULL;
-	MIDIClientCreate(CFSTR("Midi Echo"),NULL,NULL,&client);
-	if(client != NULL)
-	{
-		MIDIOutputPortCreate(client,CFSTR("Output Port"),&(gOutputPort));
-		if(gOutputPort)
-		{
-			CFStringRef pname, pmanuf, pmodel;
-			char name[64], manuf[64], model[64];
-			n = MIDIGetNumberOfDevices();
-			for (i = 0; i < n; ++i) {
-				MIDIDeviceRef dev = MIDIGetDevice(i);
-				MIDIObjectGetStringProperty(dev, kMIDIPropertyName, &pname);
-				MIDIObjectGetStringProperty(dev, kMIDIPropertyManufacturer, &pmanuf);
-				MIDIObjectGetStringProperty(dev, kMIDIPropertyModel, &pmodel);
-				CFStringGetCString(pname, name, sizeof(name), 0);
-				CFStringGetCString(pmanuf, manuf, sizeof(manuf), 0);
-				CFStringGetCString(pmodel, model, sizeof(model), 0);
-				CFRelease(pname);
-				CFRelease(pmanuf);
-				CFRelease(pmodel);
-				printf("name=%s, manuf=%s, model=%s\n", name, manuf, model);
-			}
-		}
-		else
-		{
-			printf("no output port created!\n");
-		}
-	}
-	else
-	{
-		printf("no midi client created!\n");
-	}
-}
-
-/**
- Send 3 byte midi messages.  Usually interpreted as cmd/note/vol
- */
--(void) sendMIDIPacketCmd:(int)cmd andNote:(int)note andVol:(int)vol
-{
-	int i=0;
-	MIDIPacketList* pktList = (MIDIPacketList*)midiBuffer;
-	MIDIPacket* curPacket = MIDIPacketListInit(pktList);
-	Byte noteOn[] = { cmd, note, vol};
-	curPacket = MIDIPacketListAdd(
-								  pktList, sizeof(midiBuffer), curPacket, 0, 3, noteOn
-								  );
-	ItemCount nDests = MIDIGetNumberOfDestinations();
-	for(i=0;i<nDests;i++)
-	{
-		//printf("midiSend %d %d %d %d\n", i,cmd, note, vol);
-		MIDIEndpointRef dest = MIDIGetDestination(i);
-		MIDISend(gOutputPort, dest, pktList);
-	}
-}
-
-/**
- Stop all sounds.  This is plenty fast.
- */
--(void)stopSound
-{
-	int i=0;
-	for(i=0; i<128; i++)
-	{
-		[self sendMIDIPacketCmd:0x90 andNote:i andVol:0];
-	}
-}
 
 
 
