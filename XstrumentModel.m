@@ -67,6 +67,7 @@
 	for(i=0;i<1024;i++)
 	{
 		keyDownCount[i]=0;
+		downKeyPlays[i]=0;
 	}
 	xsynth = [[XstrumentSynth alloc] init];
 	return self;
@@ -106,6 +107,7 @@
 	for(i=0; i<[chars length]; i++)
 	{
 		unichar c = [chars characterAtIndex:i];
+		keyDownCount[c]++;
 		switch(c)
 		{
 				
@@ -144,14 +146,23 @@
 				break;
 				
 		}
+		//Just make sure we are alive
+		chromaticLocation = scaleShape[(diatonicLocation%7)]+12*(diatonicLocation/7) + note;
+		downKeyPlays[c] = chromaticLocation;
+		[xsynth sendMIDIPacketCmd:0x90 andNote:chromaticLocation andVol:90];
 	}
-	//Just make sure we are alive
-	chromaticLocation = scaleShape[(diatonicLocation%7)]+12*(diatonicLocation/7) + note;
-	[xsynth sendMIDIPacketCmd:0x90 andNote:chromaticLocation andVol:90];
 }
 
 -(void)keyUpAt:(uint64_t)now withKeys:(NSString*)chars
 {
-	//[xsynth stopSound];
+	int i=0;
+	int playedNote=0;
+	for(i=0; i<[chars length]; i++)
+	{
+		unichar c = [chars characterAtIndex:i];
+		keyDownCount[c]--;
+		playedNote = downKeyPlays[c];
+		[xsynth sendMIDIPacketCmd:0x90 andNote:playedNote andVol:0];
+	}
 }
 @end

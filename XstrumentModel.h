@@ -34,11 +34,13 @@
 	int chromaticLocation;
 	int diatonicLocation;
 	
-	int keyDownCount[1040];
-	int scaleShape[2*CHROMATICNOTES+1];	
 	int echoVol[BEATBUFFER*TICKSPERBEAT];
 	int echoNote[BEATBUFFER*TICKSPERBEAT];
 	
+	int keyDownCount[1024];
+	int downKeyPlays[1024];
+	int scaleShape[2*CHROMATICNOTES+1];	
+
 	XstrumentSynth* xsynth;
 }
 -(id)init;
