@@ -70,4 +70,6 @@
  */
 -(void)tickStartAt:(uint64_t)now;
 -(void)tickStopAt:(uint64_t)now;
+
+-(int*)downKeys;
 @end

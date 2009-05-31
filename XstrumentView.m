@@ -19,7 +19,6 @@
 
 #import "XstrumentView.h"
 #import "XstrumentModel.h"
-#import <GLUT/glut.h>
 #import <math.h>
 #include <mach/mach_time.h>
 
@@ -36,7 +35,7 @@
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
 	
-	GLfloat ambient[] = {0.2,0.2,0.2,1.0};
+	GLfloat ambient[] = {1.0,1.0,1.0,1.0};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient);
 	
 	GLfloat diffuse[] = {1.0,1.0,1.0,1.0};
@@ -44,7 +43,7 @@
 	
 	glEnable(GL_LIGHT0);
 	
-	GLfloat mat[] = {0.1, 0.1, 0.7, 1.0};
+	GLfloat mat[] = {0.5, 0.6, 1.0, 1.0};
 	glMaterialfv(GL_FRONT,GL_AMBIENT,mat);
 	glMaterialfv(GL_FRONT,GL_DIFFUSE,mat);
 	
@@ -80,6 +79,7 @@
 - (void)drawRect:(NSRect)rect
 {
 	int i=0;
+	int downNote=0;
 	float radius = 2.0f;
 	float theta = 0.0f;
 	float lightX = 1;
@@ -89,13 +89,26 @@
 	float yb=0.0f;
 	float xavg=0;
 	float yavg=0;
+	float triX=0;
+	float triY=0;
+	float bumpAmount;
+	
+	uint64_t now = mach_absolute_time();
     glClearColor(0.0f , 0.0f, 0.0f, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	for(i=0; i<128; i++)
+	{
+		downNote = [xmodel downKeys][i];
+		if(downNote > 0)
+		{
+			bumpAmount+=0.01;
+		}
+	}
 	gluLookAt(
-		radius*sin(theta), 0, radius*cos(theta), 
+		radius*sin(theta + bumpAmount/1.0f), 0, radius*cos(theta + bumpAmount/1.0f), 
 		0,0,0,
 		0,1,0);
 	GLfloat lightPosition[] = {lightX, 1, 3, 0.0};
@@ -104,12 +117,12 @@
 	//Render 3 dimensionally, so we can bump the UI when the user touches something
 	//as feedback.
 	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0f, 1.0f, 0.0f);
 	for(i=0; i<128; i++)
 	{
-		glColor3f(0.0f, 1, 0.0f);
 		//This is the radius
-		float startDistance = -(i)/16.0f;
-		float stopDistance = -(i+1)/16.0f;
+		float startDistance = (i)/8.0f -16;
+		float stopDistance = (i+1)/8.0f -16;
 		
 		float startAngle = (((M_PI*2)/12) * (i % 12));
 		float stopAngle = (((M_PI*2)/12) * ((i + 1) % 12));
@@ -126,6 +139,38 @@
 		glVertex3f(xb,yb, stopDistance);
 	}
 	glEnd();
+	
+	//Render down notes (iterate over note range)
+	glBegin(GL_TRIANGLES);
+	for(i=0; i<128; i++)
+	{
+		downNote = [xmodel downKeys][i];
+		if(downNote > 0)
+		{
+			NSLog(@"%d down %d",downNote,i);
+			//This is the radius
+			float startDistance = (downNote)/8.0f -16;		
+			float startAngle = (((M_PI*2)/12) * (downNote % 12));
+			xa = cos(startAngle);
+			ya = -sin(startAngle);
+			//xa,ya,startDistance is a point in space
+			glNormal3f(0, 0, 1.0f);	
+			glColor3f(1.0f, 0.0f, 0.0f);
+			//now is a bunch of goo bits... basically randomness
+			triX = cos(now)/(8 + now%8);  
+			triY = -sin(now)/(8 + now%8);
+			glVertex3f(xa + triX, ya + triY, startDistance);
+			triX = cos(now + M_PI/3)/(8 + now%8);  
+			triY = -sin(now + M_PI/3)/(8 + now%8);
+			glVertex3f(xa + triX, ya + triY, startDistance);
+			triX = cos(now + 2*M_PI/3)/(8 + now%8);  
+			triY = -sin(now + 2*M_PI/3)/(8 + now%8);
+			glVertex3f(xa + triX, ya + triY, startDistance);
+		}
+	}
+	
+	glEnd();
+	
 	glFinish();
 }
  

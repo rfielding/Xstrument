@@ -163,6 +163,12 @@
 		keyDownCount[c]--;
 		playedNote = downKeyPlays[c];
 		[xsynth sendMIDIPacketCmd:0x90 andNote:playedNote andVol:0];
+		downKeyPlays[c] = 0;
 	}
+}
+
+-(int*)downKeys
+{
+	return downKeyPlays;
 }
 @end
