@@ -31,19 +31,19 @@
 
 #import "XstrumentModel.h"
 
-
 @implementation XstrumentModel
--(id)init
+-(id)initNow:(uint64_t)now
 {
 	int i=0;
-	
 	timeA=0;
 	timeB=0;
 	tickA=0;
 	tickB=0;
-	timeCycled=0;
-	timePlayed=0;
-	
+	timeCycled=now;
+	timePlayed=now;
+
+    mach_timebase_info(&timebaseInfo);
+		
 	chromaticLocation = CHROMATICNOTES*4;
 	diatonicLocation = DIATONICNOTES*2;
 	chromaticBase = DIATONICNOTES*2;
@@ -59,7 +59,8 @@
 		scaleShape[6] = i*12 + 10;
 	}
 	scaleShape[DIATONICNOTES*2]=24;
-	for(i=0;i<BEATBUFFER*TICKSPERBEAT;i++)
+	//LAAARGE
+	for(i=0;i<BEATBUFFER;i++)
 	{
 		echoVol[i] = 0;
 		echoNote[i] = 0;
@@ -75,8 +76,26 @@
 
 -(void)tickAt:(uint64_t)now
 {
+	//play all echoed notes until we are caught up
+	
+	uint64_t stop = ((now * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
+	uint64_t idx = ((timePlayed * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;	
+	while(idx != stop)
+	{
+		int vol = echoVol[idx];
+		if(vol>0)
+		{
+			int note = echoNote[idx];
+			[self playEchoedPacketNow:now andCmd:0x90 andNote:note andVol:vol];
+		}
+		echoVol[idx]=0;
+		idx++;
+		idx %= BEATBUFFER;
+	}
+	timePlayed = now;
 }
 
+//Use this to render hints to GUI to show when next cycle begins
 -(BOOL)nextCycleAt:(uint64_t)now
 {
 	if(timeA < timeB)
@@ -90,11 +109,13 @@
 	return NO;
 }
 
+//Set interval start
 -(void)tickStartAt:(uint64_t)now
 {
 	timeA = now;
 }
 
+//Set interval stop
 -(void)tickStopAt:(uint64_t)now
 {
 	timeB = now;
@@ -145,11 +166,18 @@
 				diatonicLocation-=4;
 				break;
 				
+			case 'b':
+				[self tickStartAt:now];
+				break;
+			case 'n':
+				[self tickStopAt:now];
+				break;
+				
 		}
 		//Just make sure we are alive
 		chromaticLocation = scaleShape[(diatonicLocation%7)]+12*(diatonicLocation/7) + note;
 		downKeyPlays[c] = chromaticLocation;
-		[xsynth sendMIDIPacketCmd:0x90 andNote:chromaticLocation andVol:90];
+		[self playEchoedPacketNow:now andCmd:0x90 andNote:chromaticLocation andVol:100];
 	}
 }
 
@@ -162,7 +190,7 @@
 		unichar c = [chars characterAtIndex:i];
 		keyDownCount[c]--;
 		playedNote = downKeyPlays[c];
-		[xsynth sendMIDIPacketCmd:0x90 andNote:playedNote andVol:0];
+		[self playEchoedPacketNow:now andCmd:0x90 andNote:playedNote andVol:0];
 		downKeyPlays[c] = 0;
 	}
 }
@@ -170,5 +198,22 @@
 -(int*)downKeys
 {
 	return downKeyPlays;
+}
+
+-(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol;
+{
+	//Play the given note
+	[xsynth sendMIDIPacketCmd:cmd andNote:note andVol:vol];
+	uint64_t nowTime = ((now * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
+	echoVol[nowTime] = 0;
+	timePlayed = now;
+	//Write a note one interval length out if applicable
+	if(timeA < timeB && vol > 0)
+	{
+		uint64_t absolutePlayTime = now + timeB-timeA;
+		uint64_t playTime = ((absolutePlayTime * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
+		echoVol[playTime] = 2*vol/3;
+		echoNote[playTime] = note;
+	}
 }
 @end

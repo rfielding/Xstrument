@@ -47,7 +47,7 @@
 	glMaterialfv(GL_FRONT,GL_AMBIENT,mat);
 	glMaterialfv(GL_FRONT,GL_DIFFUSE,mat);
 	
-	xmodel = [[XstrumentModel alloc] init];	
+	xmodel = [[XstrumentModel alloc] initNow:mach_absolute_time()];	
 	[self invalidateLoop];
 }
 
@@ -80,8 +80,8 @@
 {
 	int i=0;
 	int downNote=0;
-	float radius = 2.0f;
-	float theta = 0.0f;
+	//float radius = 2.0f;
+	//float theta = 0.0f;
 	float lightX = 1;
 	float xa=0.0f;
 	float ya=0.0f;
@@ -91,8 +91,10 @@
 	float yavg=0;
 	float triX=0;
 	float triY=0;
-	float bumpAmount;
-	
+	float bumpX=0;
+	float bumpY=0;
+	float bumpZ=0;
+	//float epsilon=0.00005;
 	uint64_t now = mach_absolute_time();
     glClearColor(0.0f , 0.0f, 0.0f, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -104,11 +106,16 @@
 		downNote = [xmodel downKeys][i];
 		if(downNote > 0)
 		{
-			bumpAmount+=0.01;
+			bumpX+=0.01;
+			bumpY+=0.01;
 		}
 	}
+	if([xmodel nextCycleAt:now])
+	{
+		bumpZ+=0.05;
+	}
 	gluLookAt(
-		radius*sin(theta + bumpAmount/1.0f), 0, radius*cos(theta + bumpAmount/1.0f), 
+		bumpX, bumpY, 1+bumpZ, 
 		0,0,0,
 		0,1,0);
 	GLfloat lightPosition[] = {lightX, 1, 3, 0.0};
@@ -147,7 +154,6 @@
 		downNote = [xmodel downKeys][i];
 		if(downNote > 0)
 		{
-			NSLog(@"%d down %d",downNote,i);
 			//This is the radius
 			float startDistance = (downNote)/8.0f -16;		
 			float startAngle = (((M_PI*2)/12) * (downNote % 12));
@@ -192,7 +198,8 @@
 
 - (void)intervalTick
 {
-	[xmodel tickAt:mach_absolute_time()];
+	uint64_t now = mach_absolute_time();
+	[xmodel tickAt:now];
 	[self setNeedsDisplay:YES];
 }
 

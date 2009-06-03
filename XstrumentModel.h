@@ -17,10 +17,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "XstrumentSynth.h"
+#import <mach/mach_time.h>
 
 #define CHROMATICNOTES 12
 #define DIATONICNOTES 7
-#define BEATBUFFER 1024
+///30 seconds stored in one hundredths 
+#define BEATBUFFER 100*60*5
 #define TICKSPERBEAT 24
 @interface XstrumentModel : NSObject {
 	uint64_t timeA;
@@ -29,13 +31,15 @@
 	uint64_t timePlayed;
 	uint64_t tickA;
 	uint64_t tickB;
+    mach_timebase_info_data_t    timebaseInfo;
 	
 	int chromaticBase;
 	int chromaticLocation;
 	int diatonicLocation;
 	
-	int echoVol[BEATBUFFER*TICKSPERBEAT];
-	int echoNote[BEATBUFFER*TICKSPERBEAT];
+	//Large real-time (not ticks) buffer
+	int echoVol[BEATBUFFER];
+	int echoNote[BEATBUFFER];
 	
 	int keyDownCount[1024];
 	int downKeyPlays[1024];
@@ -43,7 +47,7 @@
 
 	XstrumentSynth* xsynth;
 }
--(id)init;
+-(id)initNow:(uint64_t)now;
 
 /*
  Events such as nextCycleAt, keyDownAt, etc will signal tickAt to edit the MIDI buffer
@@ -72,4 +76,7 @@
 -(void)tickStopAt:(uint64_t)now;
 
 -(int*)downKeys;
+
+-(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol;
+
 @end
