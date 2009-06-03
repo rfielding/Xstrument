@@ -40,6 +40,7 @@
 	//Large real-time (not ticks) buffer
 	int echoVol[BEATBUFFER];
 	int echoNote[BEATBUFFER];
+	uint64_t echoScheduled[BEATBUFFER];
 	
 	int keyDownCount[1024];
 	int downKeyPlays[1024];

@@ -86,7 +86,7 @@
 		if(vol>0)
 		{
 			int note = echoNote[idx];
-			[self playEchoedPacketNow:now andCmd:0x90 andNote:note andVol:vol];
+			[self playEchoedPacketNow:echoScheduled[idx] andCmd:0x90 andNote:note andVol:vol];
 		}
 		echoVol[idx]=0;
 		idx++;
@@ -179,6 +179,7 @@
 		downKeyPlays[c] = chromaticLocation;
 		[self playEchoedPacketNow:now andCmd:0x90 andNote:chromaticLocation andVol:100];
 	}
+	timePlayed = now;
 }
 
 -(void)keyUpAt:(uint64_t)now withKeys:(NSString*)chars
@@ -193,6 +194,7 @@
 		[self playEchoedPacketNow:now andCmd:0x90 andNote:playedNote andVol:0];
 		downKeyPlays[c] = 0;
 	}
+	timePlayed = now;
 }
 
 -(int*)downKeys
@@ -206,14 +208,14 @@
 	[xsynth sendMIDIPacketCmd:cmd andNote:note andVol:vol];
 	uint64_t nowTime = ((now * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
 	echoVol[nowTime] = 0;
-	timePlayed = now;
 	//Write a note one interval length out if applicable
 	if(timeA < timeB && vol > 0)
 	{
 		uint64_t absolutePlayTime = now + timeB-timeA;
 		uint64_t playTime = ((absolutePlayTime * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
-		echoVol[playTime] = 2*vol/3;
+		echoVol[playTime] = 7*vol/8;
 		echoNote[playTime] = note;
+		echoScheduled[playTime] = absolutePlayTime;
 	}
 }
 @end
