@@ -40,6 +40,8 @@
 	timeB=0;
 	tickA=0;
 	tickB=0;
+	diatonicRetranslate=0;
+	chromaticRetranslate=0;
 	timeCycled=now;
 	timePlayed=now;
 
@@ -60,7 +62,6 @@
 		scaleShape[6] = i*12 + 10;
 	}
 	scaleShape[DIATONICNOTES*2]=24;
-	//LAAARGE
 	for(buf=0; buf<ECHOBUFFERS; buf++)
 	{
 		for(i=0;i<BEATBUFFER;i++)
@@ -83,8 +84,8 @@
 {
 	//play all echoed notes until we are caught up
 	int buf=0;
-	uint64_t stop = ((now * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
-	uint64_t idx = ((timePlayed * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;	
+	uint64_t stop = ((now * timebaseInfo.numer / (timebaseInfo.denom*TIMEDIV)))%BEATBUFFER;
+	uint64_t idx = ((timePlayed * timebaseInfo.numer / (timebaseInfo.denom*TIMEDIV)))%BEATBUFFER;	
 	while(idx != stop)
 	{
 		for(buf=0; buf<ECHOBUFFERS; buf++)
@@ -184,7 +185,24 @@
 				[self tickStopAt:now];
 				silent=YES;
 				break;
-				
+			//up
+			case 63232:
+				diatonicRetranslate++;
+				silent=YES;
+				break;				
+			//down
+			case 63233:
+				diatonicRetranslate--;
+				silent=YES;
+				break;
+			//left
+			case 63234:
+				chromaticRetranslate-=5;
+				break;
+			//right
+			case 63235:
+				chromaticRetranslate+=5;
+				break;
 		}
 		//Just make sure we are alive
 		downKeyPlays[c] = chromaticLocation;
@@ -217,22 +235,46 @@
 	return downKeyPlays;
 }
 
--(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol inBuf:(int)buf interval:(uint64_t)interval;
+-(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol inBuf:(int)buf interval:(uint64_t)interval
 {
 	//Play the given note
-	[xsynth sendMIDIPacketCmd:cmd andNote:note andVol:vol];
-	uint64_t nowTime = ((now * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
+	[xsynth sendMIDIPacketCmd:cmd andNote:[self reTranslate:note] andVol:vol];
+	uint64_t nowTime = ((now * timebaseInfo.numer / (timebaseInfo.denom*TIMEDIV)))%BEATBUFFER;
 	echoVol[buf][nowTime] = 0;
 	//Write a note one interval length out if applicable
 	if(interval > 0 && vol > 0)
 	{
 		uint64_t absolutePlayTime = now + interval;
-		uint64_t playTime = ((absolutePlayTime * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
+		uint64_t playTime = ((absolutePlayTime * timebaseInfo.numer / (timebaseInfo.denom*TIMEDIV)))%BEATBUFFER;
 		int nextBuf = (buf+1)%ECHOBUFFERS;
-		echoVol[nextBuf][playTime] = 7*vol/8;
+		echoVol[nextBuf][playTime] = 31*vol/32;
 		echoNote[nextBuf][playTime] = note;
 		echoScheduled[nextBuf][playTime] = absolutePlayTime;
 		echoInterval[nextBuf][playTime] = interval;
 	}
 }
+
+-(int)reTranslate:(int)note
+{
+	//scale number I,II,III,...
+	//note in our octave
+	int s = note%12;
+	int o = note/12;
+	for(s=0; s<7; s++)
+	{
+		if(note%12 == scaleShape[s]%12)
+		{
+			//note match... shift it diatonic
+			int retranslated = s+diatonicRetranslate;
+			int ctranslated = chromaticRetranslate;
+			while(retranslated < 0)retranslated += 7;
+			while(ctranslated < 0)ctranslated += 12;
+			retranslated %= 7;
+			ctranslated %= 12;
+			return o*12 + scaleShape[retranslated]+ctranslated;
+		}
+	}
+	return note;
+}
+
 @end

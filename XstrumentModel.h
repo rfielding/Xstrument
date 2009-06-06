@@ -23,6 +23,7 @@
 #define DIATONICNOTES 7
 ///30 seconds stored in one hundredths 
 #define BEATBUFFER 100000
+#define TIMEDIV 10000000L
 #define ECHOBUFFERS 16
 
 #define TICKSPERBEAT 24
@@ -38,6 +39,8 @@
 	int chromaticBase;
 	int chromaticLocation;
 	int diatonicLocation;
+	int diatonicRetranslate;
+	int chromaticRetranslate;
 	
 	//Large real-time (not ticks) buffer
 	int echoVol[ECHOBUFFERS][BEATBUFFER];
@@ -82,5 +85,7 @@
 -(int*)downKeys;
 
 -(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol inBuf:(int)buf interval:(uint64_t)interval;
+
+-(int)reTranslate:(int)note;
 
 @end
