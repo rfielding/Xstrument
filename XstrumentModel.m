@@ -95,6 +95,8 @@
 				[self playEchoedPacketNow:echoScheduled[buf][idx] andCmd:0x90 andNote:note andVol:vol inBuf:buf];
 			}
 		}
+		//Ok... this keeps us from having echo wrap around
+		echoVol[buf][idx]=0;
 		idx++;		
 		idx %= BEATBUFFER;
 	}
