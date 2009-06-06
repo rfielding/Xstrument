@@ -67,6 +67,7 @@
 		{
 			echoVol[buf][i] = 0;
 			echoNote[buf][i] = 0;
+			echoInterval[buf][i] = 0;
 		}
 	}
 	for(i=0;i<1024;i++)
@@ -92,7 +93,7 @@
 			if(vol>0)
 			{
 				int note = echoNote[buf][idx];
-				[self playEchoedPacketNow:echoScheduled[buf][idx] andCmd:0x90 andNote:note andVol:vol inBuf:buf];
+				[self playEchoedPacketNow:echoScheduled[buf][idx] andCmd:0x90 andNote:note andVol:vol inBuf:buf interval:echoInterval[buf][idx]];
 			}
 		}
 		//Ok... this keeps us from having echo wrap around
@@ -190,7 +191,7 @@
 		if(silent==NO)
 		{
 			chromaticLocation = scaleShape[(diatonicLocation%7)]+12*(diatonicLocation/7) + note;
-			[self playEchoedPacketNow:now andCmd:0x90 andNote:chromaticLocation andVol:100 inBuf:0];
+			[self playEchoedPacketNow:now andCmd:0x90 andNote:chromaticLocation andVol:100 inBuf:0 interval:(timeB-timeA)];
 		}
 	}
 	timePlayed = now;
@@ -205,7 +206,7 @@
 		unichar c = [chars characterAtIndex:i];
 		keyDownCount[c]--;
 		playedNote = downKeyPlays[c];
-		[self playEchoedPacketNow:now andCmd:0x90 andNote:playedNote andVol:0 inBuf:0];
+		[self playEchoedPacketNow:now andCmd:0x90 andNote:playedNote andVol:0 inBuf:0 interval:(timeB-timeA)];
 		downKeyPlays[c] = 0;
 	}
 	timePlayed = now;
@@ -216,21 +217,22 @@
 	return downKeyPlays;
 }
 
--(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol inBuf:(int)buf;
+-(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol inBuf:(int)buf interval:(uint64_t)interval;
 {
 	//Play the given note
 	[xsynth sendMIDIPacketCmd:cmd andNote:note andVol:vol];
 	uint64_t nowTime = ((now * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
 	echoVol[buf][nowTime] = 0;
 	//Write a note one interval length out if applicable
-	if(timeA < timeB && vol > 0)
+	if(interval > 0 && vol > 0)
 	{
-		uint64_t absolutePlayTime = now + timeB-timeA;
+		uint64_t absolutePlayTime = now + interval;
 		uint64_t playTime = ((absolutePlayTime * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
 		int nextBuf = (buf+1)%ECHOBUFFERS;
 		echoVol[nextBuf][playTime] = 7*vol/8;
 		echoNote[nextBuf][playTime] = note;
 		echoScheduled[nextBuf][playTime] = absolutePlayTime;
+		echoInterval[nextBuf][playTime] = interval;
 	}
 }
 @end

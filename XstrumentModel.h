@@ -43,6 +43,7 @@
 	int echoVol[ECHOBUFFERS][BEATBUFFER];
 	int echoNote[ECHOBUFFERS][BEATBUFFER];
 	uint64_t echoScheduled[ECHOBUFFERS][BEATBUFFER];
+	uint64_t echoInterval[ECHOBUFFERS][BEATBUFFER];
 	
 	int keyDownCount[1024];
 	int downKeyPlays[1024];
@@ -80,6 +81,6 @@
 
 -(int*)downKeys;
 
--(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol inBuf:(int)buf;
+-(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol inBuf:(int)buf interval:(uint64_t)interval;
 
 @end
