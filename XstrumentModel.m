@@ -34,6 +34,7 @@
 @implementation XstrumentModel
 -(id)initNow:(uint64_t)now
 {
+	int buf=0;
 	int i=0;
 	timeA=0;
 	timeB=0;
@@ -60,10 +61,13 @@
 	}
 	scaleShape[DIATONICNOTES*2]=24;
 	//LAAARGE
-	for(i=0;i<BEATBUFFER;i++)
+	for(buf=0; buf<ECHOBUFFERS; buf++)
 	{
-		echoVol[i] = 0;
-		echoNote[i] = 0;
+		for(i=0;i<BEATBUFFER;i++)
+		{
+			echoVol[buf][i] = 0;
+			echoNote[buf][i] = 0;
+		}
 	}
 	for(i=0;i<1024;i++)
 	{
@@ -77,19 +81,21 @@
 -(void)tickAt:(uint64_t)now
 {
 	//play all echoed notes until we are caught up
-	
+	int buf=0;
 	uint64_t stop = ((now * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
 	uint64_t idx = ((timePlayed * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;	
 	while(idx != stop)
 	{
-		int vol = echoVol[idx];
-		if(vol>0)
+		for(buf=0; buf<ECHOBUFFERS; buf++)
 		{
-			int note = echoNote[idx];
-			[self playEchoedPacketNow:echoScheduled[idx] andCmd:0x90 andNote:note andVol:vol];
+			int vol = echoVol[buf][idx];
+			if(vol>0)
+			{
+				int note = echoNote[buf][idx];
+				[self playEchoedPacketNow:echoScheduled[buf][idx] andCmd:0x90 andNote:note andVol:vol inBuf:buf];
+			}
 		}
-		echoVol[idx]=0;
-		idx++;
+		idx++;		
 		idx %= BEATBUFFER;
 	}
 	timePlayed = now;
@@ -125,6 +131,7 @@
 {
 	int i=0;
 	int note=0;
+	BOOL silent=NO;
 	for(i=0; i<[chars length]; i++)
 	{
 		unichar c = [chars characterAtIndex:i];
@@ -168,16 +175,21 @@
 				
 			case 'b':
 				[self tickStartAt:now];
+				silent=YES;
 				break;
 			case 'n':
 				[self tickStopAt:now];
+				silent=YES;
 				break;
 				
 		}
 		//Just make sure we are alive
-		chromaticLocation = scaleShape[(diatonicLocation%7)]+12*(diatonicLocation/7) + note;
 		downKeyPlays[c] = chromaticLocation;
-		[self playEchoedPacketNow:now andCmd:0x90 andNote:chromaticLocation andVol:100];
+		if(silent==NO)
+		{
+			chromaticLocation = scaleShape[(diatonicLocation%7)]+12*(diatonicLocation/7) + note;
+			[self playEchoedPacketNow:now andCmd:0x90 andNote:chromaticLocation andVol:100 inBuf:0];
+		}
 	}
 	timePlayed = now;
 }
@@ -191,7 +203,7 @@
 		unichar c = [chars characterAtIndex:i];
 		keyDownCount[c]--;
 		playedNote = downKeyPlays[c];
-		[self playEchoedPacketNow:now andCmd:0x90 andNote:playedNote andVol:0];
+		[self playEchoedPacketNow:now andCmd:0x90 andNote:playedNote andVol:0 inBuf:0];
 		downKeyPlays[c] = 0;
 	}
 	timePlayed = now;
@@ -202,20 +214,21 @@
 	return downKeyPlays;
 }
 
--(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol;
+-(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol inBuf:(int)buf;
 {
 	//Play the given note
 	[xsynth sendMIDIPacketCmd:cmd andNote:note andVol:vol];
 	uint64_t nowTime = ((now * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
-	echoVol[nowTime] = 0;
+	echoVol[buf][nowTime] = 0;
 	//Write a note one interval length out if applicable
 	if(timeA < timeB && vol > 0)
 	{
 		uint64_t absolutePlayTime = now + timeB-timeA;
 		uint64_t playTime = ((absolutePlayTime * timebaseInfo.numer / (timebaseInfo.denom*10000000L)))%BEATBUFFER;
-		echoVol[playTime] = 7*vol/8;
-		echoNote[playTime] = note;
-		echoScheduled[playTime] = absolutePlayTime;
+		int nextBuf = (buf+1)%ECHOBUFFERS;
+		echoVol[nextBuf][playTime] = 7*vol/8;
+		echoNote[nextBuf][playTime] = note;
+		echoScheduled[nextBuf][playTime] = absolutePlayTime;
 	}
 }
 @end

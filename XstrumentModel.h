@@ -22,7 +22,9 @@
 #define CHROMATICNOTES 12
 #define DIATONICNOTES 7
 ///30 seconds stored in one hundredths 
-#define BEATBUFFER 100*60*5
+#define BEATBUFFER 100000
+#define ECHOBUFFERS 16
+
 #define TICKSPERBEAT 24
 @interface XstrumentModel : NSObject {
 	uint64_t timeA;
@@ -38,9 +40,9 @@
 	int diatonicLocation;
 	
 	//Large real-time (not ticks) buffer
-	int echoVol[BEATBUFFER];
-	int echoNote[BEATBUFFER];
-	uint64_t echoScheduled[BEATBUFFER];
+	int echoVol[ECHOBUFFERS][BEATBUFFER];
+	int echoNote[ECHOBUFFERS][BEATBUFFER];
+	uint64_t echoScheduled[ECHOBUFFERS][BEATBUFFER];
 	
 	int keyDownCount[1024];
 	int downKeyPlays[1024];
@@ -78,6 +80,6 @@
 
 -(int*)downKeys;
 
--(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol;
+-(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol inBuf:(int)buf;
 
 @end

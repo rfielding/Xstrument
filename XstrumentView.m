@@ -35,10 +35,10 @@
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
 	
-	GLfloat ambient[] = {1.0,1.0,1.0,1.0};
+	GLfloat ambient[] = {0.8,0.9,0.75,1.0};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient);
 	
-	GLfloat diffuse[] = {1.0,1.0,1.0,1.0};
+	GLfloat diffuse[] = {0.9,0.95,0.85,1.0};
 	glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse);
 	
 	glEnable(GL_LIGHT0);
@@ -141,7 +141,8 @@
 		yb = -sin(stopAngle);
 		xavg = (xa+xb)/2;
 		yavg = (ya+yb)/2;
-		glNormal3f(cos(xavg),-sin(yavg),0.0f);	
+		//glNormal3f(cos(xavg),-sin(yavg),0.0f);	
+		glNormal3f(0,0,1);
 		glVertex3f(xa,ya, startDistance);
 		glVertex3f(xb,yb, stopDistance);
 	}
