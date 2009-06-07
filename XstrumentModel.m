@@ -247,7 +247,7 @@
 		uint64_t absolutePlayTime = now + interval;
 		uint64_t playTime = ((absolutePlayTime * timebaseInfo.numer / (timebaseInfo.denom*TIMEDIV)))%BEATBUFFER;
 		int nextBuf = (buf+1)%ECHOBUFFERS;
-		echoVol[nextBuf][playTime] = 31*vol/32;
+		echoVol[nextBuf][playTime] = 3*vol/4;
 		echoNote[nextBuf][playTime] = note;
 		echoScheduled[nextBuf][playTime] = absolutePlayTime;
 		echoInterval[nextBuf][playTime] = interval;

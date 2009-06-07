@@ -35,15 +35,14 @@
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
 	
-	GLfloat ambient[] = {0.8,0.9,0.75,1.0};
+	GLfloat ambient[] = {0.8,0.7,0.8,1.0};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient);
 	
-	GLfloat diffuse[] = {0.9,0.95,0.85,1.0};
-	glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse);
-	
+	GLfloat diffuse[] = {0.9,0.99,0.999,1.0};
+	glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse);	
 	glEnable(GL_LIGHT0);
 	
-	GLfloat mat[] = {0.5, 0.6, 1.0, 1.0};
+	GLfloat mat[] = {0.2, 0.2, 0.2, 0.5};
 	glMaterialfv(GL_FRONT,GL_AMBIENT,mat);
 	glMaterialfv(GL_FRONT,GL_DIFFUSE,mat);
 	
@@ -94,10 +93,12 @@
 	float bumpX=0;
 	float bumpY=0;
 	float bumpZ=0;
+	GLfloat matG[] = {0.2, 0.7, 0.2, 0.5};
+	GLfloat matB[] = {0.2, 0.2, 0.7, 0.5};
+	GLfloat matR[] = {1.0, 0.2, 0.2, 0.5};
+	
 	//float epsilon=0.00005;
 	uint64_t now = mach_absolute_time();
-    glClearColor(0.0f , 0.0f, 0.0f, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -114,26 +115,33 @@
 	{
 		bumpZ+=0.05;
 	}
+	
 	gluLookAt(
 		bumpX, bumpY, 1+bumpZ, 
 		0,0,0,
 		0,1,0);
-	GLfloat lightPosition[] = {lightX, 1, 3, 0.0};
+	
+	GLfloat lightPosition[] = {lightX, 1, 1, -1.0};
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+	
+	glTranslatef(0,0,0);
+    glClearColor(0.0f , 0.0f, 0.0f, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	//Render 3 dimensionally, so we can bump the UI when the user touches something
 	//as feedback.
+	glMaterialfv(GL_FRONT,GL_AMBIENT,matG);
+	glMaterialfv(GL_FRONT,GL_DIFFUSE,matG);
 	glBegin(GL_LINE_STRIP);
-	glColor3f(0.0f, 1.0f, 0.0f);
 	for(i=0; i<128; i++)
 	{
+		glColor3f(0.0f, 1.0f, 0.0f);
 		//This is the radius
 		float startDistance = (i)/8.0f -16;
 		float stopDistance = (i+1)/8.0f -16;
 		
 		float startAngle = (((M_PI*2)/12) * (i % 12));
 		float stopAngle = (((M_PI*2)/12) * ((i + 1) % 12));
-
 		
 		xa = cos(startAngle);
 		ya = -sin(startAngle);
@@ -141,13 +149,32 @@
 		yb = -sin(stopAngle);
 		xavg = (xa+xb)/2;
 		yavg = (ya+yb)/2;
-		//glNormal3f(cos(xavg),-sin(yavg),0.0f);	
-		glNormal3f(0,0,1);
+		glNormal3f(cos(xavg),-sin(yavg),0.0f);	
 		glVertex3f(xa,ya, startDistance);
 		glVertex3f(xb,yb, stopDistance);
 	}
 	glEnd();
 	
+	glMaterialfv(GL_FRONT,GL_AMBIENT,matB);
+	glMaterialfv(GL_FRONT,GL_DIFFUSE,matB);
+	glBegin(GL_LINES);
+	for(i=0; i<12; i++)
+	{
+		if(i==0 || i==2 || i==3 || i==5 || i==7 || i==9 || i==10)
+		{
+			float startAngle = (((M_PI*2)/12) * (i % 12));
+			float stopAngle = (((M_PI*2)/12) * ((i + 1) % 12));
+			xb = cos(startAngle);
+			yb = -sin(startAngle);
+			glNormal3f(0,0,-1.0f);	
+			glVertex3f(xb,yb, -16);
+			glVertex3f(xb,yb, 0);
+		}
+	}
+	glEnd();
+
+	glMaterialfv(GL_FRONT,GL_AMBIENT,matR);
+	glMaterialfv(GL_FRONT,GL_DIFFUSE,matR);
 	//Render down notes (iterate over note range)
 	glBegin(GL_TRIANGLES);
 	for(i=0; i<128; i++)
