@@ -17,12 +17,9 @@ software without explicit permission.
 
 #import <Cocoa/Cocoa.h>
 
-#import "XstrumentModel.h"
 #import <GLUT/glut.h>
 
 @interface XstrumentView : NSOpenGLView {
-	int displayList;
-	XstrumentModel* xmodel;
 }
 -(void) invalidateLoop;
 -(void) intervalTick;

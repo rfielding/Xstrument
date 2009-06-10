@@ -18,9 +18,286 @@
 //
 
 #import "XstrumentView.h"
-#import "XstrumentModel.h"
+#import "MusicTheory.h"
 #import <math.h>
 #include <mach/mach_time.h>
+
+struct
+{
+	float lightX, theta, radius;
+	char midiBuffer[1024];	
+	char charBuffer[1024];
+	int font;
+	int bitmapHeight;
+	int sustain;
+	int width;
+	int height;
+	int accBend;
+	int tremBend;
+} rchill;
+
+void rchill_renderBitmapString(char* string, float xarg, float yarg)
+{
+	char* c;
+	glRasterPos2f(xarg,yarg);
+	for(c=string; *c != '\0'; c++)
+	{
+		glutBitmapCharacter((void*)rchill.font, *c);
+	}
+}
+
+void rchill_drawNote(int noteNumber)
+{
+	float x=0;
+	float y=0;
+	//This is the radius
+	float startRadius = 0.15* noteNumber / 12.0f;
+	float stopRadius = 0.15* (noteNumber + 12) / 12.0f;
+	
+	//This is the angle
+	float startAngle = (((M_PI*2)/12) * (noteNumber % 12));
+	float stopAngle = (((M_PI*2)/12) * ((noteNumber + 1) % 12));
+	
+	x = stopRadius*cos(startAngle);
+	y = -stopRadius*sin(startAngle);
+	glVertex3f(x,y, 0);
+	x = stopRadius*cos(stopAngle);
+	y = -stopRadius*sin(stopAngle);
+	glVertex3f(x,y, 0);
+	x = startRadius*cos(stopAngle);
+	y = -startRadius*sin(stopAngle);
+	glVertex3f(x,y, 0);
+	x = startRadius*cos(startAngle);
+	y = -startRadius*sin(startAngle);
+	glVertex3f(x,y, 0);
+}
+
+
+void rchill_repaint()
+{
+	int i=0;
+	float x=0;
+	float y=0;
+	int xParm=0;
+	int yParm=0;
+	char stringBuffer[16];
+	
+	GLfloat lightPosition[] = {rchill.lightX, 1, 3, 0.0};
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT); //Not using 3D yet anyway | GL_DEPTH_BUFFER_BIT);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	rchill.radius = 3.0f * (1.0f + (0x2000-musicTheory_wheel())/(0x2000 * 15.0));
+	gluLookAt(
+			  rchill.radius * sin(rchill.theta) , 0, rchill.radius * cos(rchill.theta), 
+			  0, 0, 0, 
+			  0, 1, 0
+			  );
+	
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+	
+	glTranslatef(0,0,0);
+	
+	if(musicTheory_dirtyScale())
+	{
+		glNewList(1000,GL_COMPILE);
+		
+		glBegin(GL_TRIANGLES);
+		for(i=0;i<7;i++)
+		{
+			int note = musicTheory_pickNote(i) % 12; 
+			float stopRadius = 5.0f;
+			float startAngle = (((M_PI*2)/12) * (note % 12));
+			float stopAngle = (((M_PI*2)/12) * ((note+1) % 12));
+			int mode = ((i%7 + (3*musicTheory_sharpCount())%7)) %7; 
+			if( 2 == mode)
+			{
+				glColor3f(0.0,0.1,0.1f);
+			}
+			else
+				if( 0 == mode )
+				{
+					glColor3f(0.1,0,0.1f);
+				}
+				else
+				{
+					glColor3f(0,0,0);
+				}
+			
+			glVertex3f(0,0,0);
+			x = stopRadius*cos(startAngle);
+			y = -stopRadius*sin(startAngle);
+			glColor3f(0,0,0.5f);
+			glVertex3f(x,y,0);
+			x = stopRadius*cos(stopAngle);
+			y = -stopRadius*sin(stopAngle);
+			glVertex3f(x,y,0);
+		}
+		glEnd();
+		
+		
+		glBegin(GL_LINE_STRIP);
+		glNormal3f(0.0f,0.0f,1.f);
+		
+		for(i=0;i<256;i++)
+		{
+			glColor3f(0.0,i/512.0f,0.0);
+			//This is the radius
+			float startRadius = 0.15* i / 12.0f;
+			float stopRadius = 0.15* (i + 12) / 12.0f;
+			
+			float startAngle = (((M_PI*2)/12) * (i % 12));
+			float stopAngle = (((M_PI*2)/12) * ((i + 1) % 12));
+			
+			x = stopRadius*cos(startAngle);
+			y = -stopRadius*sin(startAngle);
+			glVertex3f(x,y, 0);
+			x = stopRadius*cos(stopAngle);
+			y = -stopRadius*sin(stopAngle);
+			glVertex3f(x,y, 0);
+			x = startRadius*cos(stopAngle);	
+			y = -startRadius*sin(stopAngle);
+			glVertex3f(x,y, 0);
+			x = stopRadius*cos(stopAngle);
+			y = -stopRadius*sin(stopAngle);
+			glVertex3f(x,y, 0);
+		}
+		glEnd();
+		glEndList();
+		
+		glNewList(1001,GL_COMPILE);
+		//Draw a star representing what happens with the circle of fifths
+		glBegin(GL_LINE_STRIP);
+		glNormal3f(0.0f,0.0f,1.f);
+		for(i=0;i<13;i++)
+		{
+			int fifth = ((musicTheory_sharpCount()+i)*7)%12; 
+			glColor3f((12-i)/(10.0f + 1*(12-i)*i) ,0.0, i/(10.0f + 1*(12-i)*i));
+			//This is the radius
+			float startRadius = 0.4f;
+			
+			float startAngle = (((M_PI*2)/12) * (fifth % 12)) + M_PI/12;
+			
+			x = startRadius*cos(startAngle);
+			y = -startRadius*sin(startAngle);
+			glVertex3f(x,y, 1.5);
+		}
+		glEnd();
+		
+		glColor3d(0.2,0.9,0.2);
+		for(i=0;i<=12;i++)
+		{
+			float stopRadius = 1.5f;
+			float startAngle = (((M_PI*2)/12) * (i % 12));
+			
+			x = (stopRadius)*cos(startAngle + (M_PI/12));
+			y = -(stopRadius)*sin(startAngle + (M_PI/12));
+			//This buffer is managed by musicTheory
+			char* noteName = (char*)musicTheory_findNoteName(i);
+			rchill_renderBitmapString(noteName,x,y);	
+		}
+		
+		glColor3d(0.2,0.5,0.2);
+		for(i=0;i<=7;i++)
+		{
+			int note = musicTheory_pickNote(i) % 12; 
+			
+			float stopRadius = 1.0f;
+			float startAngle = (((M_PI*2)/12) * (note % 12));
+			int mode = ((i%7 + (3*musicTheory_sharpCount())%7)) %7; 
+			
+			x = (stopRadius)*cos(startAngle + (M_PI/12));
+			y = -(stopRadius)*sin(startAngle + (M_PI/12));
+			
+			sprintf(stringBuffer,"%d", mode+1);
+			rchill_renderBitmapString(stringBuffer,x,y);	
+		}
+		
+		glEndList();
+		musicTheory_scaleUpdated();
+	}
+	glCallList(1000);
+	
+	
+	int* downNotes = (int*)musicTheory_notes();
+	int* downCounts = (int*)musicTheory_downCounts();
+	
+	glBegin(GL_QUADS);
+	int lastNote = musicTheory_note();
+	
+	//Render the last note, regardless of whether it's pressed
+	if(lastNote>=0)
+	{
+		if(!rchill.sustain)
+		{
+			glColor3f(0.4,0.2,0.2);
+		}
+		else
+		{
+			glColor3f(0.2,0.4,0.2);
+		}
+		rchill_drawNote(lastNote);
+	}
+	
+	//Draw stuck notes... we can do this on purpose by holding shift before a key is released
+	for(i=0;i<255;i++)
+	{
+		int downCount = downCounts[i];	
+		if(downCount>0)
+		{
+			glColor3f(0.1,0.3,0.5);
+			rchill_drawNote(i);					
+		}
+	}
+	
+	//Draw down notes 
+	for(i=0;i<255;i++)
+	{
+		int noteNumber = downNotes[i];
+		if(
+		   noteNumber>=0 || 
+		   lastNote == noteNumber
+		   )
+		{
+			if(noteNumber == lastNote)
+			{
+				glColor3f(0.8,0.8,1.0);
+			}
+			else
+				if(noteNumber>=0)
+				{
+					glColor3f(0.1,0.3,0.5);
+				}
+			
+			rchill_drawNote(noteNumber);					
+		}		
+	}
+	glEnd();
+	
+	glColor3f(0.7,1.0,0.7);
+	xParm = musicTheory_getX();
+	yParm = musicTheory_getY();
+	//	loud = musicTheory_loud();
+	//	sprintf(stringBuffer,"vol %d", loud);
+	//	rchill_renderBitmapString(stringBuffer,0,0);	
+	
+	sprintf(stringBuffer,"fx=%d, vol=%d", xParm, yParm);
+	rchill_renderBitmapString(stringBuffer,(xParm-64)/25.0,(yParm-64)/35.0);	
+	
+	glCallList(1001);
+	glFinish();
+}
+
+void rchill_init()
+{
+	musicTheory_init();
+	rchill.font = (int)GLUT_BITMAP_9_BY_15;
+	rchill.bitmapHeight = 15;
+	rchill.charBuffer[0] = 0x00;
+	rchill.sustain=0;
+	rchill.accBend = 127;
+}
 
 @implementation XstrumentView
 
@@ -46,7 +323,10 @@
 	glMaterialfv(GL_FRONT,GL_AMBIENT,mat);
 	glMaterialfv(GL_FRONT,GL_DIFFUSE,mat);
 	
-	xmodel = [[XstrumentModel alloc] initNow:mach_absolute_time()];	
+	glEnable(GL_COLOR_MATERIAL);
+	glColorMaterial(GL_FRONT,GL_AMBIENT_AND_DIFFUSE);
+	
+	rchill_init();
 	[self invalidateLoop];
 }
 
@@ -77,135 +357,7 @@
 
 - (void)drawRect:(NSRect)rect
 {
-	int i=0;
-	int downNote=0;
-	//float radius = 2.0f;
-	//float theta = 0.0f;
-	float lightX = 1;
-	float xa=0.0f;
-	float ya=0.0f;
-	float xb=0.0f;
-	float yb=0.0f;
-	float xavg=0;
-	float yavg=0;
-	float triX=0;
-	float triY=0;
-	float bumpX=0;
-	float bumpY=0;
-	float bumpZ=0;
-	GLfloat matG[] = {0.2, 0.7, 0.2, 0.5};
-	GLfloat matB[] = {0.2, 0.2, 0.7, 0.5};
-	GLfloat matR[] = {1.0, 0.2, 0.2, 0.5};
-	
-	//float epsilon=0.00005;
-	uint64_t now = mach_absolute_time();
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	for(i=0; i<128; i++)
-	{
-		downNote = [xmodel downKeys][i];
-		if(downNote > 0)
-		{
-			bumpX+=0.01;
-			bumpY+=0.01;
-		}
-	}
-	if([xmodel nextCycleAt:now])
-	{
-		bumpZ+=0.05;
-	}
-	
-	gluLookAt(
-		bumpX, bumpY, 1+bumpZ, 
-		0,0,0,
-		0,1,0);
-	
-	GLfloat lightPosition[] = {lightX, 1, 1, -1.0};
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-	
-	glTranslatef(0,0,0);
-    glClearColor(0.0f , 0.0f, 0.0f, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	//Render 3 dimensionally, so we can bump the UI when the user touches something
-	//as feedback.
-	glMaterialfv(GL_FRONT,GL_AMBIENT,matG);
-	glMaterialfv(GL_FRONT,GL_DIFFUSE,matG);
-	glBegin(GL_LINE_STRIP);
-	for(i=0; i<128; i++)
-	{
-		glColor3f(0.0f, 1.0f, 0.0f);
-		//This is the radius
-		float startDistance = (i)/8.0f -16;
-		float stopDistance = (i+1)/8.0f -16;
-		
-		float startAngle = (((M_PI*2)/12) * (i % 12));
-		float stopAngle = (((M_PI*2)/12) * ((i + 1) % 12));
-		
-		xa = cos(startAngle);
-		ya = -sin(startAngle);
-		xb = cos(stopAngle);
-		yb = -sin(stopAngle);
-		xavg = (xa+xb)/2;
-		yavg = (ya+yb)/2;
-		glNormal3f(cos(xavg),-sin(yavg),0.0f);	
-		glVertex3f(xa,ya, startDistance);
-		glVertex3f(xb,yb, stopDistance);
-	}
-	glEnd();
-	
-	glMaterialfv(GL_FRONT,GL_AMBIENT,matB);
-	glMaterialfv(GL_FRONT,GL_DIFFUSE,matB);
-	glBegin(GL_LINES);
-	for(i=0; i<12; i++)
-	{
-		if(i==0 || i==2 || i==3 || i==5 || i==7 || i==9 || i==10)
-		{
-			float startAngle = (((M_PI*2)/12) * (i % 12));
-			float stopAngle = (((M_PI*2)/12) * ((i + 1) % 12));
-			xb = cos(startAngle);
-			yb = -sin(startAngle);
-			glNormal3f(0,0,-1.0f);	
-			glVertex3f(xb,yb, -16);
-			glVertex3f(xb,yb, 0);
-		}
-	}
-	glEnd();
-
-	glMaterialfv(GL_FRONT,GL_AMBIENT,matR);
-	glMaterialfv(GL_FRONT,GL_DIFFUSE,matR);
-	//Render down notes (iterate over note range)
-	glBegin(GL_TRIANGLES);
-	for(i=0; i<128; i++)
-	{
-		downNote = [xmodel downKeys][i];
-		if(downNote > 0)
-		{
-			//This is the radius
-			float startDistance = (downNote)/8.0f -16;		
-			float startAngle = (((M_PI*2)/12) * (downNote % 12));
-			xa = cos(startAngle);
-			ya = -sin(startAngle);
-			//xa,ya,startDistance is a point in space
-			glNormal3f(0, 0, 1.0f);	
-			glColor3f(1.0f, 0.0f, 0.0f);
-			//now is a bunch of goo bits... basically randomness
-			triX = cos(now)/(8 + now%8);  
-			triY = -sin(now)/(8 + now%8);
-			glVertex3f(xa + triX, ya + triY, startDistance);
-			triX = cos(now + M_PI/3)/(8 + now%8);  
-			triY = -sin(now + M_PI/3)/(8 + now%8);
-			glVertex3f(xa + triX, ya + triY, startDistance);
-			triX = cos(now + 2*M_PI/3)/(8 + now%8);  
-			triY = -sin(now + 2*M_PI/3)/(8 + now%8);
-			glVertex3f(xa + triX, ya + triY, startDistance);
-		}
-	}
-	
-	glEnd();
-	
-	glFinish();
+	rchill_repaint();
 }
  
 
@@ -226,8 +378,7 @@
 
 - (void)intervalTick
 {
-	uint64_t now = mach_absolute_time();
-	[xmodel tickAt:now];
+	//uint64_t now = mach_absolute_time();
 	[self setNeedsDisplay:YES];
 }
 
@@ -239,13 +390,25 @@
 	}
 	else
 	{
-		[xmodel keyDownAt:mach_absolute_time() withKeys:[e characters]];
+		int i=0;
+		NSString* chars = [e characters];
+		for(i=0; i<[chars length]; i++)
+		{
+			unichar c = [chars characterAtIndex:i];
+			musicTheory_keyDown(c);
+		}		
 	}
 }
 
 - (void)keyUp:(NSEvent*)e
 {
-	[xmodel keyUpAt:mach_absolute_time() withKeys:[e characters]];
+	int i=0;
+	NSString* chars = [e characters];
+	for(i=0; i<[chars length]; i++)
+	{
+		unichar c = [chars characterAtIndex:i];
+		musicTheory_keyUp(c);
+	}		
 }
 
 

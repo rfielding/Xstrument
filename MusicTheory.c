@@ -119,6 +119,7 @@ void musicTheory_init()
 	musicTheory.sustain=0;
 	musicTheory.tremBend=0;
 	musicTheory.accBend=0;
+	midiPlatform_init();
 }
 
 int musicTheory_dirtyScale()
@@ -339,6 +340,7 @@ int musicTheory_down(int key)
 //		case '|': 
 //			musicTheory.microTonal = !musicTheory.microTonal; 
 //			return -1;
+			/*
 		case 'g':
 			musicTheory.y=0x60;
 			return -1;
@@ -349,6 +351,7 @@ int musicTheory_down(int key)
 				musicTheory.y=0x10;
 			} 
 			return -1;
+			 
 		case 'y': 
 			musicTheory.y+=0x10;
 			if(musicTheory.y>0x7F)
@@ -356,19 +359,22 @@ int musicTheory_down(int key)
 				musicTheory.y=0x7F;
 			} 
 			return -1;
+			 */
 		case ';':
 			distance = -5; break;
+		case 't':
 		case '[':
 			musicTheory.sharps++; musicTheory.sharps%=12; 
 			musicTheory.dirtyScale = 1;
 			return -1;
+		case 'y':
 		case ']':
 			musicTheory.sharps--; musicTheory.sharps+=12; musicTheory.sharps%=12; 
 			musicTheory.dirtyScale = 1;
 			 return -1;
-		case '\\':
+		case 'g':
 			musicTheory.dirtyScale = 1;
-			musicTheory.twist++; musicTheory.twist%=3; return -1;
+			musicTheory.twist++; musicTheory.twist%=2; return -1;
 		case '|':
 			musicTheory.dirtyScale = 1;
 			musicTheory.pentatonic=!musicTheory.pentatonic; return -1;
