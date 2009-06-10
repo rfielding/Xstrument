@@ -16,7 +16,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "XstrumentSynth.h"
 #import <mach/mach_time.h>
 
 #define CHROMATICNOTES 12
@@ -51,8 +50,6 @@
 	int keyDownCount[1024];
 	int downKeyPlays[1024];
 	int scaleShape[2*CHROMATICNOTES+1];	
-
-	XstrumentSynth* xsynth;
 }
 -(id)initNow:(uint64_t)now;
 

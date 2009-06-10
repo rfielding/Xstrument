@@ -30,6 +30,7 @@
 //
 
 #import "XstrumentModel.h"
+#import "MusicTheory.h"
 
 @implementation XstrumentModel
 -(id)initNow:(uint64_t)now
@@ -76,7 +77,8 @@
 		keyDownCount[i]=0;
 		downKeyPlays[i]=0;
 	}
-	xsynth = [[XstrumentSynth alloc] init];
+	midiPlatform_init();
+	musicTheory_init();
 	return self;
 }
 
@@ -134,83 +136,10 @@
 -(void)keyDownAt:(uint64_t)now withKeys:(NSString*)chars
 {
 	int i=0;
-	int note=0;
-	BOOL silent=NO;
 	for(i=0; i<[chars length]; i++)
 	{
 		unichar c = [chars characterAtIndex:i];
-		keyDownCount[c]++;
-		switch(c)
-		{
-				
-			//Chromatic relative rows
-			case 'a':
-			case ';':
-				diatonicLocation+=4;
-				break;
-			case 's':
-			case 'l':
-				diatonicLocation+=3;
-				break;
-			case 'd':
-			case 'k':
-				diatonicLocation+=2;
-				break;
-			case 'f':
-			case 'j':
-				diatonicLocation+=1;
-				break;
-			case 'v':
-			case 'm':
-				diatonicLocation-=1;
-				break;
-			case 'c':
-			case ',':
-				diatonicLocation-=2;
-				break;
-			case 'x':
-			case '.':
-				diatonicLocation-=3;
-				break;
-			case 'z':
-			case '/':
-				diatonicLocation-=4;
-				break;
-				
-			case 'b':
-				[self tickStartAt:now];
-				silent=YES;
-				break;
-			case 'n':
-				[self tickStopAt:now];
-				silent=YES;
-				break;
-			//up
-			case 63232:
-				diatonicRetranslate++;
-				silent=YES;
-				break;				
-			//down
-			case 63233:
-				diatonicRetranslate--;
-				silent=YES;
-				break;
-			//left
-			case 63234:
-				chromaticRetranslate-=5;
-				break;
-			//right
-			case 63235:
-				chromaticRetranslate+=5;
-				break;
-		}
-		//Just make sure we are alive
-		downKeyPlays[c] = chromaticLocation;
-		if(silent==NO)
-		{
-			chromaticLocation = scaleShape[(diatonicLocation%7)]+12*(diatonicLocation/7) + note;
-			[self playEchoedPacketNow:now andCmd:0x90 andNote:chromaticLocation andVol:100 inBuf:0 interval:(timeB-timeA)];
-		}
+		musicTheory_keyDown(c);
 	}
 	timePlayed = now;
 }
@@ -218,14 +147,11 @@
 -(void)keyUpAt:(uint64_t)now withKeys:(NSString*)chars
 {
 	int i=0;
-	int playedNote=0;
 	for(i=0; i<[chars length]; i++)
 	{
 		unichar c = [chars characterAtIndex:i];
-		keyDownCount[c]--;
-		playedNote = downKeyPlays[c];
-		[self playEchoedPacketNow:now andCmd:0x90 andNote:playedNote andVol:0 inBuf:0 interval:(timeB-timeA)];
-		downKeyPlays[c] = 0;
+		musicTheory_keyUp(c);
+
 	}
 	timePlayed = now;
 }
@@ -238,20 +164,7 @@
 -(void) playEchoedPacketNow:(uint64_t)now andCmd:(int)cmd andNote:(int)note andVol:(int)vol inBuf:(int)buf interval:(uint64_t)interval
 {
 	//Play the given note
-	[xsynth sendMIDIPacketCmd:cmd andNote:[self reTranslate:note] andVol:vol];
-	uint64_t nowTime = ((now * timebaseInfo.numer / (timebaseInfo.denom*TIMEDIV)))%BEATBUFFER;
-	echoVol[buf][nowTime] = 0;
-	//Write a note one interval length out if applicable
-	if(interval > 0 && vol > 0)
-	{
-		uint64_t absolutePlayTime = now + interval;
-		uint64_t playTime = ((absolutePlayTime * timebaseInfo.numer / (timebaseInfo.denom*TIMEDIV)))%BEATBUFFER;
-		int nextBuf = (buf+1)%ECHOBUFFERS;
-		echoVol[nextBuf][playTime] = 3*vol/4;
-		echoNote[nextBuf][playTime] = note;
-		echoScheduled[nextBuf][playTime] = absolutePlayTime;
-		echoInterval[nextBuf][playTime] = interval;
-	}
+	midiPlatform_sendMidiPacket(cmd,note,vol);
 }
 
 -(int)reTranslate:(int)note

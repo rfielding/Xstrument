@@ -13,10 +13,11 @@
 		493104640FCF986100598B56 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493104630FCF986100598B56 /* CoreMIDI.framework */; };
 		493104680FCF987700598B56 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493104670FCF987700598B56 /* AudioToolbox.framework */; };
 		493105860FCFBBEC00598B56 /* XstrumentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 493105850FCFBBEC00598B56 /* XstrumentModel.m */; };
-		493107440FD0C6A300598B56 /* XstrumentSynth.m in Sources */ = {isa = PBXBuildFile; fileRef = 493107430FD0C6A300598B56 /* XstrumentSynth.m */; };
 		49853D690FCF7C2F00710767 /* XstrumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */; };
 		49853D730FCF810D00710767 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49853D720FCF810D00710767 /* OpenGL.framework */; };
 		49853D810FCF812900710767 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49853D800FCF812900710767 /* GLUT.framework */; };
+		49B10B7A0FDF3ECC00BC8B30 /* MusicTheory.c in Sources */ = {isa = PBXBuildFile; fileRef = 49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */; };
+		49B10B8D0FDF444000BC8B30 /* MidiPlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B10B8C0FDF444000BC8B30 /* MidiPlatform.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -37,12 +38,14 @@
 		493104670FCF987700598B56 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		493105840FCFBBEC00598B56 /* XstrumentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XstrumentModel.h; sourceTree = "<group>"; };
 		493105850FCFBBEC00598B56 /* XstrumentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XstrumentModel.m; sourceTree = "<group>"; };
-		493107420FD0C6A300598B56 /* XstrumentSynth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XstrumentSynth.h; sourceTree = "<group>"; };
-		493107430FD0C6A300598B56 /* XstrumentSynth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XstrumentSynth.m; sourceTree = "<group>"; };
 		49853D670FCF7C2F00710767 /* XstrumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XstrumentView.h; sourceTree = "<group>"; };
 		49853D680FCF7C2F00710767 /* XstrumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XstrumentView.m; sourceTree = "<group>"; };
 		49853D720FCF810D00710767 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		49853D800FCF812900710767 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
+		49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MusicTheory.c; sourceTree = "<group>"; };
+		49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicTheory.h; sourceTree = "<group>"; };
+		49B10B8B0FDF444000BC8B30 /* MidiPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiPlatform.h; sourceTree = "<group>"; };
+		49B10B8C0FDF444000BC8B30 /* MidiPlatform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiPlatform.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Xstrument.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xstrument.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -107,6 +110,8 @@
 		29B97314FDCFA39411CA2CEA /* Xstrument */ = {
 			isa = PBXGroup;
 			children = (
+				49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */,
+				49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -116,8 +121,8 @@
 				49853D680FCF7C2F00710767 /* XstrumentView.m */,
 				493105840FCFBBEC00598B56 /* XstrumentModel.h */,
 				493105850FCFBBEC00598B56 /* XstrumentModel.m */,
-				493107420FD0C6A300598B56 /* XstrumentSynth.h */,
-				493107430FD0C6A300598B56 /* XstrumentSynth.m */,
+				49B10B8B0FDF444000BC8B30 /* MidiPlatform.h */,
+				49B10B8C0FDF444000BC8B30 /* MidiPlatform.m */,
 			);
 			name = Xstrument;
 			sourceTree = "<group>";
@@ -208,7 +213,8 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				49853D690FCF7C2F00710767 /* XstrumentView.m in Sources */,
 				493105860FCFBBEC00598B56 /* XstrumentModel.m in Sources */,
-				493107440FD0C6A300598B56 /* XstrumentSynth.m in Sources */,
+				49B10B7A0FDF3ECC00BC8B30 /* MusicTheory.c in Sources */,
+				49B10B8D0FDF444000BC8B30 /* MidiPlatform.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

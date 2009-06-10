@@ -18,7 +18,6 @@ software without explicit permission.
 #import <Cocoa/Cocoa.h>
 
 #import "XstrumentModel.h"
-#import "XstrumentSynth.h"
 #import <GLUT/glut.h>
 
 @interface XstrumentView : NSOpenGLView {
