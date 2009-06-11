@@ -46,122 +46,223 @@ void rchill_renderBitmapString(char* string, float xarg, float yarg)
 	}
 }
 
+//Abstract away the points to notes transform so that we can move to 3d with no changes
+void rchill_noteToPoint(int note,float* pX,float* pY,float* pZ)
+{
+	float startAngle = (((M_PI*2)/12) * (note % 12));
+	float startRadius = 1;0.15* note / 12.0f;
+	(*pX) = startRadius * cos(startAngle);
+	(*pY) = -startRadius * sin(startAngle);
+	(*pZ) = note/8.0 - 14; //0;
+}
+
+
 void rchill_drawNote(int noteNumber)
 {
 	float x=0;
 	float y=0;
+	float z=0;
+	
+	float x2=0;
+	float y2=0;
+	float z2=0;
+	
+	float x3=0;
+	float y3=0;
+	float z3=0;
+	
+	float x4=0;
+	float y4=0;
+	float z4=0;
+	
 	//This is the radius
-	float startRadius = 0.15* noteNumber / 12.0f;
-	float stopRadius = 0.15* (noteNumber + 12) / 12.0f;
+	//float startRadius = 0.15* noteNumber / 12.0f;
+	//float stopRadius = 0.15* (noteNumber + 12) / 12.0f;
 	
 	//This is the angle
-	float startAngle = (((M_PI*2)/12) * (noteNumber % 12));
-	float stopAngle = (((M_PI*2)/12) * ((noteNumber + 1) % 12));
+	//float startAngle = (((M_PI*2)/12) * (noteNumber % 12));
+	//float stopAngle = (((M_PI*2)/12) * ((noteNumber + 1) % 12));
 	
-	x = stopRadius*cos(startAngle);
-	y = -stopRadius*sin(startAngle);
-	glVertex3f(x,y, 0);
-	x = stopRadius*cos(stopAngle);
-	y = -stopRadius*sin(stopAngle);
-	glVertex3f(x,y, 0);
-	x = startRadius*cos(stopAngle);
-	y = -startRadius*sin(stopAngle);
-	glVertex3f(x,y, 0);
-	x = startRadius*cos(startAngle);
-	y = -startRadius*sin(startAngle);
-	glVertex3f(x,y, 0);
+	rchill_noteToPoint(noteNumber+12,&x,&y,&z);
+	rchill_noteToPoint(noteNumber+1+12,&x2,&y2,&z2);
+	rchill_noteToPoint(noteNumber+1,&x3,&y3,&z3);
+	rchill_noteToPoint(noteNumber+0,&x4,&y4,&z4);
+	
+	//x = stopRadius*cos(startAngle);
+	//y = -stopRadius*sin(startAngle);
+	glVertex3f(x,y,z);
+	//x = stopRadius*cos(stopAngle);
+	//y = -stopRadius*sin(stopAngle);
+	glVertex3f(x2,y2,z2);
+	//x = startRadius*cos(stopAngle);
+	//y = -startRadius*sin(stopAngle);
+	glVertex3f(x3,y3,z3);
+	//x = startRadius*cos(startAngle);
+	//y = -startRadius*sin(startAngle);
+	glVertex3f(x4,y4,z4);
 }
 
 
 void rchill_repaint()
 {
 	int i=0;
+	
 	float x=0;
 	float y=0;
+	float z=0;
+	
+	float x2=0;
+	float y2=0;
+	float z2=0;
+	
+	float x3=0;
+	float y3=0;
+	float z3=0;
+	
+	float x4=0;
+	float y4=0;
+	float z4=0;
+	
 	int xParm=0;
 	int yParm=0;
 	char stringBuffer[16];
+	float bumpX=0;
+	float bumpY=0;
+	float bumpZ=0;
 	
-	GLfloat lightPosition[] = {rchill.lightX, 1, 3, 0.0};
+	GLfloat lightPosition[] = {3, 3, 5, 0.0};
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT); //Not using 3D yet anyway | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	int* downNotes = (int*)musicTheory_notes();
+	int* downCounts = (int*)musicTheory_downCounts();
+	int lastNote = musicTheory_note();
+	
+	for(i=0;i<255;i++)
+	{
+		int noteNumber = downNotes[i];
+		if(lastNote == noteNumber)
+		{
+			rchill_noteToPoint(lastNote, &bumpX,&bumpY,&bumpZ);
+		}
+	}
+		
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	rchill.radius = 3.0f * (1.0f + (0x2000-musicTheory_wheel())/(0x2000 * 15.0));
 	gluLookAt(
 			  rchill.radius * sin(rchill.theta) , 0, rchill.radius * cos(rchill.theta), 
-			  0, 0, 0, 
+			  -bumpX*0.01, -bumpY*0.01, bumpZ*0.01, 
 			  0, 1, 0
 			  );
 	
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	
 	glTranslatef(0,0,0);
-	
+	//glNormal3f(0,0,1);
 	if(musicTheory_dirtyScale())
 	{
 		glNewList(1000,GL_COMPILE);
-		
+/*		
+		glBegin(GL_QUADS);
+		int note = 0;
+		int i=0;
+		int drawIt=0;
+		for(i=0;i<7;i++)
+		{
+			note = musicTheory_pickNote(i);
+			int mode = ((i%7 + (3*musicTheory_sharpCount())%7)) %7; 
+			if( 2 == mode)
+			{
+				glColor3f(0.1,0.0,0.1f);
+				drawIt=1;
+			}
+			else
+			if( 0 == mode )
+			{
+				glColor3f(0.1,0,0.0f);
+				drawIt=1;
+			}
+			else
+			{
+				glColor3f(0.0,0,0.1f);
+			}
+			rchill_noteToPoint(noteNumber+12*10,&x,&y,&z);
+			rchill_noteToPoint(noteNumber+12*10+1,&x2,&y2,&z2);
+			rchill_noteToPoint(noteNumber+1,&x3,&y3,&z3);
+			rchill_noteToPoint(noteNumber+0,&x4,&y4,&z4);
+			glVertex3f(x,y,z);
+			glVertex3f(x2,y2,z2);
+			glVertex3f(x3,y3,z3);
+			glVertex3f(x4,y4,z4);
+		}
+ */
 		glBegin(GL_TRIANGLES);
 		for(i=0;i<7;i++)
 		{
 			int note = musicTheory_pickNote(i) % 12; 
-			float stopRadius = 5.0f;
-			float startAngle = (((M_PI*2)/12) * (note % 12));
-			float stopAngle = (((M_PI*2)/12) * ((note+1) % 12));
+			//float stopRadius = 5.0f;
+			//float startAngle = (((M_PI*2)/12) * (note % 12));
+			//float stopAngle = (((M_PI*2)/12) * ((note+1) % 12));
 			int mode = ((i%7 + (3*musicTheory_sharpCount())%7)) %7; 
 			if( 2 == mode)
 			{
-				glColor3f(0.0,0.1,0.1f);
+				glColor3f(0.0,0.2,0.2f);
 			}
 			else
-				if( 0 == mode )
-				{
-					glColor3f(0.1,0,0.1f);
-				}
-				else
-				{
-					glColor3f(0,0,0);
-				}
+			if( 0 == mode )
+			{
+				glColor3f(0.2,0,0.2f);
+			}
+			else
+			{
+				glColor3f(0,0,0);
+			}
 			
 			glVertex3f(0,0,0);
-			x = stopRadius*cos(startAngle);
-			y = -stopRadius*sin(startAngle);
+			rchill_noteToPoint(note+12*12, &x, &y,&z);
+			//x = stopRadius*cos(startAngle);
+			//y = -stopRadius*sin(startAngle);
 			glColor3f(0,0,0.5f);
-			glVertex3f(x,y,0);
-			x = stopRadius*cos(stopAngle);
-			y = -stopRadius*sin(stopAngle);
-			glVertex3f(x,y,0);
-		}
+			glVertex3f(x,y,z);
+			rchill_noteToPoint((note+1)+12*12, &x, &y,&z);
+			//x = stopRadius*cos(stopAngle);
+			//y = -stopRadius*sin(stopAngle);
+			glVertex3f(x,y,z);
+		}		 
 		glEnd();
 		
 		
 		glBegin(GL_LINE_STRIP);
-		glNormal3f(0.0f,0.0f,1.f);
+		//glNormal3f(0.0f,0.0f,1.f);
 		
-		for(i=0;i<256;i++)
+		for(i=0;i<128;i++)
 		{
 			glColor3f(0.0,i/512.0f,0.0);
 			//This is the radius
-			float startRadius = 0.15* i / 12.0f;
-			float stopRadius = 0.15* (i + 12) / 12.0f;
+			//float startRadius = 0.15* i / 12.0f;
+			//float stopRadius = 0.15* (i + 12) / 12.0f;
 			
-			float startAngle = (((M_PI*2)/12) * (i % 12));
-			float stopAngle = (((M_PI*2)/12) * ((i + 1) % 12));
+			//float startAngle = (((M_PI*2)/12) * (i % 12));
+			//float stopAngle = (((M_PI*2)/12) * ((i + 1) % 12));
 			
-			x = stopRadius*cos(startAngle);
-			y = -stopRadius*sin(startAngle);
-			glVertex3f(x,y, 0);
-			x = stopRadius*cos(stopAngle);
-			y = -stopRadius*sin(stopAngle);
-			glVertex3f(x,y, 0);
-			x = startRadius*cos(stopAngle);	
-			y = -startRadius*sin(stopAngle);
-			glVertex3f(x,y, 0);
-			x = stopRadius*cos(stopAngle);
-			y = -stopRadius*sin(stopAngle);
-			glVertex3f(x,y, 0);
+			rchill_noteToPoint(i+12,&x,&y,&z);
+			rchill_noteToPoint(i+1+12,&x2,&y2,&z2);
+			rchill_noteToPoint(i+1,&x3,&y3,&z3);
+			rchill_noteToPoint(i+0,&x4,&y4,&z4);
+			
+			//x = stopRadius*cos(startAngle);
+			//y = -stopRadius*sin(startAngle);
+			glVertex3f(x,y,z);
+			//x = stopRadius*cos(stopAngle);
+			//y = -stopRadius*sin(stopAngle);
+			glVertex3f(x2,y2,z2);
+			//x = startRadius*cos(stopAngle);	
+			//y = -startRadius*sin(stopAngle);
+			glVertex3f(x3,y3,z3);
+			//x = stopRadius*cos(stopAngle);
+			//y = -stopRadius*sin(stopAngle);
+			glVertex3f(x2,y2,z2);
 		}
 		glEnd();
 		glEndList();
@@ -169,30 +270,42 @@ void rchill_repaint()
 		glNewList(1001,GL_COMPILE);
 		//Draw a star representing what happens with the circle of fifths
 		glBegin(GL_LINE_STRIP);
-		glNormal3f(0.0f,0.0f,1.f);
+		//glNormal3f(0.0f,0.0f,1.f);
 		for(i=0;i<13;i++)
 		{
 			int fifth = ((musicTheory_sharpCount()+i)*7)%12; 
 			glColor3f((12-i)/(10.0f + 1*(12-i)*i) ,0.0, i/(10.0f + 1*(12-i)*i));
 			//This is the radius
-			float startRadius = 0.4f;
+			//float startRadius = 0.4f;
 			
-			float startAngle = (((M_PI*2)/12) * (fifth % 12)) + M_PI/12;
+			//float startAngle = (((M_PI*2)/12) * (fifth % 12)) + M_PI/12;
 			
-			x = startRadius*cos(startAngle);
-			y = -startRadius*sin(startAngle);
-			glVertex3f(x,y, 1.5);
+			rchill_noteToPoint(fifth+12*3,&x2,&y2,&z2);
+			rchill_noteToPoint(fifth+1+12*3,&x3,&y3,&z3);
+			x = (x2+x3)/2;
+			y = (y2+y3)/2;
+			z = (z2+z3)/2;
+			
+			//x = startRadius*cos(startAngle);
+			//y = -startRadius*sin(startAngle);
+			glVertex3f(x,y,z-10);
 		}
 		glEnd();
 		
-		glColor3d(0.2,0.9,0.2);
+		glColor3f(0.2,0.9,0.2);
 		for(i=0;i<=12;i++)
 		{
-			float stopRadius = 1.5f;
-			float startAngle = (((M_PI*2)/12) * (i % 12));
+			//float stopRadius = 1.5f;
+			//float startAngle = (((M_PI*2)/12) * (i % 12));
 			
-			x = (stopRadius)*cos(startAngle + (M_PI/12));
-			y = -(stopRadius)*sin(startAngle + (M_PI/12));
+			rchill_noteToPoint(i+12*5,&x2,&y2,&z2);
+			rchill_noteToPoint(i+12*5+1,&x3,&y3,&z3);
+			x = (x2+x3)/2;
+			y = (y2+y3)/2;
+			z = (z2+z3)/2;
+			
+			//x = (stopRadius)*cos(startAngle + (M_PI/12));
+			//y = -(stopRadius)*sin(startAngle + (M_PI/12));
 			//This buffer is managed by musicTheory
 			char* noteName = (char*)musicTheory_findNoteName(i);
 			rchill_renderBitmapString(noteName,x,y);	
@@ -203,12 +316,18 @@ void rchill_repaint()
 		{
 			int note = musicTheory_pickNote(i) % 12; 
 			
-			float stopRadius = 1.0f;
-			float startAngle = (((M_PI*2)/12) * (note % 12));
+			//float stopRadius = 1.0f;
+			//float startAngle = (((M_PI*2)/12) * (note % 12));
 			int mode = ((i%7 + (3*musicTheory_sharpCount())%7)) %7; 
 			
-			x = (stopRadius)*cos(startAngle + (M_PI/12));
-			y = -(stopRadius)*sin(startAngle + (M_PI/12));
+			//x = (stopRadius)*cos(startAngle + (M_PI/12));
+			//y = -(stopRadius)*sin(startAngle + (M_PI/12));
+			
+			rchill_noteToPoint(note+12*10,&x2,&y2,&z2);
+			rchill_noteToPoint(note+12*10+1,&x3,&y3,&z3);
+			x = (x2+x3)/2;
+			y = (y2+y3)/2;
+			z = (z2+z3)/2;
 			
 			sprintf(stringBuffer,"%d", mode+1);
 			rchill_renderBitmapString(stringBuffer,x,y);	
@@ -220,11 +339,8 @@ void rchill_repaint()
 	glCallList(1000);
 	
 	
-	int* downNotes = (int*)musicTheory_notes();
-	int* downCounts = (int*)musicTheory_downCounts();
 	
 	glBegin(GL_QUADS);
-	int lastNote = musicTheory_note();
 	
 	//Render the last note, regardless of whether it's pressed
 	if(lastNote>=0)
@@ -265,10 +381,10 @@ void rchill_repaint()
 				glColor3f(0.8,0.8,1.0);
 			}
 			else
-				if(noteNumber>=0)
-				{
-					glColor3f(0.1,0.3,0.5);
-				}
+			if(noteNumber>=0)
+			{
+				glColor3f(0.1,0.3,0.5);
+			}
 			
 			rchill_drawNote(noteNumber);					
 		}		
@@ -311,15 +427,17 @@ void rchill_init()
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_AUTO_NORMAL);
 	
-	GLfloat ambient[] = {0.8,0.7,0.8,1.0};
+	GLfloat ambient[] = {0.1,0.5,0.2,1.0};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient);
 	
-	GLfloat diffuse[] = {0.9,0.99,0.999,1.0};
+	GLfloat diffuse[] = {0.9,0.7,0.8,1.0};
 	glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse);	
 	glEnable(GL_LIGHT0);
 	
 	GLfloat mat[] = {0.2, 0.2, 0.2, 0.5};
+	//glMaterialfv(GL_FRONT,GL_SPECULAR,mat);
 	glMaterialfv(GL_FRONT,GL_AMBIENT,mat);
 	glMaterialfv(GL_FRONT,GL_DIFFUSE,mat);
 	
@@ -351,7 +469,7 @@ void rchill_init()
 	glViewport(0,0,baseRect.size.width, baseRect.size.height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(60.0, baseRect.size.width/baseRect.size.height, 0.2, 32);
+	gluPerspective(60.0, baseRect.size.width/baseRect.size.height, 0.2, 256);
 }
 
 
