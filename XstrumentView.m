@@ -38,12 +38,14 @@ struct
 
 void rchill_renderBitmapString(char* string, float xarg, float yarg)
 {
+	glDisable(GL_LIGHTING);
 	char* c;
 	glRasterPos2f(xarg,yarg);
 	for(c=string; *c != '\0'; c++)
 	{
 		glutBitmapCharacter((void*)rchill.font, *c);
 	}
+	glEnable(GL_LIGHTING);
 }
 
 //Abstract away the points to notes transform so that we can move to 3d with no changes
@@ -116,12 +118,12 @@ void rchill_repaintDirtyScale()
 		int mode = ((i%7 + (3*musicTheory_sharpCount())%7)) %7; 
 		if( 2 == mode)
 		{
-			glColor3f(0.0,0.5,0.5f);
+			glColor3f(0.0,0.8,0.8f);
 		}
 		else
 		if( 0 == mode )
 		{
-			glColor3f(0.5,0,0.5f);
+			glColor3f(0.8,0,0.8f);
 		}
 		else
 		{
@@ -132,11 +134,11 @@ void rchill_repaintDirtyScale()
 		glVertex3f(x,y,z);
 		rchill_noteToPoint(note, &x, &y,&z);
 		glVertex3f(x,y,z);
-		rchill_noteToPoint(note+12*11, &x, &y,&z);
+		rchill_noteToPoint(note+12*12, &x, &y,&z);
 
 		glColor3f(0,0,0.25f);
 		glVertex3f(x,y,z);
-		rchill_noteToPoint(note+12*11+1, &x, &y,&z);
+		rchill_noteToPoint(note+12*12+1, &x, &y,&z);
 		glVertex3f(x,y,z);
 	}		 
 	glEnd();		
@@ -177,7 +179,6 @@ void rchill_repaintDirtyScale()
 	}
 	glEnd();
 	
-	glColor3f(1,1,1);
 	for(i=0;i<=12;i++)
 	{
 		rchill_noteToPoint(i+12*5,&x2,&y2,&z2);
@@ -186,21 +187,29 @@ void rchill_repaintDirtyScale()
 		y = (y2+y3)/2;
 		z = (z2+z3)/2;
 		char* noteName = (char*)musicTheory_findNoteName(i);
+		if(noteName[1]=='\0')
+		{
+			glColor3f(0.8,1,0.8);
+		}
+		else
+		{
+			glColor3f(0.0,0.2,0.0);
+		}
 		rchill_renderBitmapString(noteName,x,y);	
 	}
 	
-	glColor3d(1,1,1);
+	glColor3d(0.4,1,0.4);
 	for(i=0;i<=7;i++)
 	{
 		int note = musicTheory_pickNote(i) % 12; 
 		int mode = ((i%7 + (3*musicTheory_sharpCount())%7)) %7; 
-		rchill_noteToPoint(note+12,&x2,&y2,&z2);
-		rchill_noteToPoint(note+12+1,&x3,&y3,&z3);
-		x = (x2+x3)/2;
-		y = (y2+y3)/2;
-		z = (z2+z3)/2;
+		rchill_noteToPoint(note+12*5,&x2,&y2,&z2);
+		rchill_noteToPoint(note+12*5+1,&x3,&y3,&z3);
+		x = 0.8*(x2+x3);
+		y = 0.8*(y2+y3);
+		z = 0.8*(z2+z3);
 		sprintf(stringBuffer,"%d", mode+1);
-		//rchill_renderBitmapString(stringBuffer,x,y);	
+		rchill_renderBitmapString(stringBuffer,x,y);	
 	}
 	
 	glEndList();

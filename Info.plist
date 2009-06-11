@@ -4,8 +4,6 @@
 <dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright Rob Fielding 2009.  Leon Gruenbaum holds patents related to the Samchillian.  You have no right to sell this work or its derivatives.</string>
-	<key>CFBundleHelpBookFolder</key>
-	<string>HelpFiles</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
@@ -23,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.1</string>
+	<string>1.0.2</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
