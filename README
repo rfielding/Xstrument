@@ -35,4 +35,13 @@ General rules I try to follow:
   - Minimize dependencies and prove that they are REALLY minimized through
     the include structure.
   - Robustness is the most important feature.  Nobody will play live with
-    an instrument that crashes "sometimes".
+    an instrument that crashes "sometimes".  The source that this is based on
+    has been played for over a year as my main instrument, and seems to be 
+    at least as robust as the official OSX Samchillian by Leon.  However,
+    this is a relatively recent build that will need to be vetted with 
+    more time.  
+  - If there is any regression, there might be performance regressions for
+    people playing on slower laptops.  This implementation seems 100%
+    real-time responsive for me, but I don't have my old laptop to see if 
+    performance is actually the same as the old instrument.
+    
