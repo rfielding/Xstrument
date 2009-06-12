@@ -14,17 +14,14 @@
 
 struct
 {
-	float lightX, theta, radius;
-	char midiBuffer[1024];	
 	char charBuffer[1024];
 	int font;
 	int bitmapHeight;
-	int sustain;
 	float width;
 	float height;
-} rchill;
+} portableui;
 
-void rchill_init();
-void rchill_repaint();
-void rchill_glSetup();
-void rchill_reshape();
+void portableui_init();
+void portableui_repaint();
+void portableui_glSetup();
+void portableui_reshape();

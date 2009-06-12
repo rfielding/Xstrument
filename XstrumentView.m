@@ -31,8 +31,10 @@
 	
 	NSOpenGLContext* glcontext = [self openGLContext];
 	[glcontext makeCurrentContext];	
-	rchill_glSetup();
-	[self invalidateLoop];
+	portableui_glSetup();
+	
+	//Only necessary when we are doing animation that is not in response to keys, such as timers
+	//[self invalidateLoop];
 }
 
 - (id)initWithFrame:(NSRect)frame {
@@ -53,15 +55,15 @@
 {
 	NSLog(@"reshaping");
 	NSRect baseRect = [self convertRectToBase:[self bounds]];
-	rchill.width = baseRect.size.width;
-	rchill.height = baseRect.size.height;
-	rchill_reshape();
+	portableui.width = baseRect.size.width;
+	portableui.height = baseRect.size.height;
+	portableui_reshape();
 }
 
 
 - (void)drawRect:(NSRect)rect
 {
-	rchill_repaint();
+	portableui_repaint();
 }
  
 
@@ -102,6 +104,7 @@
 			musicTheory_keyDown(c);
 		}		
 	}
+	[self setNeedsDisplay:YES];
 }
 
 - (void)keyUp:(NSEvent*)e
@@ -113,6 +116,7 @@
 		unichar c = [chars characterAtIndex:i];
 		musicTheory_keyUp(c);
 	}		
+	[self setNeedsDisplay:YES];
 }
 
 

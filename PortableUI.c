@@ -9,7 +9,10 @@
 
 #include "PortableUI.h"
 
-void rchill_glSetup()
+#define PORTABLEUI_DIRTYLIST 1000
+#define PORTABLEUI_STARLIST 1001
+
+void portableui_glSetup()
 {
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_LIGHTING);
@@ -31,15 +34,15 @@ void rchill_glSetup()
 	glEnable(GL_COLOR_MATERIAL);
 	glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
 	
-	rchill_init();
+	portableui_init();
 }
 
-void rchill_reshape()
+void portableui_reshape()
 {
-	glViewport(0,0,rchill.width, rchill.height);
+	glViewport(0,0,portableui.width, portableui.height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(60.0, rchill.width/rchill.height, 0.2, 256);
+	gluPerspective(60.0, portableui.width/portableui.height, 0.2, 256);
 }
 
 void rchill_renderBitmapString(char* string, float xarg, float yarg)
@@ -49,7 +52,7 @@ void rchill_renderBitmapString(char* string, float xarg, float yarg)
 	glRasterPos2f(xarg,yarg);
 	for(c=string; *c != '\0'; c++)
 	{
-		glutBitmapCharacter((void*)rchill.font, *c);
+		glutBitmapCharacter((void*)portableui.font, *c);
 	}
 	glEnable(GL_LIGHTING);
 }
@@ -116,7 +119,7 @@ void rchill_repaintDirtyScale()
 	
 	char stringBuffer[16];
 	
-	glNewList(1000,GL_COMPILE);
+	glNewList(PORTABLEUI_DIRTYLIST,GL_COMPILE);
 	glBegin(GL_QUADS);
 	for(i=0;i<7;i++)
 	{
@@ -168,7 +171,7 @@ void rchill_repaintDirtyScale()
 	glEnd();
 	glEndList();
 	
-	glNewList(1001,GL_COMPILE);
+	glNewList(PORTABLEUI_STARLIST,GL_COMPILE);
 	//Draw a star representing what happens with the circle of fifths
 	glBegin(GL_LINE_STRIP);
 	for(i=0;i<13;i++)
@@ -222,57 +225,17 @@ void rchill_repaintDirtyScale()
 	musicTheory_scaleUpdated();
 }
 
-void rchill_repaint()
+void portableui_repaintCleanScale()
 {
 	int i=0;
 	
 	float x=0;
 	float y=0;
 	float z=0;
-	
-	float bumpX=0;
-	float bumpY=0;
-	float bumpZ=0;
-	
-	GLfloat lightPosition[] = {3, 3, 5, 0.0};
-	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT);// | GL_DEPTH_BUFFER_BIT);
-	
+		
 	int* downNotes = (int*)musicTheory_notes();
 	int* downCounts = (int*)musicTheory_downCounts();
 	int lastNote = musicTheory_note();
-	
-	for(i=0;i<255;i++)
-	{
-		int noteNumber = downNotes[i];
-		if(noteNumber >= 0)
-		{
-			rchill_noteToPoint(lastNote, &x,&y,&z);
-			bumpX += x;
-			bumpY += y;
-			bumpZ += z;
-		}
-	}
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	rchill.radius = 3.0f * (1.0f + (0x2000-musicTheory_wheel())/(0x2000 * 15.0));
-	gluLookAt(
-			  bumpX*0.01,bumpY*0.01,rchill.radius,
-			  //rchill.radius * sin(rchill.theta) , 0, rchill.radius * cos(rchill.theta), 
-			  -bumpX*0.01, -bumpY*0.01, -bumpZ*0.01, 
-			  0, 1, 0
-			  );
-	
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-	
-	glTranslatef(0,0,0);
-	
-	if(musicTheory_dirtyScale())
-	{
-		rchill_repaintDirtyScale();
-	}
-	glCallList(1000);
 	
 	glBegin(GL_QUADS);
 	
@@ -334,15 +297,69 @@ void rchill_repaint()
 		}		
 	}
 	glEnd();
+}
+
+void portableui_repaint()
+{
+	int i=0;
 	
-	glCallList(1001);
+	float x=0;
+	float y=0;
+	float z=0;
+	
+	float bumpX=0;
+	float bumpY=0;
+	float bumpZ=0;
+		
+	int* downNotes = (int*)musicTheory_notes();
+	int lastNote = musicTheory_note();
+	
+	GLfloat lightPosition[] = {3, 3, 5, 0.0};
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT);// | GL_DEPTH_BUFFER_BIT);
+	
+	for(i=0;i<255;i++)
+	{
+		int noteNumber = downNotes[i];
+		if(noteNumber >= 0)
+		{
+			rchill_noteToPoint(lastNote, &x,&y,&z);
+			bumpX += x;
+			bumpY += y;
+			bumpZ += z;
+		}
+	}
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	z = 3.0f * (1.0f + (0x2000-musicTheory_wheel())/(0x2000 * 15.0));
+	gluLookAt(
+			  bumpX*0.01,bumpY*0.01,z,
+			  //rchill.radius * sin(rchill.theta) , 0, rchill.radius * cos(rchill.theta), 
+			  -bumpX*0.01, -bumpY*0.01, -bumpZ*0.01, 
+			  0, 1, 0
+			  );
+	
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+	
+	glTranslatef(0,0,0);
+	
+	if(musicTheory_dirtyScale())
+	{
+		rchill_repaintDirtyScale();
+	}
+	glCallList(PORTABLEUI_DIRTYLIST);
+	
+	portableui_repaintCleanScale();
+	
+	glCallList(PORTABLEUI_STARLIST);
 	glFinish();
 }
 
-void rchill_init()
+void portableui_init()
 {
 	musicTheory_init();
-	rchill.font = (int)GLUT_BITMAP_9_BY_15;
-	rchill.bitmapHeight = 15;
-	rchill.charBuffer[0] = 0x00;
+	portableui.font = (int)GLUT_BITMAP_9_BY_15;
+	portableui.bitmapHeight = 15;
+	portableui.charBuffer[0] = 0x00;
 }
