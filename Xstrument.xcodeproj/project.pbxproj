@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		492459C90FE1EC5E009F081D /* PortableUI.c in Sources */ = {isa = PBXBuildFile; fileRef = 492459C80FE1EC5E009F081D /* PortableUI.c */; };
 		4931045C0FCF983300598B56 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4931045B0FCF983300598B56 /* CoreAudioKit.framework */; };
 		493104600FCF984400598B56 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4931045F0FCF984400598B56 /* AudioUnit.framework */; };
 		493104640FCF986100598B56 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493104630FCF986100598B56 /* CoreMIDI.framework */; };
@@ -31,6 +32,8 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* Xstrument_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Xstrument_Prefix.pch; sourceTree = "<group>"; };
+		492459C70FE1EC5E009F081D /* PortableUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortableUI.h; sourceTree = "<group>"; };
+		492459C80FE1EC5E009F081D /* PortableUI.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PortableUI.c; sourceTree = "<group>"; };
 		4931045B0FCF983300598B56 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = /System/Library/Frameworks/CoreAudioKit.framework; sourceTree = "<absolute>"; };
 		4931045F0FCF984400598B56 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
 		493104630FCF986100598B56 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
@@ -118,6 +121,8 @@
 				49853D680FCF7C2F00710767 /* XstrumentView.m */,
 				49B10B8B0FDF444000BC8B30 /* MidiPlatform.h */,
 				49B10B8C0FDF444000BC8B30 /* MidiPlatform.m */,
+				492459C70FE1EC5E009F081D /* PortableUI.h */,
+				492459C80FE1EC5E009F081D /* PortableUI.c */,
 			);
 			name = Xstrument;
 			sourceTree = "<group>";
@@ -209,6 +214,7 @@
 				49853D690FCF7C2F00710767 /* XstrumentView.m in Sources */,
 				49B10B7A0FDF3ECC00BC8B30 /* MusicTheory.c in Sources */,
 				49B10B8D0FDF444000BC8B30 /* MidiPlatform.m in Sources */,
+				492459C90FE1EC5E009F081D /* PortableUI.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
