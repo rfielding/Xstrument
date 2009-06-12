@@ -20,7 +20,10 @@ MusicTheory
   - Portable C code that uses no significant libraries
   - Imports a portable C MidiPlatform header and pass to MidiPlatform
   - Note that it's passive.  I am not getting MIDI events from external
-    sources yet; as that might provoke design changes.
+    sources yet, and is not getting any timing information until echo
+    buffers are re-introduced
+  - It is the state machine that translates key presses into MIDI notes,
+    and is the soul of the Samchillian instrument.
 
 MidiPlatform
   - A platform specific implementation of MIDI hooks
