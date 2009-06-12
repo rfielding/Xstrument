@@ -1,6 +1,4 @@
-I built this with XCode 3.1 on OSX Leopard.  I don't know if it still runs on Tiger, but this is code derived from code originally written for Tiger.
-
-The organization is such that a Win32 port should be trivial, and hostable in the same project.  This is how that is achieved:
+I built this with XCode 3.1 on OSX Leopard.  I don't know if it still runs on Tiger, but this is code derived from code originally written for Tiger.  The organization is such that a Win32 port should be trivial, and hostable in the same project.  This is how that is achieved:
 
 XstrumentView
   - Objective-C
@@ -47,4 +45,7 @@ General rules I try to follow:
     people playing on slower laptops.  This implementation seems 100%
     real-time responsive for me, but I don't have my old laptop to see if 
     performance is actually the same as the old instrument.
-    
+   
+License:
+
+Leon Gruenbaum holds patents with respect to the Samchillian instrument.  I got specific permission to start this project, as long as I respect his patent rights.  You cannot sell this software or anything derived from this source code, as it is for non-commercial use only.
