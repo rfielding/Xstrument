@@ -29,7 +29,7 @@ int* musicTheory_downCounts();
 int musicTheory_note();
 int musicTheory_getX();
 int musicTheory_getY();
-
+int musicTheory_getSustain();
 
 
 

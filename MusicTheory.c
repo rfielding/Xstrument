@@ -598,3 +598,8 @@ void musicTheory_setAccBend(int accBend)
 {
 	musicTheory.accBend = accBend;
 }
+
+int musicTheory_getSustain()
+{
+	return musicTheory.sustain;
+}

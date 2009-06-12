@@ -32,8 +32,8 @@ struct
 	int sustain;
 	int width;
 	int height;
-	int accBend;
-	int tremBend;
+	//int accBend;
+	//int tremBend;
 } rchill;
 
 void rchill_renderBitmapString(char* string, float xarg, float yarg)
@@ -273,12 +273,11 @@ void rchill_repaint()
 	//Render the last note, regardless of whether it's pressed
 	if(lastNote>=0)
 	{
-		if(!rchill.sustain)
+		if(!musicTheory_getSustain())
 		{
 			x=0.4;
 			y=0.2;
 			z=0.2;
-			//glColor3f(0.4,0.2,0.2);
 		}
 		else
 		{
@@ -340,8 +339,6 @@ void rchill_init()
 	rchill.font = (int)GLUT_BITMAP_9_BY_15;
 	rchill.bitmapHeight = 15;
 	rchill.charBuffer[0] = 0x00;
-	rchill.sustain=0;
-	rchill.accBend = 127;
 }
 
 @implementation XstrumentView
