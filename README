@@ -1,3 +1,38 @@
-I built this with XCode 3.1 on OSX Leopard.  I don't know if it still runs on Tiger, but this is code derived from Tiger.
+I built this with XCode 3.1 on OSX Leopard.  I don't know if it still runs on Tiger, but this is code derived from code originally written for Tiger.
 
-MusicTheory.* is supposed to be portable so that it can be compiled under Win32 at some point.
+The organization is such that a Win32 port should be trivial, and hostable in the same project.  This is how that is achieved:
+
+XstrumentView
+  - Objective-C
+  - OSX Cocoa specific
+  - Create an OpenGL surface that responds to key events
+  - Pass to PortableUI
+
+PortableUI
+  - Portable OpenGL C code gets key events, draws screen 
+    Interacts with MusicTheory, which handles MIDI.
+  - No platform specific code
+    (Put platform specific includes into a header that may contain 
+    platform junk like #include <windows.h> that Win32's OpenGL does)
+  - Pass to MusicTheory
+
+MusicTheory
+  - Portable C code that uses no significant libraries
+  - Imports a portable C MidiPlatform header and pass to MidiPlatform
+  - Note that it's passive.  I am not getting MIDI events from external
+    sources yet; as that might provoke design changes.
+
+MidiPlatform
+  - A platform specific implementation of MIDI hooks
+  - The header is portable, which is important because MusicTheory imports it.
+  - The implementation is platform specific.  In the case of OSX,
+    it's in Objective-C.
+
+
+General rules I try to follow:
+
+  - I am placing documentation mostly in headers, rather than implementations.
+  - Minimize dependencies and prove that they are REALLY minimized through
+    the include structure.
+  - Robustness is the most important feature.  Nobody will play live with
+    an instrument that crashes "sometimes".
