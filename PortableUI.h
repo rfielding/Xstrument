@@ -7,21 +7,21 @@
  *
  */
 
-#import <GLUT/glut.h>
-#import <math.h>
 #import "MusicTheory.h"
-#import <stdio.h>
 
-struct
-{
-	char charBuffer[1024];
-	int font;
-	int bitmapHeight;
-	float width;
-	float height;
-} portableui;
 
+
+/*
+   Initialize the user interface
+ */
 void portableui_init();
+
+/*
+   The OpenGL part of painting
+ */
 void portableui_repaint();
-void portableui_glSetup();
-void portableui_reshape();
+
+/*
+   Invoke this in response to host window size changes.  Standard OpenGL stuff.
+ */
+void portableui_reshape(float width,float height);

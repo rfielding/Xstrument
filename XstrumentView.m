@@ -31,7 +31,7 @@
 	
 	NSOpenGLContext* glcontext = [self openGLContext];
 	[glcontext makeCurrentContext];	
-	portableui_glSetup();
+	portableui_init();
 	
 	//Only necessary when we are doing animation that is not in response to keys, such as timers
 	//[self invalidateLoop];
@@ -55,9 +55,7 @@
 {
 	NSLog(@"reshaping");
 	NSRect baseRect = [self convertRectToBase:[self bounds]];
-	portableui.width = baseRect.size.width;
-	portableui.height = baseRect.size.height;
-	portableui_reshape();
+	portableui_reshape(baseRect.size.width, baseRect.size.height);
 }
 
 

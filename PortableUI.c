@@ -7,12 +7,25 @@
  *
  */
 
+#import <math.h>
+#import <stdio.h>
+#import <GLUT/glut.h>
+
 #include "PortableUI.h"
 
 #define PORTABLEUI_DIRTYLIST 1000
 #define PORTABLEUI_STARLIST 1001
 
-void portableui_glSetup()
+struct
+{
+	char charBuffer[1024];
+	int font;
+	int bitmapHeight;
+	float width;
+	float height;
+} portableui;
+
+void portableui_init()
 {
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_LIGHTING);
@@ -34,11 +47,16 @@ void portableui_glSetup()
 	glEnable(GL_COLOR_MATERIAL);
 	glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
 	
-	portableui_init();
+	portableui.font = (int)GLUT_BITMAP_9_BY_15;
+	portableui.bitmapHeight = 15;
+	portableui.charBuffer[0] = 0x00;
+	musicTheory_init();
 }
 
-void portableui_reshape()
+void portableui_reshape(float width, float height)
 {
+	portableui.width = width;
+	portableui.height = height;
 	glViewport(0,0,portableui.width, portableui.height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -356,10 +374,3 @@ void portableui_repaint()
 	glFinish();
 }
 
-void portableui_init()
-{
-	musicTheory_init();
-	portableui.font = (int)GLUT_BITMAP_9_BY_15;
-	portableui.bitmapHeight = 15;
-	portableui.charBuffer[0] = 0x00;
-}

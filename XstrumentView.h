@@ -17,7 +17,9 @@ software without explicit permission.
 
 #import <Cocoa/Cocoa.h>
 
-
+/*
+   The OpenGL surface whose job it is to get key events to hand down to the PortableUI
+ */
 @interface XstrumentView : NSOpenGLView {
 }
 -(void) invalidateLoop;
