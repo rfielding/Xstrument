@@ -13,7 +13,6 @@
 		activeExecutable = 49853D540FCF7A5A00710767 /* Xstrument */;
 		activeTarget = 8D1107260486CEB800E47090 /* Xstrument */;
 		addToTargets = (
-			8D1107260486CEB800E47090 /* Xstrument */,
 		);
 		breakpoints = (
 		);
@@ -217,15 +216,15 @@
 	492459C70FE1EC5E009F081D /* PortableUI.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {907, 584}}";
-			sepNavSelRange = "{150, 0}";
-			sepNavVisRange = "{0, 574}";
+			sepNavSelRange = "{175, 0}";
+			sepNavVisRange = "{0, 446}";
 		};
 	};
 	492459C80FE1EC5E009F081D /* PortableUI.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {907, 5124}}";
-			sepNavSelRange = "{207, 0}";
-			sepNavVisRange = "{645, 1170}";
+			sepNavIntBoundsRect = "{{0, 0}, {907, 5264}}";
+			sepNavSelRange = "{232, 0}";
+			sepNavVisRange = "{0, 776}";
 		};
 	};
 	492459D70FE1EEFE009F081D /* PBXBookmark */ = {
@@ -237,7 +236,7 @@
 		comments = "warning: implicit declaration of function 'sprintf'";
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		rLen = 0;
-		rLoc = 40;
+		rLoc = 49;
 		rType = 1;
 	};
 	492459DD0FE1F06D009F081D /* PBXTextBookmark */ = {
@@ -245,7 +244,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 349";
 		rLen = 0;
-		rLoc = 7144;
+		rLoc = 7332;
 		rType = 0;
 		vrLen = 748;
 		vrLoc = 388;
@@ -292,7 +291,7 @@
 		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
 		name = "XstrumentView.m: 59";
 		rLen = 0;
-		rLoc = 1494;
+		rLoc = 1451;
 		rType = 0;
 		vrLen = 594;
 		vrLoc = 922;
@@ -302,7 +301,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 21";
 		rLen = 0;
-		rLoc = 251;
+		rLoc = 175;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -312,7 +311,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 18";
 		rLen = 0;
-		rLoc = 468;
+		rLoc = 575;
 		rType = 0;
 		vrLen = 1000;
 		vrLoc = 0;
@@ -392,7 +391,7 @@
 		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
 		name = "XstrumentView.h: 23";
 		rLen = 0;
-		rLoc = 671;
+		rLoc = 764;
 		rType = 0;
 		vrLen = 724;
 		vrLoc = 0;
@@ -412,7 +411,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 310";
 		rLen = 0;
-		rLoc = 1078;
+		rLoc = 1266;
 		rType = 0;
 		vrLen = 551;
 		vrLoc = 5419;
@@ -422,7 +421,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 22";
 		rLen = 0;
-		rLoc = 384;
+		rLoc = 279;
 		rType = 0;
 		vrLen = 338;
 		vrLoc = 0;
@@ -432,7 +431,7 @@
 		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
 		name = "XstrumentView.m: 88";
 		rLen = 23;
-		rLoc = 1530;
+		rLoc = 1487;
 		rType = 0;
 		vrLen = 685;
 		vrLoc = 1565;
@@ -442,7 +441,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 310";
 		rLen = 0;
-		rLoc = 1078;
+		rLoc = 1266;
 		rType = 0;
 		vrLen = 555;
 		vrLoc = 5415;
@@ -452,7 +451,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 23";
 		rLen = 0;
-		rLoc = 390;
+		rLoc = 285;
 		rType = 0;
 		vrLen = 361;
 		vrLoc = 0;
@@ -462,7 +461,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 11";
 		rLen = 0;
-		rLoc = 300;
+		rLoc = 407;
 		rType = 0;
 		vrLen = 709;
 		vrLoc = 0;
@@ -482,7 +481,7 @@
 		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
 		name = "XstrumentView.h: 18";
 		rLen = 0;
-		rLoc = 628;
+		rLoc = 721;
 		rType = 0;
 		vrLen = 699;
 		vrLoc = 0;
@@ -562,7 +561,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 11";
 		rLen = 0;
-		rLoc = 300;
+		rLoc = 407;
 		rType = 0;
 		vrLen = 894;
 		vrLoc = 80;
@@ -581,8 +580,8 @@
 		isa = PBXTextBookmark;
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 29";
-		rLen = 27;
-		rLoc = 547;
+		rLen = 51;
+		rLoc = 395;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -592,7 +591,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 15";
 		rLen = 0;
-		rLoc = 900;
+		rLoc = 1007;
 		rType = 0;
 		vrLen = 878;
 		vrLoc = 80;
@@ -612,7 +611,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 26";
 		rLen = 0;
-		rLoc = 666;
+		rLoc = 773;
 		rType = 0;
 		vrLen = 551;
 		vrLoc = 6036;
@@ -621,8 +620,8 @@
 		isa = PBXTextBookmark;
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 29";
-		rLen = 27;
-		rLoc = 547;
+		rLen = 51;
+		rLoc = 395;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -642,7 +641,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 29";
 		rLen = 0;
-		rLoc = 547;
+		rLoc = 395;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -652,7 +651,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 40";
 		rLen = 0;
-		rLoc = 900;
+		rLoc = 1007;
 		rType = 0;
 		vrLen = 889;
 		vrLoc = 0;
@@ -672,7 +671,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 29";
 		rLen = 0;
-		rLoc = 547;
+		rLoc = 395;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -682,7 +681,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 40";
 		rLen = 0;
-		rLoc = 900;
+		rLoc = 1007;
 		rType = 0;
 		vrLen = 889;
 		vrLoc = 0;
@@ -719,7 +718,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 40";
 		rLen = 0;
-		rLoc = 900;
+		rLoc = 1007;
 		rType = 0;
 		vrLen = 889;
 		vrLoc = 0;
@@ -729,7 +728,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 24";
 		rLen = 0;
-		rLoc = 258;
+		rLoc = 175;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -739,7 +738,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 40";
 		rLen = 0;
-		rLoc = 900;
+		rLoc = 1007;
 		rType = 0;
 		vrLen = 599;
 		vrLoc = 1927;
@@ -749,7 +748,7 @@
 		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
 		name = "XstrumentView.m: 59";
 		rLen = 0;
-		rLoc = 1494;
+		rLoc = 1451;
 		rType = 0;
 		vrLen = 594;
 		vrLoc = 922;
@@ -759,7 +758,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 18";
 		rLen = 0;
-		rLoc = 468;
+		rLoc = 575;
 		rType = 0;
 		vrLen = 972;
 		vrLoc = 0;
@@ -769,7 +768,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 21";
 		rLen = 0;
-		rLoc = 251;
+		rLoc = 175;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -779,7 +778,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 261";
 		rLen = 0;
-		rLoc = 6727;
+		rLoc = 6915;
 		rType = 0;
 		vrLen = 928;
 		vrLoc = 4738;
@@ -789,7 +788,7 @@
 		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
 		name = "XstrumentView.m: 122";
 		rLen = 0;
-		rLoc = 2361;
+		rLoc = 2318;
 		rType = 0;
 		vrLen = 1100;
 		vrLoc = 92;
@@ -799,7 +798,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 349";
 		rLen = 0;
-		rLoc = 7144;
+		rLoc = 7332;
 		rType = 0;
 		vrLen = 748;
 		vrLoc = 388;
@@ -809,7 +808,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 20";
 		rLen = 0;
-		rLoc = 248;
+		rLoc = 175;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -819,7 +818,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 252";
 		rLen = 0;
-		rLoc = 6547;
+		rLoc = 6735;
 		rType = 0;
 		vrLen = 1000;
 		vrLoc = 0;
@@ -849,7 +848,7 @@
 		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
 		name = "XstrumentView.m: 59";
 		rLen = 0;
-		rLoc = 1494;
+		rLoc = 1451;
 		rType = 0;
 		vrLen = 698;
 		vrLoc = 836;
@@ -859,7 +858,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 252";
 		rLen = 0;
-		rLoc = 6547;
+		rLoc = 6735;
 		rType = 0;
 		vrLen = 1000;
 		vrLoc = 0;
@@ -869,7 +868,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 20";
 		rLen = 0;
-		rLoc = 248;
+		rLoc = 175;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -879,7 +878,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 252";
 		rLen = 0;
-		rLoc = 6547;
+		rLoc = 6735;
 		rType = 0;
 		vrLen = 1000;
 		vrLoc = 0;
@@ -909,7 +908,7 @@
 		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
 		name = "XstrumentView.m: 120";
 		rLen = 0;
-		rLoc = 2350;
+		rLoc = 2307;
 		rType = 0;
 		vrLen = 677;
 		vrLoc = 922;
@@ -919,7 +918,7 @@
 		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
 		name = "XstrumentView.m: 126";
 		rLen = 0;
-		rLoc = 2361;
+		rLoc = 2318;
 		rType = 0;
 		vrLen = 1164;
 		vrLoc = 92;
@@ -929,7 +928,7 @@
 		comments = "error: 'DIRTYLIST' undeclared (first use in this function)";
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		rLen = 1;
-		rLoc = 357;
+		rLoc = 368;
 		rType = 1;
 	};
 	49245A410FE1F386009F081D /* PBXTextBookmark */ = {
@@ -957,7 +956,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 20";
 		rLen = 0;
-		rLoc = 248;
+		rLoc = 175;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -967,7 +966,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 341";
 		rLen = 0;
-		rLoc = 7125;
+		rLoc = 7313;
 		rType = 0;
 		vrLen = 568;
 		vrLoc = 2251;
@@ -997,7 +996,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 20";
 		rLen = 0;
-		rLoc = 248;
+		rLoc = 175;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -1007,7 +1006,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 252";
 		rLen = 0;
-		rLoc = 6547;
+		rLoc = 6735;
 		rType = 0;
 		vrLen = 1000;
 		vrLoc = 0;
@@ -1017,7 +1016,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 20";
 		rLen = 0;
-		rLoc = 248;
+		rLoc = 175;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -1027,7 +1026,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 341";
 		rLen = 0;
-		rLoc = 7125;
+		rLoc = 7313;
 		rType = 0;
 		vrLen = 568;
 		vrLoc = 2251;
@@ -1037,7 +1036,7 @@
 		fRef = 492459C70FE1EC5E009F081D /* PortableUI.h */;
 		name = "PortableUI.h: 20";
 		rLen = 0;
-		rLoc = 248;
+		rLoc = 175;
 		rType = 0;
 		vrLen = 444;
 		vrLoc = 0;
@@ -1047,7 +1046,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 235";
 		rLen = 0;
-		rLoc = 5026;
+		rLoc = 5214;
 		rType = 0;
 		vrLen = 669;
 		vrLoc = 4770;
@@ -1057,7 +1056,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 355";
 		rLen = 0;
-		rLoc = 7121;
+		rLoc = 7309;
 		rType = 0;
 		vrLen = 739;
 		vrLoc = 6397;
@@ -1067,7 +1066,7 @@
 		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
 		name = "XstrumentView.m: 126";
 		rLen = 0;
-		rLoc = 2361;
+		rLoc = 2318;
 		rType = 0;
 		vrLen = 1182;
 		vrLoc = 92;
@@ -1131,7 +1130,7 @@
 		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
 		name = "XstrumentView.h: 23";
 		rLen = 0;
-		rLoc = 671;
+		rLoc = 764;
 		rType = 0;
 		vrLen = 724;
 		vrLoc = 0;
@@ -1141,7 +1140,7 @@
 		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
 		name = "XstrumentView.h: 23";
 		rLen = 0;
-		rLoc = 671;
+		rLoc = 764;
 		rType = 0;
 		vrLen = 724;
 		vrLoc = 0;
@@ -1198,16 +1197,16 @@
 	49853D670FCF7C2F00710767 /* XstrumentView.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {907, 584}}";
-			sepNavSelRange = "{627, 0}";
-			sepNavVisRange = "{0, 724}";
+			sepNavSelRange = "{717, 0}";
+			sepNavVisRange = "{0, 817}";
 			sepNavWindowFrame = "{{627, -127}, {750, 817}}";
 		};
 	};
 	49853D680FCF7C2F00710767 /* XstrumentView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {907, 1764}}";
-			sepNavSelRange = "{938, 0}";
-			sepNavVisRange = "{179, 1092}";
+			sepNavIntBoundsRect = "{{0, 0}, {907, 1624}}";
+			sepNavSelRange = "{1387, 0}";
+			sepNavVisRange = "{0, 1161}";
 			sepNavWindowFrame = "{{30, 66}, {711, 753}}";
 		};
 	};
@@ -1216,7 +1215,7 @@
 		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
 		name = "XstrumentView.h: 12";
 		rLen = 0;
-		rLoc = 628;
+		rLoc = 721;
 		rType = 0;
 		vrLen = 226;
 		vrLoc = 0;
@@ -1226,7 +1225,7 @@
 		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
 		name = "XstrumentView.m: 103";
 		rLen = 0;
-		rLoc = 1552;
+		rLoc = 1509;
 		rType = 0;
 		vrLen = 712;
 		vrLoc = 0;
@@ -1346,7 +1345,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {907, 1470}}";
 			sepNavSelRange = "{1812, 0}";
-			sepNavVisRange = "{1025, 1358}";
+			sepNavVisRange = "{0, 910}";
 		};
 	};
 	49B10BB90FDF47C000BC8B30 /* PBXTextBookmark */ = {

@@ -9,7 +9,7 @@
 
 #import <math.h>
 #import <stdio.h>
-#import <GLUT/glut.h>
+#import "PortableGL.h"
 
 #include "PortableUI.h"
 
