@@ -30,7 +30,7 @@ struct
 	int previousNote;
 	int scalePosition;
 	int scale[15];
-	int scaleBend[15];
+	int scaleBend[12];
 	int sharps;
 	int twist;
 	int lastDistance;
@@ -82,12 +82,12 @@ void musicTheory_init()
 	{
 		musicTheory.scale[i + 7] = 12 + musicTheory.scale[i];
 	}
-	for(i=0;i<15;i++)
+	for(i=0;i<12;i++)
 	{
 		musicTheory.scaleBend[i] = 0x2000;
 	}
-	musicTheory.scaleBend[2] += 0x2000>>2;
-	musicTheory.scaleBend[5] = musicTheory.scaleBend[2];
+	musicTheory.scaleBend[3] += 0x2000>>2;
+	musicTheory.scaleBend[8] += 0x2000>>2;
 	
 	musicTheory.sharps=3;
 	musicTheory.lastDistance=0;
@@ -149,7 +149,8 @@ void musicTheory_limitRange()
 
 int musicTheory_scaleBend(int n)
 {
-	return 0x2000;
+	if(!musicTheory.microTonal)return 0x2000;
+	return musicTheory.scaleBend[musicTheory.scale[n%7]%12];
 }
 
 int musicTheory_pickNote(int n)
@@ -371,7 +372,11 @@ int musicTheory_down(int key)
 		case ']':
 			musicTheory.sharps--; musicTheory.sharps+=12; musicTheory.sharps%=12; 
 			musicTheory.dirtyScale = 1;
-			 return -1;
+			return -1;
+		case '\\':
+			musicTheory.microTonal = !musicTheory.microTonal;
+			musicTheory.dirtyScale = 1;
+			return -1;
 		case 'g':
 			musicTheory.dirtyScale = 1;
 			musicTheory.twist++; musicTheory.twist%=2; return -1;
@@ -537,7 +542,6 @@ int musicTheory_isMicroTonal()
 void musicTheory_keyDown(int k)
 {
 	int note = musicTheory_down(k);
-	int i=0;
 	
 	if(k == '~')
 	{
@@ -548,23 +552,18 @@ void musicTheory_keyDown(int k)
 	{
 		if(k=='Q')
 		{
-			for(i=0;i<128;i++)
-			{
-				//Good enough...we only play this when we get stuck anyway!
-				//None of the 0xB0 messages work...
-				midiPlatform_sendMidiPacket(0x90,i,0x00);
-			}
+			midiPlatform_stopSound();
 		}
 		else
-			if(k== 'q')
-			{
-				musicTheory_clearAllDown();
-			}
+		if(k== 'q')
+		{
+			musicTheory_clearAllDown();
+		}
 	}
 	else
 	{
 		int vbend = musicTheory_wheel();
-		int bend = 0x2000 + vbend + musicTheory.tremBend;
+		int bend = musicTheory_scaleBend(note) + vbend + musicTheory.tremBend;
 		midiPlatform_sendMidiPacket(0xE0, (bend)&0x7f, (bend>>7)&0x7f);
 		if(note>=0)
 		{

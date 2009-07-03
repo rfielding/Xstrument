@@ -93,7 +93,7 @@ void midiPlatform_sendMidiPacket(int cmd,int note, int vol)
 /**
  Stop all sounds.  This is plenty fast.
  */
-void stopSound()
+void midiPlatform_stopSound()
 {
 	int i=0;
 	for(i=0; i<128; i++)
