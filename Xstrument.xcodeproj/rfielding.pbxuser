@@ -9,7 +9,7 @@
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
-		activeBuildConfigurationName = Debug;
+		activeBuildConfigurationName = Release;
 		activeExecutable = 49853D540FCF7A5A00710767 /* Xstrument */;
 		activeTarget = 8D1107260486CEB800E47090 /* Xstrument */;
 		addToTargets = (
@@ -273,6 +273,48 @@
 			499E3B940FFEC8BD00A66D5C /* PBXTextBookmark */ = 499E3B940FFEC8BD00A66D5C /* PBXTextBookmark */;
 			499E3B950FFEC8BD00A66D5C /* PBXTextBookmark */ = 499E3B950FFEC8BD00A66D5C /* PBXTextBookmark */;
 			499E3B960FFEC8BD00A66D5C /* PBXTextBookmark */ = 499E3B960FFEC8BD00A66D5C /* PBXTextBookmark */;
+			499E3B990FFEC9A600A66D5C /* PBXTextBookmark */ = 499E3B990FFEC9A600A66D5C /* PBXTextBookmark */;
+			499E3B9A0FFEC9A600A66D5C /* PBXTextBookmark */ = 499E3B9A0FFEC9A600A66D5C /* PBXTextBookmark */;
+			499E3B9B0FFEC9A600A66D5C /* PBXTextBookmark */ = 499E3B9B0FFEC9A600A66D5C /* PBXTextBookmark */;
+			499E3B9C0FFEC9A600A66D5C /* PBXTextBookmark */ = 499E3B9C0FFEC9A600A66D5C /* PBXTextBookmark */;
+			499E3B9D0FFEC9A600A66D5C /* PBXTextBookmark */ = 499E3B9D0FFEC9A600A66D5C /* PBXTextBookmark */;
+			499E3B9E0FFEC9A600A66D5C /* PBXTextBookmark */ = 499E3B9E0FFEC9A600A66D5C /* PBXTextBookmark */;
+			499E3B9F0FFEC9A600A66D5C /* PBXTextBookmark */ = 499E3B9F0FFEC9A600A66D5C /* PBXTextBookmark */;
+			499E3BA20FFECBDC00A66D5C /* PBXTextBookmark */ = 499E3BA20FFECBDC00A66D5C /* PBXTextBookmark */;
+			499E3BA30FFECBDC00A66D5C /* PBXTextBookmark */ = 499E3BA30FFECBDC00A66D5C /* PBXTextBookmark */;
+			499E3BA40FFECBDC00A66D5C /* PBXTextBookmark */ = 499E3BA40FFECBDC00A66D5C /* PBXTextBookmark */;
+			499E3BA50FFECBDC00A66D5C /* PBXTextBookmark */ = 499E3BA50FFECBDC00A66D5C /* PBXTextBookmark */;
+			499E3BA60FFECBDC00A66D5C /* PBXTextBookmark */ = 499E3BA60FFECBDC00A66D5C /* PBXTextBookmark */;
+			499E3BA70FFECBDC00A66D5C /* PBXTextBookmark */ = 499E3BA70FFECBDC00A66D5C /* PBXTextBookmark */;
+			499E3BA80FFECBDC00A66D5C /* PBXTextBookmark */ = 499E3BA80FFECBDC00A66D5C /* PBXTextBookmark */;
+			499E3BAA0FFECC3F00A66D5C /* PBXTextBookmark */ = 499E3BAA0FFECC3F00A66D5C /* PBXTextBookmark */;
+			499E3BAB0FFECC3F00A66D5C /* PBXTextBookmark */ = 499E3BAB0FFECC3F00A66D5C /* PBXTextBookmark */;
+			499E3BAC0FFECC3F00A66D5C /* PBXTextBookmark */ = 499E3BAC0FFECC3F00A66D5C /* PBXTextBookmark */;
+			499E3BAD0FFECC3F00A66D5C /* PBXTextBookmark */ = 499E3BAD0FFECC3F00A66D5C /* PBXTextBookmark */;
+			499E3BAE0FFECC3F00A66D5C /* PBXTextBookmark */ = 499E3BAE0FFECC3F00A66D5C /* PBXTextBookmark */;
+			499E3BAF0FFECC3F00A66D5C /* PBXTextBookmark */ = 499E3BAF0FFECC3F00A66D5C /* PBXTextBookmark */;
+			499E3BB00FFECC3F00A66D5C /* PBXTextBookmark */ = 499E3BB00FFECC3F00A66D5C /* PBXTextBookmark */;
+			499E3BB20FFECC7000A66D5C /* PBXTextBookmark */ = 499E3BB20FFECC7000A66D5C /* PBXTextBookmark */;
+			499E3BB30FFECC7000A66D5C /* PBXTextBookmark */ = 499E3BB30FFECC7000A66D5C /* PBXTextBookmark */;
+			499E3BB40FFECC7000A66D5C /* PBXTextBookmark */ = 499E3BB40FFECC7000A66D5C /* PBXTextBookmark */;
+			499E3BB50FFECC7000A66D5C /* PBXTextBookmark */ = 499E3BB50FFECC7000A66D5C /* PBXTextBookmark */;
+			499E3BB60FFECC7000A66D5C /* PBXTextBookmark */ = 499E3BB60FFECC7000A66D5C /* PBXTextBookmark */;
+			499E3BB70FFECC7000A66D5C /* PBXTextBookmark */ = 499E3BB70FFECC7000A66D5C /* PBXTextBookmark */;
+			499E3BB80FFECC7000A66D5C /* PBXTextBookmark */ = 499E3BB80FFECC7000A66D5C /* PBXTextBookmark */;
+			499E3BBA0FFECD1600A66D5C /* PBXTextBookmark */ = 499E3BBA0FFECD1600A66D5C /* PBXTextBookmark */;
+			499E3BBB0FFECD1600A66D5C /* PBXTextBookmark */ = 499E3BBB0FFECD1600A66D5C /* PBXTextBookmark */;
+			499E3BBC0FFECD1600A66D5C /* PBXTextBookmark */ = 499E3BBC0FFECD1600A66D5C /* PBXTextBookmark */;
+			499E3BBD0FFECD1600A66D5C /* PBXTextBookmark */ = 499E3BBD0FFECD1600A66D5C /* PBXTextBookmark */;
+			499E3BBE0FFECD1600A66D5C /* PBXTextBookmark */ = 499E3BBE0FFECD1600A66D5C /* PBXTextBookmark */;
+			499E3BBF0FFECD1600A66D5C /* PBXTextBookmark */ = 499E3BBF0FFECD1600A66D5C /* PBXTextBookmark */;
+			499E3BC00FFECD1600A66D5C /* PBXTextBookmark */ = 499E3BC00FFECD1600A66D5C /* PBXTextBookmark */;
+			499E3BC20FFECD4500A66D5C /* PBXTextBookmark */ = 499E3BC20FFECD4500A66D5C /* PBXTextBookmark */;
+			499E3BC30FFECD4500A66D5C /* PBXTextBookmark */ = 499E3BC30FFECD4500A66D5C /* PBXTextBookmark */;
+			499E3BC40FFECD4500A66D5C /* PBXTextBookmark */ = 499E3BC40FFECD4500A66D5C /* PBXTextBookmark */;
+			499E3BC50FFECD4500A66D5C /* PBXTextBookmark */ = 499E3BC50FFECD4500A66D5C /* PBXTextBookmark */;
+			499E3BC60FFECD4500A66D5C /* PBXTextBookmark */ = 499E3BC60FFECD4500A66D5C /* PBXTextBookmark */;
+			499E3BC70FFECD4500A66D5C /* PBXTextBookmark */ = 499E3BC70FFECD4500A66D5C /* PBXTextBookmark */;
+			499E3BC80FFECD4500A66D5C /* PBXTextBookmark */ = 499E3BC80FFECD4500A66D5C /* PBXTextBookmark */;
 			49B10BB90FDF47C000BC8B30 = 49B10BB90FDF47C000BC8B30 /* PBXTextBookmark */;
 			49B10BC00FDF47C000BC8B30 = 49B10BC00FDF47C000BC8B30 /* PBXTextBookmark */;
 			49B10BCD0FDF47C000BC8B30 = 49B10BCD0FDF47C000BC8B30 /* PBXTextBookmark */;
@@ -327,7 +369,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {831, 5502}}";
 			sepNavSelRange = "{7458, 0}";
-			sepNavVisRange = "{6699, 842}";
+			sepNavVisRange = "{6699, 839}";
 			sepNavWindowFrame = "{{239, 83}, {890, 700}}";
 		};
 	};
@@ -468,7 +510,7 @@
 	};
 	49853D670FCF7C2F00710767 /* XstrumentView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {691, 689}}";
+			sepNavIntBoundsRect = "{{0, 0}, {691, 666}}";
 			sepNavSelRange = "{764, 0}";
 			sepNavVisRange = "{0, 817}";
 			sepNavWindowFrame = "{{627, -127}, {750, 817}}";
@@ -478,7 +520,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {652, 1624}}";
 			sepNavSelRange = "{1387, 0}";
-			sepNavVisRange = "{764, 774}";
+			sepNavVisRange = "{764, 772}";
 			sepNavWindowFrame = "{{326, 55}, {711, 753}}";
 		};
 	};
@@ -595,7 +637,7 @@
 		fRef = 49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */;
 		name = "MusicTheory.c: 568";
 		rLen = 0;
-		rLoc = 10667;
+		rLoc = 10735;
 		rType = 0;
 		vrLen = 586;
 		vrLoc = 10451;
@@ -665,7 +707,7 @@
 		fRef = 49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */;
 		name = "MusicTheory.c: 568";
 		rLen = 0;
-		rLoc = 10667;
+		rLoc = 10735;
 		rType = 0;
 		vrLen = 610;
 		vrLoc = 10451;
@@ -675,7 +717,7 @@
 		fRef = 49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */;
 		name = "MusicTheory.c: 613";
 		rLen = 0;
-		rLoc = 11384;
+		rLoc = 11452;
 		rType = 0;
 		vrLen = 755;
 		vrLoc = 11374;
@@ -734,7 +776,7 @@
 		isa = PBXTextBookmark;
 		fRef = 499E3AD40FFEB95400A66D5C /* MusicTheory.c */;
 		rLen = 0;
-		rLoc = 11634;
+		rLoc = 11702;
 		rType = 0;
 	};
 	499E3AD40FFEB95400A66D5C /* MusicTheory.c */ = {
@@ -754,7 +796,7 @@
 		fRef = 49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */;
 		name = "MusicTheory.c: 626";
 		rLen = 0;
-		rLoc = 11634;
+		rLoc = 11702;
 		rType = 0;
 		vrLen = 189;
 		vrLoc = 11779;
@@ -801,7 +843,7 @@
 		fRef = 499E3AD40FFEB95400A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 563";
 		rLen = 0;
-		rLoc = 10485;
+		rLoc = 10553;
 		rType = 0;
 		vrLen = 575;
 		vrLoc = 10590;
@@ -871,7 +913,7 @@
 		fRef = 499E3AD40FFEB95400A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 619";
 		rLen = 0;
-		rLoc = 11428;
+		rLoc = 11496;
 		rType = 0;
 		vrLen = 893;
 		vrLoc = 11161;
@@ -941,7 +983,7 @@
 		fRef = 499E3AD40FFEB95400A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 564";
 		rLen = 0;
-		rLoc = 10485;
+		rLoc = 10553;
 		rType = 0;
 		vrLen = 570;
 		vrLoc = 10560;
@@ -1011,7 +1053,7 @@
 		fRef = 499E3AD40FFEB95400A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 620";
 		rLen = 0;
-		rLoc = 11384;
+		rLoc = 11452;
 		rType = 0;
 		vrLen = 883;
 		vrLoc = 11159;
@@ -1070,7 +1112,7 @@
 		isa = PBXTextBookmark;
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		rLen = 0;
-		rLoc = 11634;
+		rLoc = 11702;
 		rType = 0;
 	};
 	499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */ = {
@@ -1080,9 +1122,9 @@
 		path = /Users/rfielding/cocoa/Xstrument/MusicTheory.c;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {831, 8736}}";
+			sepNavIntBoundsRect = "{{0, 0}, {831, 8582}}";
 			sepNavSelRange = "{1082, 0}";
-			sepNavVisRange = "{553, 703}";
+			sepNavVisRange = "{553, 678}";
 		};
 	};
 	499E3AFE0FFEBDA700A66D5C /* PBXTextBookmark */ = {
@@ -1090,7 +1132,7 @@
 		fRef = 499E3AD40FFEB95400A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 609";
 		rLen = 0;
-		rLoc = 11634;
+		rLoc = 11702;
 		rType = 0;
 		vrLen = 189;
 		vrLoc = 11471;
@@ -1178,7 +1220,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 588";
 		rLen = 0;
-		rLoc = 11109;
+		rLoc = 11177;
 		rType = 0;
 		vrLen = 660;
 		vrLoc = 10607;
@@ -1248,7 +1290,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 546";
 		rLen = 0;
-		rLoc = 10453;
+		rLoc = 10521;
 		rType = 0;
 		vrLen = 606;
 		vrLoc = 10184;
@@ -1318,7 +1360,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 546";
 		rLen = 0;
-		rLoc = 10467;
+		rLoc = 10535;
 		rType = 0;
 		vrLen = 606;
 		vrLoc = 10184;
@@ -1388,7 +1430,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 547";
 		rLen = 0;
-		rLoc = 10467;
+		rLoc = 10535;
 		rType = 0;
 		vrLen = 696;
 		vrLoc = 9999;
@@ -1458,7 +1500,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 545";
 		rLen = 0;
-		rLoc = 10365;
+		rLoc = 10433;
 		rType = 0;
 		vrLen = 682;
 		vrLoc = 9999;
@@ -1528,7 +1570,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 545";
 		rLen = 0;
-		rLoc = 10365;
+		rLoc = 10433;
 		rType = 0;
 		vrLen = 684;
 		vrLoc = 9999;
@@ -1598,7 +1640,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 603";
 		rLen = 0;
-		rLoc = 11428;
+		rLoc = 11496;
 		rType = 0;
 		vrLen = 812;
 		vrLoc = 10892;
@@ -1668,7 +1710,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 548";
 		rLen = 0;
-		rLoc = 10467;
+		rLoc = 10535;
 		rType = 0;
 		vrLen = 712;
 		vrLoc = 10002;
@@ -1738,7 +1780,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 287";
 		rLen = 0;
-		rLoc = 5490;
+		rLoc = 5558;
 		rType = 0;
 		vrLen = 585;
 		vrLoc = 5422;
@@ -1808,7 +1850,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 293";
 		rLen = 0;
-		rLoc = 5584;
+		rLoc = 5652;
 		rType = 0;
 		vrLen = 592;
 		vrLoc = 5220;
@@ -1878,7 +1920,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 287";
 		rLen = 0;
-		rLoc = 5486;
+		rLoc = 5554;
 		rType = 0;
 		vrLen = 602;
 		vrLoc = 5220;
@@ -1948,7 +1990,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 293";
 		rLen = 0;
-		rLoc = 5582;
+		rLoc = 5650;
 		rType = 0;
 		vrLen = 602;
 		vrLoc = 5220;
@@ -2018,7 +2060,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 590";
 		rLen = 0;
-		rLoc = 11008;
+		rLoc = 11076;
 		rType = 0;
 		vrLen = 731;
 		vrLoc = 10627;
@@ -2088,7 +2130,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 590";
 		rLen = 0;
-		rLoc = 11008;
+		rLoc = 11076;
 		rType = 0;
 		vrLen = 731;
 		vrLoc = 10627;
@@ -2158,7 +2200,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 590";
 		rLen = 0;
-		rLoc = 11008;
+		rLoc = 11076;
 		rType = 0;
 		vrLen = 871;
 		vrLoc = 10878;
@@ -2228,7 +2270,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 591";
 		rLen = 0;
-		rLoc = 11085;
+		rLoc = 11153;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 10878;
@@ -2298,7 +2340,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 545";
 		rLen = 0;
-		rLoc = 10365;
+		rLoc = 10433;
 		rType = 0;
 		vrLen = 652;
 		vrLoc = 10156;
@@ -2363,6 +2405,426 @@
 		vrLen = 817;
 		vrLoc = 0;
 	};
+	499E3B990FFEC9A600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 545";
+		rLen = 0;
+		rLoc = 10433;
+		rType = 0;
+		vrLen = 652;
+		vrLoc = 10156;
+	};
+	499E3B9A0FFEC9A600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 48";
+		rLen = 0;
+		rLoc = 1082;
+		rType = 0;
+		vrLen = 703;
+		vrLoc = 553;
+	};
+	499E3B9B0FFEC9A600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
+		name = "MusicTheory.h: 109";
+		rLen = 0;
+		rLoc = 2751;
+		rType = 0;
+		vrLen = 982;
+		vrLoc = 1771;
+	};
+	499E3B9C0FFEC9A600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B8B0FDF444000BC8B30 /* MidiPlatform.h */;
+		name = "MidiPlatform.h: 24";
+		rLen = 0;
+		rLoc = 521;
+		rType = 0;
+		vrLen = 548;
+		vrLoc = 0;
+	};
+	499E3B9D0FFEC9A600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
+		name = "PortableUI.c: 380";
+		rLen = 0;
+		rLoc = 7458;
+		rType = 0;
+		vrLen = 842;
+		vrLoc = 6699;
+	};
+	499E3B9E0FFEC9A600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
+		name = "XstrumentView.m: 58";
+		rLen = 0;
+		rLoc = 1387;
+		rType = 0;
+		vrLen = 774;
+		vrLoc = 764;
+	};
+	499E3B9F0FFEC9A600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
+		name = "XstrumentView.h: 24";
+		rLen = 0;
+		rLoc = 764;
+		rType = 0;
+		vrLen = 817;
+		vrLoc = 0;
+	};
+	499E3BA20FFECBDC00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 157";
+		rLen = 0;
+		rLoc = 3335;
+		rType = 0;
+		vrLen = 797;
+		vrLoc = 2664;
+	};
+	499E3BA30FFECBDC00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 48";
+		rLen = 0;
+		rLoc = 1082;
+		rType = 0;
+		vrLen = 678;
+		vrLoc = 553;
+	};
+	499E3BA40FFECBDC00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
+		name = "MusicTheory.h: 109";
+		rLen = 0;
+		rLoc = 2751;
+		rType = 0;
+		vrLen = 950;
+		vrLoc = 1771;
+	};
+	499E3BA50FFECBDC00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B8B0FDF444000BC8B30 /* MidiPlatform.h */;
+		name = "MidiPlatform.h: 24";
+		rLen = 0;
+		rLoc = 521;
+		rType = 0;
+		vrLen = 548;
+		vrLoc = 0;
+	};
+	499E3BA60FFECBDC00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
+		name = "PortableUI.c: 380";
+		rLen = 0;
+		rLoc = 7458;
+		rType = 0;
+		vrLen = 839;
+		vrLoc = 6699;
+	};
+	499E3BA70FFECBDC00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
+		name = "XstrumentView.m: 58";
+		rLen = 0;
+		rLoc = 1387;
+		rType = 0;
+		vrLen = 772;
+		vrLoc = 764;
+	};
+	499E3BA80FFECBDC00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
+		name = "XstrumentView.h: 24";
+		rLen = 0;
+		rLoc = 764;
+		rType = 0;
+		vrLen = 817;
+		vrLoc = 0;
+	};
+	499E3BAA0FFECC3F00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 157";
+		rLen = 0;
+		rLoc = 3320;
+		rType = 0;
+		vrLen = 798;
+		vrLoc = 2664;
+	};
+	499E3BAB0FFECC3F00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 48";
+		rLen = 0;
+		rLoc = 1082;
+		rType = 0;
+		vrLen = 678;
+		vrLoc = 553;
+	};
+	499E3BAC0FFECC3F00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
+		name = "MusicTheory.h: 109";
+		rLen = 0;
+		rLoc = 2751;
+		rType = 0;
+		vrLen = 950;
+		vrLoc = 1771;
+	};
+	499E3BAD0FFECC3F00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B8B0FDF444000BC8B30 /* MidiPlatform.h */;
+		name = "MidiPlatform.h: 24";
+		rLen = 0;
+		rLoc = 521;
+		rType = 0;
+		vrLen = 548;
+		vrLoc = 0;
+	};
+	499E3BAE0FFECC3F00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
+		name = "PortableUI.c: 380";
+		rLen = 0;
+		rLoc = 7458;
+		rType = 0;
+		vrLen = 839;
+		vrLoc = 6699;
+	};
+	499E3BAF0FFECC3F00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
+		name = "XstrumentView.m: 58";
+		rLen = 0;
+		rLoc = 1387;
+		rType = 0;
+		vrLen = 772;
+		vrLoc = 764;
+	};
+	499E3BB00FFECC3F00A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
+		name = "XstrumentView.h: 24";
+		rLen = 0;
+		rLoc = 764;
+		rType = 0;
+		vrLen = 817;
+		vrLoc = 0;
+	};
+	499E3BB20FFECC7000A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 157";
+		rLen = 0;
+		rLoc = 3322;
+		rType = 0;
+		vrLen = 798;
+		vrLoc = 2664;
+	};
+	499E3BB30FFECC7000A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 48";
+		rLen = 0;
+		rLoc = 1082;
+		rType = 0;
+		vrLen = 678;
+		vrLoc = 553;
+	};
+	499E3BB40FFECC7000A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
+		name = "MusicTheory.h: 109";
+		rLen = 0;
+		rLoc = 2751;
+		rType = 0;
+		vrLen = 950;
+		vrLoc = 1771;
+	};
+	499E3BB50FFECC7000A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B8B0FDF444000BC8B30 /* MidiPlatform.h */;
+		name = "MidiPlatform.h: 24";
+		rLen = 0;
+		rLoc = 521;
+		rType = 0;
+		vrLen = 548;
+		vrLoc = 0;
+	};
+	499E3BB60FFECC7000A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
+		name = "PortableUI.c: 380";
+		rLen = 0;
+		rLoc = 7458;
+		rType = 0;
+		vrLen = 839;
+		vrLoc = 6699;
+	};
+	499E3BB70FFECC7000A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
+		name = "XstrumentView.m: 58";
+		rLen = 0;
+		rLoc = 1387;
+		rType = 0;
+		vrLen = 772;
+		vrLoc = 764;
+	};
+	499E3BB80FFECC7000A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
+		name = "XstrumentView.h: 24";
+		rLen = 0;
+		rLoc = 764;
+		rType = 0;
+		vrLen = 817;
+		vrLoc = 0;
+	};
+	499E3BBA0FFECD1600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 156";
+		rLen = 0;
+		rLoc = 3238;
+		rType = 0;
+		vrLen = 798;
+		vrLoc = 2664;
+	};
+	499E3BBB0FFECD1600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 48";
+		rLen = 0;
+		rLoc = 1082;
+		rType = 0;
+		vrLen = 678;
+		vrLoc = 553;
+	};
+	499E3BBC0FFECD1600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
+		name = "MusicTheory.h: 109";
+		rLen = 0;
+		rLoc = 2751;
+		rType = 0;
+		vrLen = 950;
+		vrLoc = 1771;
+	};
+	499E3BBD0FFECD1600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B8B0FDF444000BC8B30 /* MidiPlatform.h */;
+		name = "MidiPlatform.h: 24";
+		rLen = 0;
+		rLoc = 521;
+		rType = 0;
+		vrLen = 548;
+		vrLoc = 0;
+	};
+	499E3BBE0FFECD1600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
+		name = "PortableUI.c: 380";
+		rLen = 0;
+		rLoc = 7458;
+		rType = 0;
+		vrLen = 839;
+		vrLoc = 6699;
+	};
+	499E3BBF0FFECD1600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
+		name = "XstrumentView.m: 58";
+		rLen = 0;
+		rLoc = 1387;
+		rType = 0;
+		vrLen = 772;
+		vrLoc = 764;
+	};
+	499E3BC00FFECD1600A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
+		name = "XstrumentView.h: 24";
+		rLen = 0;
+		rLoc = 764;
+		rType = 0;
+		vrLen = 817;
+		vrLoc = 0;
+	};
+	499E3BC20FFECD4500A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 156";
+		rLen = 0;
+		rLoc = 3254;
+		rType = 0;
+		vrLen = 798;
+		vrLoc = 2664;
+	};
+	499E3BC30FFECD4500A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 48";
+		rLen = 0;
+		rLoc = 1082;
+		rType = 0;
+		vrLen = 678;
+		vrLoc = 553;
+	};
+	499E3BC40FFECD4500A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
+		name = "MusicTheory.h: 109";
+		rLen = 0;
+		rLoc = 2751;
+		rType = 0;
+		vrLen = 950;
+		vrLoc = 1771;
+	};
+	499E3BC50FFECD4500A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49B10B8B0FDF444000BC8B30 /* MidiPlatform.h */;
+		name = "MidiPlatform.h: 24";
+		rLen = 0;
+		rLoc = 521;
+		rType = 0;
+		vrLen = 548;
+		vrLoc = 0;
+	};
+	499E3BC60FFECD4500A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
+		name = "PortableUI.c: 380";
+		rLen = 0;
+		rLoc = 7458;
+		rType = 0;
+		vrLen = 839;
+		vrLoc = 6699;
+	};
+	499E3BC70FFECD4500A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D680FCF7C2F00710767 /* XstrumentView.m */;
+		name = "XstrumentView.m: 58";
+		rLen = 0;
+		rLoc = 1387;
+		rType = 0;
+		vrLen = 772;
+		vrLoc = 764;
+	};
+	499E3BC80FFECD4500A66D5C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49853D670FCF7C2F00710767 /* XstrumentView.h */;
+		name = "XstrumentView.h: 24";
+		rLen = 0;
+		rLoc = 764;
+		rType = 0;
+		vrLen = 817;
+		vrLoc = 0;
+	};
 	49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {720, 8946}}";
@@ -2375,13 +2837,13 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {831, 1540}}";
 			sepNavSelRange = "{2751, 0}";
-			sepNavVisRange = "{1771, 982}";
+			sepNavVisRange = "{1771, 950}";
 			sepNavWindowFrame = "{{520, 84}, {890, 700}}";
 		};
 	};
 	49B10B8B0FDF444000BC8B30 /* MidiPlatform.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {831, 572}}";
+			sepNavIntBoundsRect = "{{0, 0}, {831, 549}}";
 			sepNavSelRange = "{521, 0}";
 			sepNavVisRange = "{0, 548}";
 			sepNavWindowFrame = "{{387, 127}, {890, 700}}";
@@ -2588,7 +3050,7 @@
 		fRef = 49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */;
 		name = "MusicTheory.c: 568";
 		rLen = 0;
-		rLoc = 10667;
+		rLoc = 10735;
 		rType = 0;
 		vrLen = 613;
 		vrLoc = 10451;

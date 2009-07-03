@@ -153,7 +153,8 @@ int musicTheory_scaleBend(int n)
 	if(musicTheory.microTonal==2)
 	{
 		if(basis==2)return 0x2000 - (0x2000>>2);
-		if(basis==8)return 0x2000 + (0x2000>>2);
+		if(basis==7)return 0x2000 - (0x2000>>2);
+		if(basis==11 && musicTheory.twist==1)return 0x2000 + (0x2000>>2);
 	}
 	return 0x2000;
 }
