@@ -86,8 +86,16 @@ void musicTheory_init()
 	{
 		musicTheory.scaleBend[i] = 0x2000;
 	}
-	musicTheory.scaleBend[3] += 0x2000>>2;
-	musicTheory.scaleBend[8] += 0x2000>>2;
+	musicTheory.scaleBend[3] += (0x2000>>2);
+	musicTheory.scaleBend[8] += (0x2000>>2);
+	
+	musicTheory.microTonal=1;
+	for(i=0;i<15;i++)
+	{
+		printf("%d ",musicTheory_scaleBend(i));
+	}
+	printf("\n");
+	musicTheory.microTonal=0;
 	
 	musicTheory.sharps=3;
 	musicTheory.lastDistance=0;
@@ -149,8 +157,16 @@ void musicTheory_limitRange()
 
 int musicTheory_scaleBend(int n)
 {
-	if(!musicTheory.microTonal)return 0x2000;
-	return musicTheory.scaleBend[musicTheory.scale[n%7]%12];
+	int basis = (n+(5*musicTheory.sharps))%12;
+	if(musicTheory.microTonal==1 && (basis==3 || basis==8))
+	{
+		return 0x2000 + (0x2000>>2);
+	}
+	if(musicTheory.microTonal==2 && (basis==7 || basis==2))
+	{
+		return 0x2000 - (0x2000>>2);
+	}
+	return 0x2000;
 }
 
 int musicTheory_pickNote(int n)
@@ -374,7 +390,8 @@ int musicTheory_down(int key)
 			musicTheory.dirtyScale = 1;
 			return -1;
 		case '\\':
-			musicTheory.microTonal = !musicTheory.microTonal;
+			musicTheory.microTonal++;
+			musicTheory.microTonal%=3;
 			musicTheory.dirtyScale = 1;
 			return -1;
 		case 'g':
@@ -532,11 +549,6 @@ int musicTheory_sharpCount()
 int musicTheory_downCount(int n)
 {
 	return musicTheory.downCounts[n];
-}
-
-int musicTheory_isMicroTonal()
-{
-	return musicTheory.microTonal;
 }
 
 void musicTheory_keyDown(int k)

@@ -103,7 +103,7 @@ int musicTheory_getY();
  */
 int musicTheory_getSustain();
 
-
+int musicTheory_scaleBend(int note);
 
 
 

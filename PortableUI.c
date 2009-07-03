@@ -78,8 +78,13 @@ void rchill_renderBitmapString(char* string, float xarg, float yarg)
 //Abstract away the points to notes transform so that we can move to 3d with no changes
 void rchill_noteToPoint(int note,float* pX,float* pY,float* pZ)
 {
-	float startAngle = (((M_PI*2)/12) * (note % 12));
-	float startRadius = 1;0.15* note / 12.0f;
+	int offset = 0;
+	
+	if(musicTheory_scaleBend(note) < 0x2000)offset=-1;
+	if(musicTheory_scaleBend(note) > 0x2000)offset=+1;
+	
+	float startAngle = (((M_PI*2)/24) * ((2*note+offset) % 24));
+	float startRadius = 1;
 	(*pX) = startRadius * cos(startAngle);
 	(*pY) = -startRadius * sin(startAngle);
 	(*pZ) = note/8.0 - 14; //0;
