@@ -162,9 +162,10 @@ int musicTheory_scaleBend(int n)
 	{
 		return 0x2000 + (0x2000>>2);
 	}
-	if(musicTheory.microTonal==2 && (basis==7 || basis==2))
+	if(musicTheory.microTonal==2)
 	{
-		return 0x2000 - (0x2000>>2);
+		if(basis==2)return 0x2000 - (0x2000>>2);
+		if(basis==8)return 0x2000 + (0x2000>>2);
 	}
 	return 0x2000;
 }
