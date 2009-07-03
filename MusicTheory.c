@@ -31,7 +31,6 @@ struct
 	int previousNote;
 	int scalePosition;
 	int scale[15];
-	int scaleBend[12];
 	int sharps;
 	int twist;
 	int lastDistance;
@@ -46,7 +45,6 @@ struct
 	int y;
 	int pentatonic;
 	int sustain;
-	int tremBend;
 	int accBend;
 } musicTheory;
 
@@ -87,20 +85,6 @@ void musicTheory_init()
 	{
 		musicTheory.scale[i + 7] = 12 + musicTheory.scale[i];
 	}
-	for(i=0;i<12;i++)
-	{
-		musicTheory.scaleBend[i] = 0x2000;
-	}
-	musicTheory.scaleBend[3] += (0x2000>>2);
-	musicTheory.scaleBend[8] += (0x2000>>2);
-	
-	musicTheory.microTonal=1;
-	for(i=0;i<15;i++)
-	{
-		printf("%d ",musicTheory_scaleBend(i));
-	}
-	printf("\n");
-	musicTheory.microTonal=0;
 	
 	musicTheory.sharps=3;
 	musicTheory.lastDistance=0;
@@ -130,7 +114,6 @@ void musicTheory_init()
 	musicTheory.y = 127;
 	musicTheory.pentatonic=0;
 	musicTheory.sustain=0;
-	musicTheory.tremBend=0;
 	musicTheory.accBend=0;
 	midiPlatform_init();
 }
@@ -301,13 +284,13 @@ int* musicTheory_scalePattern()
 
 int musicTheory_wheelUp()
 {
-	musicTheory.pitchWheel +=0x0fff;
+	musicTheory.pitchWheel += 0x00000fff;
 	return musicTheory.pitchWheel;
 }
 
 int musicTheory_wheelDown()
 {
-	musicTheory.pitchWheel -=0x0fff;
+	musicTheory.pitchWheel -= 0x00000fff;
 	return musicTheory.pitchWheel;
 }
 
@@ -557,6 +540,14 @@ int musicTheory_downCount(int n)
 	return musicTheory.downCounts[n];
 }
 
+int musicTheory_bendLimit(int b)
+{
+	//14 bit value with 0x2000 as center (turn on 14th bit)
+	if(b < 0)return 0;
+	if(b > 0x3fff)return 0x3fff;
+	return b;
+}
+
 void musicTheory_keyDown(int k)
 {
 	int i=0;
@@ -595,8 +586,7 @@ void musicTheory_keyDown(int k)
 	}
 	else
 	{
-		int vbend = musicTheory_wheel();
-		int bend = musicTheory_scaleBend(note) + vbend + musicTheory.tremBend;
+		int bend = musicTheory_bendLimit(musicTheory_scaleBend(musicTheory.lastNote) + musicTheory_wheel());
 		midiPlatform_sendMidiPacket(0xE0, (bend)&0x7f, (bend>>7)&0x7f);
 		if(note>=0)
 		{
@@ -609,8 +599,7 @@ void musicTheory_keyDown(int k)
 void musicTheory_keyUp(int k)
 {
 	int note = musicTheory_up(k);
-	int vbend = musicTheory_wheel();
-	int bend = 0x2000 + vbend + musicTheory.tremBend;
+	int bend = musicTheory_bendLimit(musicTheory_scaleBend(musicTheory.lastNote));
 	midiPlatform_sendMidiPacket(0xE0, bend&0x7f, (bend>>7)&0x7f);
 	if(note>=0)
 	{
@@ -619,11 +608,6 @@ void musicTheory_keyUp(int k)
 			midiPlatform_sendMidiPacket(0x90, note, 0x00);
 		}
 	}
-}
-
-void musicTheory_setTremBend(int tremBend)
-{
-	musicTheory.tremBend = tremBend;
 }
 
 void musicTheory_setAccBend(int accBend)
