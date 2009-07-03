@@ -376,6 +376,10 @@ void portableui_repaint()
 	portableui_repaintCleanScale();
 	
 	glCallList(PORTABLEUI_STARLIST);
+	
+	glColor3f(0.5,0.2,0.5);
+	rchill_renderBitmapString(musicTheory_keyBuffer(),-2,-1.5);	
+	
 	glFinish();
 }
 

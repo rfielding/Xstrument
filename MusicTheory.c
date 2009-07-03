@@ -20,12 +20,13 @@
 */
 
 #import <stdio.h>
-
+#import <string.h>
 #import "MusicTheory.h"
 #import "MidiPlatform.h"
 
 struct
 {
+	char keyBuffer[1024];
 	int lastNote;
 	int previousNote;
 	int scalePosition;
@@ -68,6 +69,10 @@ int musicTheory_getY()
 void musicTheory_init()
 {
 	int i=0;
+	for(i=0;i<1024;i++)
+	{
+		musicTheory.keyBuffer[i] = '\0';
+	}
 	musicTheory.lastNote=12*5;
 	musicTheory.scalePosition=7*3;
 	musicTheory.scale[0] = 0;
@@ -554,6 +559,21 @@ int musicTheory_downCount(int n)
 
 void musicTheory_keyDown(int k)
 {
+	int i=0;
+	int end = strlen(musicTheory.keyBuffer);
+	if(end==32)
+	{
+		for(i=0;i<32;i++)
+		{
+			musicTheory.keyBuffer[i] = musicTheory.keyBuffer[i+1];
+		}
+		musicTheory.keyBuffer[31]=k;
+	}		
+	else
+	{
+		musicTheory.keyBuffer[end]=k;
+	}
+	
 	int note = musicTheory_down(k);
 	
 	if(k == '~')
@@ -614,4 +634,9 @@ void musicTheory_setAccBend(int accBend)
 int musicTheory_getSustain()
 {
 	return musicTheory.sustain;
+}
+
+char* musicTheory_keyBuffer()
+{
+	return musicTheory.keyBuffer;
 }

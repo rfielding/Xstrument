@@ -106,5 +106,5 @@ int musicTheory_getSustain();
 int musicTheory_scaleBend(int note);
 
 
-
+char* musicTheory_keyBuffer();
 
