@@ -83,7 +83,7 @@ void rchill_noteToPoint(int note,float* pX,float* pY,float* pZ)
 	if(musicTheory_scaleBend(note) < 0x2000)offset=-1;
 	if(musicTheory_scaleBend(note) > 0x2000)offset=+1;
 	
-	float startAngle = (((M_PI*2)/24) * ((2*note+offset) % 24));
+	float startAngle = (((M_PI*2)/(12*0x1000)) * ((0x1000*(note-2)+musicTheory_scaleBend(note)) % (12*0x1000)));
 	float startRadius = 1;
 	(*pX) = startRadius * cos(startAngle);
 	(*pY) = -startRadius * sin(startAngle);

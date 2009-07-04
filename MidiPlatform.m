@@ -20,7 +20,6 @@ struct {
 	Byte midiBuffer[1024];	
 } midiPlatform;
 
-
 /**
  Do synthesizer setup
  */

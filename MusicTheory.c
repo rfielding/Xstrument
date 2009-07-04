@@ -154,7 +154,7 @@ int musicTheory_scaleBend(int n)
 	{
 		if(basis==2)return 0x2000 - (0x2000>>2);
 		if(basis==7)return 0x2000 - (0x2000>>2);
-		if(basis==11 && musicTheory.twist==1)return 0x2000 + (0x2000>>2);
+		//if(basis==11 && musicTheory.twist==1)return 0x2000 - (0x2000>>2);
 	}
 	return 0x2000;
 }
@@ -549,6 +549,35 @@ int musicTheory_bendLimit(int b)
 	return b;
 }
 
+int musicTheory_bendKey(int k)
+{
+	switch(k)
+	{
+		case 'z':
+		case '/':
+		case '\r':
+			return 1;
+		default:
+			return 0;
+	}
+}
+
+int musicTheory_silentKey(int k)
+{
+	switch(k)
+	{
+		case '[':
+		case ']':
+		case '\\':
+		case '|':
+		case 't':
+		case 'g':
+			return 1;
+		default:
+			return 0;
+	}
+}
+
 void musicTheory_keyDown(int k)
 {
 	int i=0;
@@ -587,8 +616,11 @@ void musicTheory_keyDown(int k)
 	}
 	else
 	{
-		int bend = musicTheory_bendLimit(musicTheory_scaleBend(musicTheory.lastNote) + musicTheory_wheel());
-		midiPlatform_sendMidiPacket(0xE0, (bend)&0x7f, (bend>>7)&0x7f);
+		if(!musicTheory_silentKey(k))
+		{
+			int bend = musicTheory_bendLimit(musicTheory_scaleBend(musicTheory.lastNote) + musicTheory_wheel());
+			midiPlatform_sendMidiPacket(0xE0, (bend)&0x7f, (bend>>7)&0x7f);
+		}
 		if(note>=0)
 		{
 			int loud = musicTheory_getY();
@@ -600,8 +632,11 @@ void musicTheory_keyDown(int k)
 void musicTheory_keyUp(int k)
 {
 	int note = musicTheory_up(k);
-	int bend = musicTheory_bendLimit(musicTheory_scaleBend(musicTheory.lastNote));
-	midiPlatform_sendMidiPacket(0xE0, bend&0x7f, (bend>>7)&0x7f);
+	if(musicTheory_bendKey(k))
+	{
+		int bend = musicTheory_bendLimit(musicTheory_scaleBend(musicTheory.lastNote));
+		midiPlatform_sendMidiPacket(0xE0, bend&0x7f, (bend>>7)&0x7f);
+	}
 	if(note>=0)
 	{
 		if(!musicTheory.sustain && musicTheory_downCount(note)<=0)
