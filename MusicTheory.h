@@ -12,6 +12,12 @@
 
 #import "MidiPlatform.h"
 
+#define QUARTERTONE 0x0800
+#define HALFTONE    (QUARTERTONE*2)
+#define FULLTONE    (HALFTONE*2)
+#define CENTERTONE  FULLTONE
+#define BENDRANGE   (2*FULLTONE)
+
 /*
    The first thing that must be called
  */

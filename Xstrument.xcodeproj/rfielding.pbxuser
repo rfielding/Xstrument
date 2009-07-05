@@ -79,8 +79,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 268359749;
-			PBXWorkspaceStateSaveDate = 268359749;
+			PBXPerProjectTemplateStateSaveDate = 268501874;
+			PBXWorkspaceStateSaveDate = 268501874;
 		};
 		perUserProjectItems = {
 			492459F00FE1F0B7009F081D = 492459F00FE1F0B7009F081D /* PBXTextBookmark */;
@@ -91,67 +91,67 @@
 			493266850FD1CF4A006FBFB5 = 493266850FD1CF4A006FBFB5 /* PBXTextBookmark */;
 			49853DB90FCF900100710767 = 49853DB90FCF900100710767 /* PBXTextBookmark */;
 			49853DBA0FCF900100710767 = 49853DBA0FCF900100710767 /* PBXTextBookmark */;
-			499694B30FFED853000A14B6 /* PBXTextBookmark */ = 499694B30FFED853000A14B6 /* PBXTextBookmark */;
-			499694B60FFED853000A14B6 /* PBXTextBookmark */ = 499694B60FFED853000A14B6 /* PBXTextBookmark */;
-			499694B70FFED853000A14B6 /* PBXTextBookmark */ = 499694B70FFED853000A14B6 /* PBXTextBookmark */;
-			499694B80FFED853000A14B6 /* PBXTextBookmark */ = 499694B80FFED853000A14B6 /* PBXTextBookmark */;
-			499694B90FFED853000A14B6 /* PBXTextBookmark */ = 499694B90FFED853000A14B6 /* PBXTextBookmark */;
-			499694BA0FFED853000A14B6 /* PBXTextBookmark */ = 499694BA0FFED853000A14B6 /* PBXTextBookmark */;
-			499694BB0FFED853000A14B6 /* PBXTextBookmark */ = 499694BB0FFED853000A14B6 /* PBXTextBookmark */;
-			499694C50FFEDA08000A14B6 /* PBXTextBookmark */ = 499694C50FFEDA08000A14B6 /* PBXTextBookmark */;
-			499694C60FFEDA08000A14B6 /* PBXTextBookmark */ = 499694C60FFEDA08000A14B6 /* PBXTextBookmark */;
-			499694C70FFEDA08000A14B6 /* PBXTextBookmark */ = 499694C70FFEDA08000A14B6 /* PBXTextBookmark */;
-			499694C80FFEDA08000A14B6 /* PBXTextBookmark */ = 499694C80FFEDA08000A14B6 /* PBXTextBookmark */;
-			499694C90FFEDA08000A14B6 /* PBXTextBookmark */ = 499694C90FFEDA08000A14B6 /* PBXTextBookmark */;
-			499694CA0FFEDA08000A14B6 /* PBXTextBookmark */ = 499694CA0FFEDA08000A14B6 /* PBXTextBookmark */;
-			499694CB0FFEDA08000A14B6 /* PBXTextBookmark */ = 499694CB0FFEDA08000A14B6 /* PBXTextBookmark */;
-			499694CD0FFEDA50000A14B6 /* PBXTextBookmark */ = 499694CD0FFEDA50000A14B6 /* PBXTextBookmark */;
-			499694CE0FFEDA50000A14B6 /* PBXTextBookmark */ = 499694CE0FFEDA50000A14B6 /* PBXTextBookmark */;
-			499694CF0FFEDA50000A14B6 /* PBXTextBookmark */ = 499694CF0FFEDA50000A14B6 /* PBXTextBookmark */;
-			499694D00FFEDA50000A14B6 /* PBXTextBookmark */ = 499694D00FFEDA50000A14B6 /* PBXTextBookmark */;
-			499694D10FFEDA50000A14B6 /* PBXTextBookmark */ = 499694D10FFEDA50000A14B6 /* PBXTextBookmark */;
-			499694D20FFEDA50000A14B6 /* PBXTextBookmark */ = 499694D20FFEDA50000A14B6 /* PBXTextBookmark */;
-			499694D30FFEDA50000A14B6 /* PBXTextBookmark */ = 499694D30FFEDA50000A14B6 /* PBXTextBookmark */;
-			499694D50FFEDAB1000A14B6 /* PBXTextBookmark */ = 499694D50FFEDAB1000A14B6 /* PBXTextBookmark */;
-			499694D60FFEDAB1000A14B6 /* PBXTextBookmark */ = 499694D60FFEDAB1000A14B6 /* PBXTextBookmark */;
-			499694D70FFEDAB1000A14B6 /* PBXTextBookmark */ = 499694D70FFEDAB1000A14B6 /* PBXTextBookmark */;
-			499694D80FFEDAB1000A14B6 /* PBXTextBookmark */ = 499694D80FFEDAB1000A14B6 /* PBXTextBookmark */;
-			499694D90FFEDAB1000A14B6 /* PBXTextBookmark */ = 499694D90FFEDAB1000A14B6 /* PBXTextBookmark */;
-			499694DA0FFEDAB1000A14B6 /* PBXTextBookmark */ = 499694DA0FFEDAB1000A14B6 /* PBXTextBookmark */;
-			499694DB0FFEDAB1000A14B6 /* PBXTextBookmark */ = 499694DB0FFEDAB1000A14B6 /* PBXTextBookmark */;
-			499694DD0FFEDAFD000A14B6 /* PBXTextBookmark */ = 499694DD0FFEDAFD000A14B6 /* PBXTextBookmark */;
-			499694DE0FFEDAFD000A14B6 /* PBXTextBookmark */ = 499694DE0FFEDAFD000A14B6 /* PBXTextBookmark */;
-			499694DF0FFEDAFD000A14B6 /* PBXTextBookmark */ = 499694DF0FFEDAFD000A14B6 /* PBXTextBookmark */;
-			499694E00FFEDAFD000A14B6 /* PBXTextBookmark */ = 499694E00FFEDAFD000A14B6 /* PBXTextBookmark */;
-			499694E10FFEDAFD000A14B6 /* PBXTextBookmark */ = 499694E10FFEDAFD000A14B6 /* PBXTextBookmark */;
-			499694E20FFEDAFD000A14B6 /* PBXTextBookmark */ = 499694E20FFEDAFD000A14B6 /* PBXTextBookmark */;
-			499694E30FFEDAFD000A14B6 /* PBXTextBookmark */ = 499694E30FFEDAFD000A14B6 /* PBXTextBookmark */;
-			499694E50FFEDB96000A14B6 /* PBXTextBookmark */ = 499694E50FFEDB96000A14B6 /* PBXTextBookmark */;
-			499694E60FFEDB96000A14B6 /* PBXTextBookmark */ = 499694E60FFEDB96000A14B6 /* PBXTextBookmark */;
-			499694E70FFEDB96000A14B6 /* PBXTextBookmark */ = 499694E70FFEDB96000A14B6 /* PBXTextBookmark */;
-			499694E80FFEDB96000A14B6 /* PBXTextBookmark */ = 499694E80FFEDB96000A14B6 /* PBXTextBookmark */;
-			499694E90FFEDB96000A14B6 /* PBXTextBookmark */ = 499694E90FFEDB96000A14B6 /* PBXTextBookmark */;
-			499694EA0FFEDB96000A14B6 /* PBXTextBookmark */ = 499694EA0FFEDB96000A14B6 /* PBXTextBookmark */;
-			499694EB0FFEDB96000A14B6 /* PBXTextBookmark */ = 499694EB0FFEDB96000A14B6 /* PBXTextBookmark */;
-			499694EE0FFEE19C000A14B6 /* PBXBookmark */ = 499694EE0FFEE19C000A14B6 /* PBXBookmark */;
-			499694F10FFEEF1B000A14B6 /* PBXTextBookmark */ = 499694F10FFEEF1B000A14B6 /* PBXTextBookmark */;
-			499694F40FFEEF1B000A14B6 /* PBXTextBookmark */ = 499694F40FFEEF1B000A14B6 /* PBXTextBookmark */;
-			499694F50FFEEF1B000A14B6 /* PBXTextBookmark */ = 499694F50FFEEF1B000A14B6 /* PBXTextBookmark */;
-			499694F60FFEEF1B000A14B6 /* PBXTextBookmark */ = 499694F60FFEEF1B000A14B6 /* PBXTextBookmark */;
-			499694F70FFEEF1B000A14B6 /* PBXTextBookmark */ = 499694F70FFEEF1B000A14B6 /* PBXTextBookmark */;
-			499694F80FFEEF1B000A14B6 /* PBXTextBookmark */ = 499694F80FFEEF1B000A14B6 /* PBXTextBookmark */;
-			499694F90FFEEF1B000A14B6 /* PBXTextBookmark */ = 499694F90FFEEF1B000A14B6 /* PBXTextBookmark */;
-			499694FA0FFEEF1B000A14B6 /* PBXTextBookmark */ = 499694FA0FFEEF1B000A14B6 /* PBXTextBookmark */;
-			499694FB0FFEEF1B000A14B6 /* PBXTextBookmark */ = 499694FB0FFEEF1B000A14B6 /* PBXTextBookmark */;
-			499694FF0FFEF1D1000A14B6 /* PBXTextBookmark */ = 499694FF0FFEF1D1000A14B6 /* PBXTextBookmark */;
-			499695000FFEF1D1000A14B6 /* PBXTextBookmark */ = 499695000FFEF1D1000A14B6 /* PBXTextBookmark */;
-			499695010FFEF1D1000A14B6 /* PBXTextBookmark */ = 499695010FFEF1D1000A14B6 /* PBXTextBookmark */;
-			499695020FFEF1D1000A14B6 /* PBXTextBookmark */ = 499695020FFEF1D1000A14B6 /* PBXTextBookmark */;
-			499695030FFEF1D1000A14B6 /* PBXTextBookmark */ = 499695030FFEF1D1000A14B6 /* PBXTextBookmark */;
-			499695040FFEF1D1000A14B6 /* PBXTextBookmark */ = 499695040FFEF1D1000A14B6 /* PBXTextBookmark */;
-			499695050FFEF1D1000A14B6 /* PBXTextBookmark */ = 499695050FFEF1D1000A14B6 /* PBXTextBookmark */;
-			499695060FFEF1D1000A14B6 /* PBXTextBookmark */ = 499695060FFEF1D1000A14B6 /* PBXTextBookmark */;
-			499695070FFEF1D1000A14B6 /* PBXTextBookmark */ = 499695070FFEF1D1000A14B6 /* PBXTextBookmark */;
+			499694B30FFED853000A14B6 = 499694B30FFED853000A14B6 /* PBXTextBookmark */;
+			499694B60FFED853000A14B6 = 499694B60FFED853000A14B6 /* PBXTextBookmark */;
+			499694B70FFED853000A14B6 = 499694B70FFED853000A14B6 /* PBXTextBookmark */;
+			499694B80FFED853000A14B6 = 499694B80FFED853000A14B6 /* PBXTextBookmark */;
+			499694B90FFED853000A14B6 = 499694B90FFED853000A14B6 /* PBXTextBookmark */;
+			499694BA0FFED853000A14B6 = 499694BA0FFED853000A14B6 /* PBXTextBookmark */;
+			499694BB0FFED853000A14B6 = 499694BB0FFED853000A14B6 /* PBXTextBookmark */;
+			499694C50FFEDA08000A14B6 = 499694C50FFEDA08000A14B6 /* PBXTextBookmark */;
+			499694C60FFEDA08000A14B6 = 499694C60FFEDA08000A14B6 /* PBXTextBookmark */;
+			499694C70FFEDA08000A14B6 = 499694C70FFEDA08000A14B6 /* PBXTextBookmark */;
+			499694C80FFEDA08000A14B6 = 499694C80FFEDA08000A14B6 /* PBXTextBookmark */;
+			499694C90FFEDA08000A14B6 = 499694C90FFEDA08000A14B6 /* PBXTextBookmark */;
+			499694CA0FFEDA08000A14B6 = 499694CA0FFEDA08000A14B6 /* PBXTextBookmark */;
+			499694CB0FFEDA08000A14B6 = 499694CB0FFEDA08000A14B6 /* PBXTextBookmark */;
+			499694CD0FFEDA50000A14B6 = 499694CD0FFEDA50000A14B6 /* PBXTextBookmark */;
+			499694CE0FFEDA50000A14B6 = 499694CE0FFEDA50000A14B6 /* PBXTextBookmark */;
+			499694CF0FFEDA50000A14B6 = 499694CF0FFEDA50000A14B6 /* PBXTextBookmark */;
+			499694D00FFEDA50000A14B6 = 499694D00FFEDA50000A14B6 /* PBXTextBookmark */;
+			499694D10FFEDA50000A14B6 = 499694D10FFEDA50000A14B6 /* PBXTextBookmark */;
+			499694D20FFEDA50000A14B6 = 499694D20FFEDA50000A14B6 /* PBXTextBookmark */;
+			499694D30FFEDA50000A14B6 = 499694D30FFEDA50000A14B6 /* PBXTextBookmark */;
+			499694D50FFEDAB1000A14B6 = 499694D50FFEDAB1000A14B6 /* PBXTextBookmark */;
+			499694D60FFEDAB1000A14B6 = 499694D60FFEDAB1000A14B6 /* PBXTextBookmark */;
+			499694D70FFEDAB1000A14B6 = 499694D70FFEDAB1000A14B6 /* PBXTextBookmark */;
+			499694D80FFEDAB1000A14B6 = 499694D80FFEDAB1000A14B6 /* PBXTextBookmark */;
+			499694D90FFEDAB1000A14B6 = 499694D90FFEDAB1000A14B6 /* PBXTextBookmark */;
+			499694DA0FFEDAB1000A14B6 = 499694DA0FFEDAB1000A14B6 /* PBXTextBookmark */;
+			499694DB0FFEDAB1000A14B6 = 499694DB0FFEDAB1000A14B6 /* PBXTextBookmark */;
+			499694DD0FFEDAFD000A14B6 = 499694DD0FFEDAFD000A14B6 /* PBXTextBookmark */;
+			499694DE0FFEDAFD000A14B6 = 499694DE0FFEDAFD000A14B6 /* PBXTextBookmark */;
+			499694DF0FFEDAFD000A14B6 = 499694DF0FFEDAFD000A14B6 /* PBXTextBookmark */;
+			499694E00FFEDAFD000A14B6 = 499694E00FFEDAFD000A14B6 /* PBXTextBookmark */;
+			499694E10FFEDAFD000A14B6 = 499694E10FFEDAFD000A14B6 /* PBXTextBookmark */;
+			499694E20FFEDAFD000A14B6 = 499694E20FFEDAFD000A14B6 /* PBXTextBookmark */;
+			499694E30FFEDAFD000A14B6 = 499694E30FFEDAFD000A14B6 /* PBXTextBookmark */;
+			499694E50FFEDB96000A14B6 = 499694E50FFEDB96000A14B6 /* PBXTextBookmark */;
+			499694E60FFEDB96000A14B6 = 499694E60FFEDB96000A14B6 /* PBXTextBookmark */;
+			499694E70FFEDB96000A14B6 = 499694E70FFEDB96000A14B6 /* PBXTextBookmark */;
+			499694E80FFEDB96000A14B6 = 499694E80FFEDB96000A14B6 /* PBXTextBookmark */;
+			499694E90FFEDB96000A14B6 = 499694E90FFEDB96000A14B6 /* PBXTextBookmark */;
+			499694EA0FFEDB96000A14B6 = 499694EA0FFEDB96000A14B6 /* PBXTextBookmark */;
+			499694EB0FFEDB96000A14B6 = 499694EB0FFEDB96000A14B6 /* PBXTextBookmark */;
+			499694EE0FFEE19C000A14B6 = 499694EE0FFEE19C000A14B6 /* PBXBookmark */;
+			499694F10FFEEF1B000A14B6 = 499694F10FFEEF1B000A14B6 /* PBXTextBookmark */;
+			499694F40FFEEF1B000A14B6 = 499694F40FFEEF1B000A14B6 /* PBXTextBookmark */;
+			499694F50FFEEF1B000A14B6 = 499694F50FFEEF1B000A14B6 /* PBXTextBookmark */;
+			499694F60FFEEF1B000A14B6 = 499694F60FFEEF1B000A14B6 /* PBXTextBookmark */;
+			499694F70FFEEF1B000A14B6 = 499694F70FFEEF1B000A14B6 /* PBXTextBookmark */;
+			499694F80FFEEF1B000A14B6 = 499694F80FFEEF1B000A14B6 /* PBXTextBookmark */;
+			499694F90FFEEF1B000A14B6 = 499694F90FFEEF1B000A14B6 /* PBXTextBookmark */;
+			499694FA0FFEEF1B000A14B6 = 499694FA0FFEEF1B000A14B6 /* PBXTextBookmark */;
+			499694FB0FFEEF1B000A14B6 = 499694FB0FFEEF1B000A14B6 /* PBXTextBookmark */;
+			499694FF0FFEF1D1000A14B6 = 499694FF0FFEF1D1000A14B6 /* PBXTextBookmark */;
+			499695000FFEF1D1000A14B6 = 499695000FFEF1D1000A14B6 /* PBXTextBookmark */;
+			499695010FFEF1D1000A14B6 = 499695010FFEF1D1000A14B6 /* PBXTextBookmark */;
+			499695020FFEF1D1000A14B6 = 499695020FFEF1D1000A14B6 /* PBXTextBookmark */;
+			499695030FFEF1D1000A14B6 = 499695030FFEF1D1000A14B6 /* PBXTextBookmark */;
+			499695040FFEF1D1000A14B6 = 499695040FFEF1D1000A14B6 /* PBXTextBookmark */;
+			499695050FFEF1D1000A14B6 = 499695050FFEF1D1000A14B6 /* PBXTextBookmark */;
+			499695060FFEF1D1000A14B6 = 499695060FFEF1D1000A14B6 /* PBXTextBookmark */;
+			499695070FFEF1D1000A14B6 = 499695070FFEF1D1000A14B6 /* PBXTextBookmark */;
 			499B5AD20FD6296E00ECD979 = 499B5AD20FD6296E00ECD979 /* PBXTextBookmark */;
 			499B5AD40FD6296E00ECD979 = 499B5AD40FD6296E00ECD979 /* PBXTextBookmark */;
 			499B5ADA0FD6296E00ECD979 = 499B5ADA0FD6296E00ECD979 /* PBXTextBookmark */;
@@ -182,6 +182,8 @@
 			49E4E5590FFEADD30078F88A = 49E4E5590FFEADD30078F88A /* PBXTextBookmark */;
 			49E4E55B0FFEADD30078F88A = 49E4E55B0FFEADD30078F88A /* PBXTextBookmark */;
 			49E4E55C0FFEADD30078F88A = 49E4E55C0FFEADD30078F88A /* PBXTextBookmark */;
+			49EF204F1001052800F1A5F3 /* PBXTextBookmark */ = 49EF204F1001052800F1A5F3 /* PBXTextBookmark */;
+			49EF20501001052800F1A5F3 /* PBXTextBookmark */ = 49EF20501001052800F1A5F3 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 49853D620FCF7A6900710767 /* Source Control */;
 		userBuildSettings = {
@@ -392,7 +394,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 147";
 		rLen = 0;
-		rLoc = 3009;
+		rLoc = 3010;
 		rType = 0;
 		vrLen = 803;
 		vrLoc = 3359;
@@ -402,7 +404,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 85";
 		rLen = 0;
-		rLoc = 1953;
+		rLoc = 1961;
 		rType = 0;
 		vrLen = 852;
 		vrLoc = 1532;
@@ -412,7 +414,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 48";
 		rLen = 0;
-		rLoc = 1082;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 678;
 		vrLoc = 553;
@@ -422,7 +424,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 1771;
@@ -462,7 +464,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 147";
 		rLen = 0;
-		rLoc = 3009;
+		rLoc = 3010;
 		rType = 0;
 		vrLen = 803;
 		vrLoc = 3359;
@@ -472,7 +474,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 86";
 		rLen = 0;
-		rLoc = 2045;
+		rLoc = 2057;
 		rType = 0;
 		vrLen = 896;
 		vrLoc = 1532;
@@ -482,7 +484,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 48";
 		rLen = 0;
-		rLoc = 1082;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 678;
 		vrLoc = 553;
@@ -492,7 +494,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 1771;
@@ -532,7 +534,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 147";
 		rLen = 0;
-		rLoc = 3009;
+		rLoc = 3010;
 		rType = 0;
 		vrLen = 803;
 		vrLoc = 3359;
@@ -542,7 +544,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 86";
 		rLen = 0;
-		rLoc = 2045;
+		rLoc = 2057;
 		rType = 0;
 		vrLen = 903;
 		vrLoc = 1532;
@@ -552,7 +554,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 48";
 		rLen = 0;
-		rLoc = 1082;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 678;
 		vrLoc = 553;
@@ -562,7 +564,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 1771;
@@ -602,7 +604,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 147";
 		rLen = 0;
-		rLoc = 3009;
+		rLoc = 3010;
 		rType = 0;
 		vrLen = 803;
 		vrLoc = 3359;
@@ -612,7 +614,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 86";
 		rLen = 0;
-		rLoc = 2045;
+		rLoc = 2057;
 		rType = 0;
 		vrLen = 896;
 		vrLoc = 1532;
@@ -622,7 +624,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 48";
 		rLen = 0;
-		rLoc = 1082;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 678;
 		vrLoc = 553;
@@ -632,7 +634,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 1771;
@@ -672,7 +674,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 147";
 		rLen = 0;
-		rLoc = 3009;
+		rLoc = 3010;
 		rType = 0;
 		vrLen = 803;
 		vrLoc = 3359;
@@ -682,7 +684,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 86";
 		rLen = 0;
-		rLoc = 2056;
+		rLoc = 2065;
 		rType = 0;
 		vrLen = 896;
 		vrLoc = 1532;
@@ -692,7 +694,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 48";
 		rLen = 0;
-		rLoc = 1082;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 678;
 		vrLoc = 553;
@@ -702,7 +704,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 1771;
@@ -742,7 +744,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 147";
 		rLen = 0;
-		rLoc = 3009;
+		rLoc = 3010;
 		rType = 0;
 		vrLen = 803;
 		vrLoc = 3359;
@@ -752,7 +754,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 86";
 		rLen = 0;
-		rLoc = 2017;
+		rLoc = 2029;
 		rType = 0;
 		vrLen = 900;
 		vrLoc = 1532;
@@ -762,7 +764,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 48";
 		rLen = 0;
-		rLoc = 1082;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 678;
 		vrLoc = 553;
@@ -772,7 +774,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 1771;
@@ -816,7 +818,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 603";
 		rLen = 0;
-		rLoc = 11758;
+		rLoc = 11781;
 		rType = 0;
 		vrLen = 880;
 		vrLoc = 11075;
@@ -836,7 +838,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 950;
 		vrLoc = 1771;
@@ -846,7 +848,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 1024;
 		vrLoc = 1697;
@@ -856,7 +858,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 86";
 		rLen = 0;
-		rLoc = 2017;
+		rLoc = 2029;
 		rType = 0;
 		vrLen = 900;
 		vrLoc = 1532;
@@ -866,7 +868,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 48";
 		rLen = 0;
-		rLoc = 1082;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 678;
 		vrLoc = 553;
@@ -906,7 +908,7 @@
 		comments = "error: duplicate case value";
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		rLen = 1;
-		rLoc = 573;
+		rLoc = 574;
 		rType = 1;
 	};
 	499695000FFEF1D1000A14B6 /* PBXTextBookmark */ = {
@@ -914,7 +916,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 574";
 		rLen = 0;
-		rLoc = 10793;
+		rLoc = 10816;
 		rType = 0;
 		vrLen = 513;
 		vrLoc = 10603;
@@ -934,7 +936,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 1024;
 		vrLoc = 1697;
@@ -944,7 +946,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 86";
 		rLen = 0;
-		rLoc = 2017;
+		rLoc = 2029;
 		rType = 0;
 		vrLen = 900;
 		vrLoc = 1532;
@@ -954,7 +956,7 @@
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		name = "MusicTheory.c: 48";
 		rLen = 0;
-		rLoc = 1082;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 678;
 		vrLoc = 553;
@@ -1062,7 +1064,7 @@
 		fRef = 49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */;
 		name = "MusicTheory.c: 568";
 		rLen = 0;
-		rLoc = 11029;
+		rLoc = 11052;
 		rType = 0;
 		vrLen = 610;
 		vrLoc = 10451;
@@ -1094,9 +1096,10 @@
 		path = /Users/rfielding/cocoa/Xstrument/MusicTheory.c;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {831, 8988}}";
-			sepNavSelRange = "{1082, 0}";
-			sepNavVisRange = "{553, 678}";
+			sepNavIntBoundsRect = "{{0, 0}, {907, 8806}}";
+			sepNavSelRange = "{759, 0}";
+			sepNavVisRange = "{0, 1002}";
+			sepNavWindowFrame = "{{120, 178}, {890, 700}}";
 		};
 	};
 	499E3B020FFEBE0E00A66D5C /* PBXTextBookmark */ = {
@@ -1104,7 +1107,7 @@
 		comments = "error: 'struct <anonymous>' has no member named 'tremBend'";
 		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
 		rLen = 1;
-		rLoc = 116;
+		rLoc = 117;
 		rType = 1;
 	};
 	499E3BE50FFED5CE00A66D5C /* PBXTextBookmark */ = {
@@ -1112,7 +1115,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 380";
 		rLen = 0;
-		rLoc = 7506;
+		rLoc = 7520;
 		rType = 0;
 		vrLen = 842;
 		vrLoc = 6699;
@@ -1122,7 +1125,7 @@
 		fRef = 49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */;
 		name = "MusicTheory.c: 147";
 		rLen = 0;
-		rLoc = 3009;
+		rLoc = 3010;
 		rType = 0;
 		vrLen = 830;
 		vrLoc = 3359;
@@ -1132,7 +1135,7 @@
 		fRef = 492459C80FE1EC5E009F081D /* PortableUI.c */;
 		name = "PortableUI.c: 85";
 		rLen = 0;
-		rLoc = 1953;
+		rLoc = 1961;
 		rType = 0;
 		vrLen = 864;
 		vrLoc = 1522;
@@ -1142,7 +1145,7 @@
 		fRef = 49B10B780FDF3ECC00BC8B30 /* MusicTheory.c */;
 		name = "MusicTheory.c: 48";
 		rLen = 0;
-		rLoc = 1082;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 703;
 		vrLoc = 553;
@@ -1152,7 +1155,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 982;
 		vrLoc = 1771;
@@ -1197,9 +1200,9 @@
 	};
 	49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {831, 1540}}";
-			sepNavSelRange = "{2751, 0}";
-			sepNavVisRange = "{1697, 1024}";
+			sepNavIntBoundsRect = "{{0, 0}, {831, 1638}}";
+			sepNavSelRange = "{395, 11}";
+			sepNavVisRange = "{0, 1182}";
 			sepNavWindowFrame = "{{520, 84}, {890, 700}}";
 		};
 	};
@@ -1213,7 +1216,7 @@
 	};
 	49B10B8C0FDF444000BC8B30 /* MidiPlatform.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {831, 1456}}";
+			sepNavIntBoundsRect = "{{0, 0}, {831, 1400}}";
 			sepNavSelRange = "{499, 0}";
 			sepNavVisRange = "{483, 1139}";
 			sepNavWindowFrame = "{{38, 152}, {890, 700}}";
@@ -1340,7 +1343,7 @@
 		fRef = 49B10B790FDF3ECC00BC8B30 /* MusicTheory.h */;
 		name = "MusicTheory.h: 109";
 		rLen = 0;
-		rLoc = 2751;
+		rLoc = 2910;
 		rType = 0;
 		vrLen = 953;
 		vrLoc = 1800;
@@ -1374,6 +1377,24 @@
 		rType = 0;
 		vrLen = 817;
 		vrLoc = 0;
+	};
+	49EF204F1001052800F1A5F3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: syntax error before 'if'";
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		rLen = 1;
+		rLoc = 156;
+		rType = 1;
+	};
+	49EF20501001052800F1A5F3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 499E3AFD0FFEBDA700A66D5C /* MusicTheory.c */;
+		name = "MusicTheory.c: 161";
+		rLen = 0;
+		rLoc = 3233;
+		rType = 0;
+		vrLen = 534;
+		vrLoc = 3130;
 	};
 	8D1107260486CEB800E47090 /* Xstrument */ = {
 		activeExec = 0;

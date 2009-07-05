@@ -24,6 +24,7 @@
 #import "MusicTheory.h"
 #import "MidiPlatform.h"
 
+
 struct
 {
 	char keyBuffer[1024];
@@ -148,12 +149,12 @@ int musicTheory_scaleBend(int n)
 	int basis = (n+(5*musicTheory.sharps))%12;
 	if(musicTheory.microTonal==1 && (basis==3 || basis==8))
 	{
-		return 0x2000 + (0x2000>>2);
+		return CENTERTONE + QUARTERTONE;
 	}
 	if(musicTheory.microTonal==2)
 	{
-		if(basis==2)return 0x2000 - (0x2000>>2);
-		if(basis==7)return 0x2000 - (0x2000>>2);
+		if(basis==2)return CENTERTONE - QUARTERTONE;
+		if(basis==7)return CENTERTONE - QUARTERTONE;
 		//if(basis==11 && musicTheory.twist==1)return 0x2000 - (0x2000>>2);
 	}
 	return 0x2000;
@@ -285,13 +286,13 @@ int* musicTheory_scalePattern()
 
 int musicTheory_wheelUp()
 {
-	musicTheory.pitchWheel += 0x00000fff;
+	musicTheory.pitchWheel += HALFTONE-1;
 	return musicTheory.pitchWheel;
 }
 
 int musicTheory_wheelDown()
 {
-	musicTheory.pitchWheel -= 0x00000fff;
+	musicTheory.pitchWheel -= HALFTONE-1;
 	return musicTheory.pitchWheel;
 }
 
@@ -545,7 +546,7 @@ int musicTheory_bendLimit(int b)
 {
 	//14 bit value with 0x2000 as center (turn on 14th bit)
 	if(b < 0)return 0;
-	if(b > 0x3fff)return 0x3fff;
+	if(b > BENDRANGE-1)return BENDRANGE-1;
 	return b;
 }
 
