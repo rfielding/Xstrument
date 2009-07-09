@@ -16,6 +16,9 @@ software without explicit permission.
 //
 
 #import <Cocoa/Cocoa.h>
+#import <OpenGL/CGLRenderers.h>
+
+
 
 /*
    The OpenGL surface whose job it is to get key events to hand down to the PortableUI

@@ -16,6 +16,14 @@
 #define PORTABLEUI_DIRTYLIST 1000
 #define PORTABLEUI_STARLIST 1001
 
+/* Parameter */
+struct Parameter {
+	float current [4];
+	float min     [4];
+	float max     [4];
+	float delta   [4];	
+};
+
 struct
 {
 	char charBuffer[1024];
@@ -23,7 +31,49 @@ struct
 	int bitmapHeight;
 	float width;
 	float height;
+	struct Parameter offset;
 } portableui;
+
+void portableui_animate()
+{
+	int i; 
+	for (i = 0; i < 4; i ++) 
+	{
+		portableui.offset.current[i] += portableui.offset.delta[i];
+		if ((portableui.offset.current[i] < portableui.offset.min[i]) || (portableui.offset.current[i] > portableui.offset.max[i])) 
+		{
+			portableui.offset.delta[i] = -portableui.offset.delta[i];
+		}
+		portableui.offset.delta[i] *= 0.75;
+	}
+}
+
+void portableui_kick()
+{
+	int* downNotes = (int*)musicTheory_notes();
+	for(int i=0;i<255;i++)
+	{
+		int noteNumber = downNotes[i];
+		if(noteNumber>=0)
+		{
+			for(int j=0; j<4; j++)
+			{
+				if(portableui.offset.delta[j] < 0.2f)
+				{
+					portableui.offset.delta[j] = 0.2f;
+				}
+				if(portableui.offset.delta[j] < 1.0f)
+				{
+					portableui.offset.delta[j] *= 1.5;
+				}
+			}
+		}
+	}
+}
+float* portableui_getoffset()
+{
+	return portableui.offset.current;
+}
 
 void portableui_init()
 {
@@ -31,6 +81,8 @@ void portableui_init()
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_AUTO_NORMAL);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glHint(GL_LINE_SMOOTH_HINT,GL_NICEST);
 	
 	GLfloat ambient[] = {0.1,0.5,0.2,1.0};
@@ -50,6 +102,22 @@ void portableui_init()
 	portableui.font = (int)GLUT_BITMAP_9_BY_15;
 	portableui.bitmapHeight = 15;
 	portableui.charBuffer[0] = 0x00;
+
+	portableui.offset.current[0] = 1;
+	portableui.offset.min[0] = 0;
+	portableui.offset.max[0] = 100;
+	portableui.offset.delta[0] = 0.1;
+	
+	portableui.offset.current[1] = 15;
+	portableui.offset.min[1] = 0;
+	portableui.offset.max[1] = 100;
+	portableui.offset.delta[1] = 0.1;
+	
+	portableui.offset.current[2] = 5;
+	portableui.offset.min[2] = 0;
+	portableui.offset.max[2] = 100;
+	portableui.offset.delta[2] = 0.1;	
+	
 	musicTheory_init();
 }
 
@@ -322,6 +390,8 @@ void portableui_repaintCleanScale()
 	glEnd();
 }
 
+
+
 void portableui_repaint()
 {
 	int i=0;
@@ -341,6 +411,8 @@ void portableui_repaint()
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);// | GL_DEPTH_BUFFER_BIT);
 	
+	glUniform1fARB(glGetUniformLocationARB(program_object, "scaleIn"), portableui.offset.delta[0]);
+	glUniform3fvARB(glGetUniformLocationARB(program_object, "color"), 1, portableui_getoffset());
 	for(i=0;i<255;i++)
 	{
 		int noteNumber = downNotes[i];
@@ -357,7 +429,7 @@ void portableui_repaint()
 	glLoadIdentity();
 	z = 3.0f * (1.0f + (0x2000-musicTheory_wheel())/(0x2000 * 15.0));
 	gluLookAt(
-			  bumpX*0.01,bumpY*0.01,z,
+			  bumpX*0.02,bumpY*0.02,z,
 			  //rchill.radius * sin(rchill.theta) , 0, rchill.radius * cos(rchill.theta), 
 			  -bumpX*0.01, -bumpY*0.01, -bumpZ*0.01, 
 			  0, 1, 0
@@ -366,6 +438,8 @@ void portableui_repaint()
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	
 	glTranslatef(0,0,0);
+	
+	glUniform3fvARB(glGetUniformLocationARB(program_object, "offset"), 1, portableui_getoffset());
 	
 	if(musicTheory_dirtyScale())
 	{
@@ -377,7 +451,7 @@ void portableui_repaint()
 	
 	glCallList(PORTABLEUI_STARLIST);
 	
-	glColor3f(0.5,0.2,0.5);
+	glColor4f(0.5,0.2,0.5,0.25);
 	rchill_renderBitmapString(musicTheory_keyBuffer(),-2,-1.5);	
 	
 	glFinish();

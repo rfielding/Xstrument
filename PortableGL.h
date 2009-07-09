@@ -10,3 +10,7 @@
  */
 
 #import <GLUT/glut.h>
+#import <OpenGL/glext.h>
+#import <OpenGL/glu.h>
+#import <OpenGL/gl.h>
+#import <OpenGL/OpenGL.h>
