@@ -27,9 +27,9 @@ void main(void)
     vec3 lightVec   = normalize(LightPosition - position);
     float diffuse   = max(dot(lightVec, normal), 0.0);
 
-    if (diffuse < 0.125)
-         diffuse = 0.125;
+    if (diffuse < 0.0125)
+         diffuse = 0.0125;
 
-    Color = gl_Color; //vec4(SurfaceColor * diffuse, 1.0);
+    Color = vec4(gl_Color * diffuse); //vec4(SurfaceColor * diffuse, 1.0);
     gl_Position = gl_ModelViewProjectionMatrix * vec4(vertex,1.0);
 }

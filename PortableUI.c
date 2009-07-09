@@ -211,7 +211,52 @@ void rchill_repaintDirtyScale()
 	char stringBuffer[16];
 	
 	glNewList(PORTABLEUI_DIRTYLIST,GL_COMPILE);
+	int minor = (7*musicTheory_sharpCount())%12;
+	int major = (7*musicTheory_sharpCount() + 3)%12;
+	int inScale=0;
+	for(i=0;i<7;i++)
+	{
+		int n = ((musicTheory_pickNote(i+7)%12));
+		inScale |= 1<< n;
+	}
 	glBegin(GL_QUADS);
+	for(i=0;i<128;i++)
+	{
+		float r=0.0;
+		float g=0.0;
+		float b=0.0;
+		int note = (i % 12);
+		int isInScale = inScale & (1<<note);
+		if( minor == note)
+		{
+			g=0.8; b=0.8f;
+		}
+		else
+		if( major == note )
+		{
+			r=0.8f; b=0.8f;
+		}
+		else
+		if( isInScale )
+		{
+			b=1.0f;
+		}
+		
+		if(r>0.0 || g>0.0 || b>0.0)
+		{
+			glColor3f(r,g,b);
+			rchill_noteToPoint(i+12,&x,&y,&z);
+			rchill_noteToPoint(i+1+12,&x2,&y2,&z2);
+			rchill_noteToPoint(i+1,&x3,&y3,&z3);
+			rchill_noteToPoint(i+0,&x4,&y4,&z4);
+			
+			glVertex3f(x,y,z);
+			glVertex3f(x2,y2,z2);
+			glVertex3f(x3,y3,z3);
+			glVertex3f(x4,y4,z4);
+		}
+	}
+	/*
 	for(i=0;i<7;i++)
 	{
 		int note = musicTheory_pickNote(i) % 12; 
@@ -240,14 +285,15 @@ void rchill_repaintDirtyScale()
 		glVertex3f(x,y,z);
 		rchill_noteToPoint(note+12*12+1, &x, &y,&z);
 		glVertex3f(x,y,z);
-	}		 
+	}		
+	 */
 	glEnd();		
 	
 	glBegin(GL_LINE_STRIP);
 	
 	for(i=0;i<128;i++)
 	{
-		glColor3f(0.0,(i/64.0-1.0)*0.5,0.0);
+		glColor3f(0.0,/*(i/64.0-1.0)* */ 0.5,0.0);
 		
 		rchill_noteToPoint(i+12,&x,&y,&z);
 		rchill_noteToPoint(i+1+12,&x2,&y2,&z2);
@@ -268,14 +314,14 @@ void rchill_repaintDirtyScale()
 	for(i=0;i<13;i++)
 	{
 		int fifth = ((musicTheory_sharpCount()+i)*7)%12; 
-		glColor3f((12-i)/(10.0f + 1*(12-i)*i) ,0.0, i/(10.0f + 1*(12-i)*i));
-		rchill_noteToPoint(fifth+12*5,&x2,&y2,&z2);
-		rchill_noteToPoint(fifth+1+12*5,&x3,&y3,&z3);
+		glColor4f((12-i)/(5.0f + 1*(12-i)*i) ,0.0, i/(5.0f + 1*(12-i)*i),0.75f);
+		rchill_noteToPoint(fifth+12*8,&x2,&y2,&z2);
+		rchill_noteToPoint(fifth+1+12*8,&x3,&y3,&z3);
 		x = (x2+x3)/2;
 		y = (y2+y3)/2;
 		z = (z2+z3)/2;
 		
-		glVertex3f(x,y,z-2);
+		glVertex3f(x,y,z-0.5);
 	}
 	glEnd();
 	
@@ -427,7 +473,7 @@ void portableui_repaint()
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	z = 3.0f * (1.0f + (0x2000-musicTheory_wheel())/(0x2000 * 15.0));
+	z = 3.0f * (1.0f + (0x2000-musicTheory_wheel())/(0x2000 * 12.0));
 	gluLookAt(
 			  bumpX*0.02,bumpY*0.02,z,
 			  //rchill.radius * sin(rchill.theta) , 0, rchill.radius * cos(rchill.theta), 
