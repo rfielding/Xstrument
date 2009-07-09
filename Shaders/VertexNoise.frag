@@ -11,10 +11,11 @@
 //
 
 varying vec4 Color;
+varying vec4 Center;
 
 void main (void)
 {
 	float z = gl_FragCoord.z / gl_FragCoord.w;
-	float sz = log(z+0.5);
-    gl_FragColor = Color / sz;
+	float sz = log(z+0.9);
+    gl_FragColor = 0.7*Color / sz;
 }
