@@ -265,12 +265,12 @@ void rchill_repaintDirtyScale()
 		int isInScale = inScale & (1<<note);
 		if( minor == note)
 		{
-			g=0.8; b=0.8f;
+			r=0.8; b=0.8f;
 		}
 		else
 		if( major == note )
 		{
-			r=0.8f; b=0.8f;
+			g=0.8f; b=0.8f;
 		}
 		else
 		if( isInScale )
