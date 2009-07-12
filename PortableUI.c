@@ -300,7 +300,14 @@ void portableui_particleDraw()
 	for (int i = 0; i < PARTICLECOUNT; i++)
 	{
 		float alpha = particles[4*i+3];
-		glColor4f(1.0, alpha/(2*M_PI), 0.2, 0.15);
+		if(musicTheory_microtonalMode())
+		{
+			glColor4f(alpha/(2*M_PI), 1.0, 0.2, 0.15);
+		}
+		else
+		{
+			glColor4f(1.0, alpha/(2*M_PI), 0.2, 0.15);
+		}
 		glVertex3fv(&particles[i*4]);
 	}	
 	//glColor3f(1.0,0,0);
@@ -311,7 +318,14 @@ void portableui_particleDraw()
 	for (int i = 0; i < PARTICLECOUNT; i++)
 	{
 		float alpha = particles[4*i+3];
-		glColor4f(1.0, alpha/(2*M_PI), 0.2, 1.0);
+		if(musicTheory_microtonalMode())
+		{
+			glColor4f(alpha/(2*M_PI), 1.0, 0.2, 1.0);
+		}
+		else
+		{
+			glColor4f(1.0, alpha/(2*M_PI), 0.2, 1.0);
+		}
 		glVertex3fv(&particles[i*4]);
 	}	
 	//glColor3f(1.0,0,0);

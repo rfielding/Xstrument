@@ -114,3 +114,5 @@ int musicTheory_scaleBend(int note);
 
 char* musicTheory_keyBuffer();
 
+int musicTheory_microtonalMode();
+

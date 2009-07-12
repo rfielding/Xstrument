@@ -663,3 +663,8 @@ char* musicTheory_keyBuffer()
 {
 	return musicTheory.keyBuffer;
 }
+
+int musicTheory_microtonalMode()
+{
+	return musicTheory.microTonal;
+}
