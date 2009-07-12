@@ -370,17 +370,17 @@ int musicTheory_down(int key)
 			 */
 		case ';':
 			distance = -5; break;
-		case 't':
+		case '\t':
 		case '[':
 			musicTheory.sharps++; musicTheory.sharps%=12; 
 			musicTheory.dirtyScale = 1;
 			return -1;
-		case 'y':
+		case 'q':
 		case ']':
 			musicTheory.sharps--; musicTheory.sharps+=12; musicTheory.sharps%=12; 
 			musicTheory.dirtyScale = 1;
 			return -1;
-		case '\\':
+		case 'y':
 			musicTheory.microTonal++;
 			musicTheory.microTonal%=3;
 			musicTheory.dirtyScale = 1;
@@ -388,7 +388,7 @@ int musicTheory_down(int key)
 		case 'g':
 			musicTheory.dirtyScale = 1;
 			musicTheory.twist++; musicTheory.twist%=2; return -1;
-		case '|':
+		case 't':
 			musicTheory.dirtyScale = 1;
 			musicTheory.pentatonic=!musicTheory.pentatonic; return -1;
 		case 'u':
@@ -571,8 +571,10 @@ int musicTheory_silentKey(int k)
 		case ']':
 		case '\\':
 		case '|':
+		case '\t':
+		case 'y':
 		case 't':
-		case 'g':
+		case 'q':
 			return 1;
 		default:
 			return 0;
@@ -603,14 +605,14 @@ void musicTheory_keyDown(int k)
 		musicTheory.sustain = !musicTheory.sustain;
 	}
 	
-	if(k == 'q' || k=='Q')
+	if(k == '\\' || k=='|')
 	{
-		if(k=='Q')
+		if(k=='\\')
 		{
 			midiPlatform_stopSound();
 		}
 		else
-		if(k== 'q')
+		if(k== '|')
 		{
 			musicTheory_clearAllDown();
 		}

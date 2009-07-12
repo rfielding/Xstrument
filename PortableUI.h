@@ -10,7 +10,7 @@
 #import "MusicTheory.h"
 
 
-GLhandleARB vertex_shader, fragment_shader, program_object;
+GLhandleARB vertex_shader, fragment_shader, noise_shaders,particle_shaders;
 
 /*
    Initialize the user interface

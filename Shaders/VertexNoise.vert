@@ -19,6 +19,7 @@ varying vec4 Color;
 
 void main(void)
 {
+
 	vec3 normal = gl_Normal;
 	vec3 vertex = gl_Vertex.xyz + noise3(offset + gl_Vertex.xyz * scaleIn) * scaleOut;
 
@@ -27,9 +28,6 @@ void main(void)
     vec3 lightVec   = normalize(LightPosition - position);
     float diffuse   = max(dot(lightVec, normal), 0.0);
 
-    //if (diffuse < 0.0125)
-    //     diffuse = 0.0125;
-
-    Color = vec4(gl_Color * diffuse); //vec4(SurfaceColor * diffuse, 1.0);
+    Color = vec4(gl_Color * diffuse); 
     gl_Position = gl_ModelViewProjectionMatrix * vec4(vertex,1.0);
 }

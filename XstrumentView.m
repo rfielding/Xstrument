@@ -24,7 +24,7 @@
 
 @implementation XstrumentView
 
-- (unsigned int) loadVertexShader: (NSString *) vertexString fragmentShader: (NSString *) fragmentString
+- (int) loadHandle:(GLhandleARB*)phandle VertexShader: (NSString *) vertexString fragmentShader: (NSString *) fragmentString
 {
 	NSLog(@"Got shaders to compile");
 	const GLcharARB *vertex_string, *fragment_string;
@@ -32,10 +32,10 @@
 	GLint linked;
 	
 	/* Delete any existing program object */
-	if (program_object) {
+	if (*phandle) {
 		NSLog(@"remove existing");
-		glDeleteObjectARB(program_object);
-		program_object = NULL;
+		glDeleteObjectARB(*phandle);
+		*phandle = NULL;
 	}
 	
 	/* Load and compile both shaders */
@@ -87,29 +87,29 @@
 	}
 	
 	/* Create a program object and link both shaders */
-	program_object = glCreateProgramObjectARB();
+	*phandle = glCreateProgramObjectARB();
 	if (vertex_shader != NULL)
 	{
 		NSLog(@"attach vertex shader");
-		glAttachObjectARB(program_object, vertex_shader);
+		glAttachObjectARB(*phandle, vertex_shader);
 		glDeleteObjectARB(vertex_shader);   /* Release */
 	}
 	if (fragment_shader != NULL)
 	{
 		NSLog(@"attach frag shader");
-		glAttachObjectARB(program_object, fragment_shader);
+		glAttachObjectARB(*phandle, fragment_shader);
 		glDeleteObjectARB(fragment_shader); /* Release */
 	}
 	NSLog(@"link shaders");
-	glLinkProgramARB(program_object);
+	glLinkProgramARB(*phandle);
 	NSLog(@"parameterize shaders");
-	glGetObjectParameterivARB(program_object, GL_OBJECT_LINK_STATUS_ARB, &linked);
+	glGetObjectParameterivARB(*phandle, GL_OBJECT_LINK_STATUS_ARB, &linked);
 	/* TODO - Get info log */
 	
 	if (!linked) {
 		NSLog(@"free unlinked shaders");
-		glDeleteObjectARB(program_object);
-		program_object = NULL;
+		glDeleteObjectARB(*phandle);
+		*phandle = NULL;
 		return 1;
 	}
 	
@@ -150,21 +150,25 @@
 	NSString* vertex_string   = [bundle pathForResource: @"VertexNoise" ofType: @"vert"];
 	vertex_string   = [NSString stringWithContentsOfFile: vertex_string];
 	NSString* fragment_string = [bundle pathForResource: @"VertexNoise" ofType: @"frag"];
-	fragment_string = [NSString stringWithContentsOfFile: fragment_string];
-	
-	[self loadVertexShader:vertex_string fragmentShader:fragment_string];	
+	fragment_string = [NSString stringWithContentsOfFile: fragment_string];	
+	[self loadHandle:&noise_shaders VertexShader:vertex_string fragmentShader:fragment_string];	
+	glUseProgramObjectARB(noise_shaders);
+	glUniform3fARB(glGetUniformLocationARB(noise_shaders, "SurfaceColor"), 0.5, 0.5, 0.4);
+	glUniform3fARB(glGetUniformLocationARB(noise_shaders, "LightPosition"), 0.0, 0.0, 5.0);
+	glUniform3fvARB(glGetUniformLocationARB(noise_shaders, "offset"), 1, portableui_getoffset());
+	glUniform1fARB(glGetUniformLocationARB(noise_shaders, "scaleOut"), 0.1);	
+
+	vertex_string   = [bundle pathForResource: @"ParticleFountain" ofType: @"vert"];
+	vertex_string   = [NSString stringWithContentsOfFile: vertex_string];
+	fragment_string = [bundle pathForResource: @"ParticleFountain" ofType: @"frag"];
+	fragment_string = [NSString stringWithContentsOfFile: fragment_string];	
+	[self loadHandle:&particle_shaders VertexShader:vertex_string fragmentShader:fragment_string];	
+	glUseProgramObjectARB(particle_shaders);
+	glUniform1fARB(glGetUniformLocationARB(particle_shaders, "time"), 0.0);
+	glUniform3fARB(glGetUniformLocationARB(particle_shaders, "Color"), 0.0, 0.0, 5.0);
 	
 	portableui_init();
 	
-	glUseProgramObjectARB(program_object);
-	glUniform3fARB(glGetUniformLocationARB(program_object, "SurfaceColor"), 0.5, 0.5, 0.4);
-	glUniform3fARB(glGetUniformLocationARB(program_object, "LightPosition"), 0.0, 0.0, 5.0);
-	
-
-	
-	glUniform3fvARB(glGetUniformLocationARB(program_object, "offset"), 1, portableui_getoffset());
-//	glUniform1fARB(glGetUniformLocationARB(program_object, "scaleIn"), 2);
-	glUniform1fARB(glGetUniformLocationARB(program_object, "scaleOut"), 0.1);	
 		
 	//Only necessary when we are doing animation that is not in response to keys, such as timers
 	[self invalidateLoop];

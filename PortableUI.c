@@ -9,12 +9,17 @@
 
 #import <math.h>
 #import <stdio.h>
+#import <stdlib.h>
 #import "PortableGL.h"
 
 #include "PortableUI.h"
 
 #define PORTABLEUI_DIRTYLIST 1000
 #define PORTABLEUI_STARLIST 1001
+
+/* Particle set*/
+#define PARTICLECOUNT 1000
+GLfloat particles[PARTICLECOUNT * sizeof(GLfloat) * 4];
 
 /* Parameter */
 struct Parameter {
@@ -25,6 +30,8 @@ struct Parameter {
 	float downCenter[4];
 };
 
+GLfloat particletime=0.0;
+
 struct
 {
 	char charBuffer[1024];
@@ -34,6 +41,23 @@ struct
 	float height;
 	struct Parameter offset;
 } portableui;
+
+void portableui_particleinit()
+{
+	int i;
+	for (i = 0; i < PARTICLECOUNT; i++)
+	{
+		float r = ((float)rand()/(float)RAND_MAX)*5;
+		float a = 2 * ((float)rand()/(float)RAND_MAX) * M_PI;
+		float b = 10 * ((float)rand()/(float)RAND_MAX);
+		float x = cos(a) - sin(a);
+		float y = sin(a) + cos(a);
+		particles[i*4 + 0] = r * x;
+		particles[i*4 + 1] = r * y;
+		particles[i*4 + 2] = b;
+		particles[i*4 + 3] = ((float)rand()/(float)RAND_MAX) * 2 * M_PI;
+	}	
+}
 
 void portableui_animate()
 {
@@ -71,6 +95,7 @@ void portableui_kick()
 		}
 	}
 }
+
 float* portableui_getoffset()
 {
 	return portableui.offset.current;
@@ -123,6 +148,8 @@ void portableui_init()
 	portableui.offset.downCenter[1] = 0;
 	portableui.offset.downCenter[2] = 0;
 	portableui.offset.downCenter[3] = 1;
+	
+	portableui_particleinit();
 	
 	musicTheory_init();
 }
@@ -218,12 +245,80 @@ void rchill_quadCenter(int noteNumber,float* xC,float* yC,float* zC)
 	rchill_noteToPoint(noteNumber+1,&x3,&y3,&z3);
 	rchill_noteToPoint(noteNumber+0,&x4,&y4,&z4);
 	
-	*xC = (x+x2+x3+x4)/4;
-	*yC = (y+y2+y3+y4)/4;
-	*zC = (z+z2+z3+z4)/4;
+	*xC = (x4+x2)/2;
+	*yC = (y4+y2)/2;
+	*zC = (z4+z2)/2;
 }
 
-
+void portableui_particleDraw()
+{
+	int notesDown = 0;
+	int* downNotes = (int*)musicTheory_notes();
+	for(int i=0;i<255;i++)
+	{
+		int noteNumber = downNotes[i];
+		if(noteNumber>=0)notesDown++;
+	}
+	
+	if(notesDown)
+	{
+		for (int i = 0; i < PARTICLECOUNT; i++)
+		{
+			float alpha = particles[4*i+3];
+			float x = cos(alpha) - sin(alpha);
+			float y = sin(alpha) + cos(alpha);
+			particles[4*i+3] += (((float)rand()/(float)RAND_MAX)-0.5);
+			particles[4*i+0] += x/4;
+			particles[4*i+1] += y/4;
+			for(int k=0;k<3;k++)
+			{
+				particles[4*i+k] = 
+				(particles[4*i+k]*(9+2*notesDown) + 
+				 portableui.offset.downCenter[k])/(10+2*notesDown);
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < PARTICLECOUNT; i++)
+		{
+			if(!notesDown)
+			{
+				for(int k=0;k<3;k++)
+				{
+					particles[4*i+k] = 
+					(particles[4*i+k] + 
+					 portableui.offset.downCenter[k])/2;
+				}
+			}
+		}
+	}
+	/////Fireworks!
+	glPushAttrib(GL_POINT_BIT);
+	glPointSize(5.0);
+	glBegin(GL_POINTS);
+	for (int i = 0; i < PARTICLECOUNT; i++)
+	{
+		float alpha = particles[4*i+3];
+		glColor4f(1.0, alpha/(2*M_PI), 0.2, 0.15);
+		glVertex3fv(&particles[i*4]);
+	}	
+	//glColor3f(1.0,0,0);
+	//glVertex3f(portableui.offset.downCenter[0],portableui.offset.downCenter[1],portableui.offset.downCenter[2]);
+	glEnd();
+	glPointSize(1.0);
+	glBegin(GL_POINTS);
+	for (int i = 0; i < PARTICLECOUNT; i++)
+	{
+		float alpha = particles[4*i+3];
+		glColor4f(1.0, alpha/(2*M_PI), 0.2, 1.0);
+		glVertex3fv(&particles[i*4]);
+	}	
+	//glColor3f(1.0,0,0);
+	//glVertex3f(portableui.offset.downCenter[0],portableui.offset.downCenter[1],portableui.offset.downCenter[2]);
+	glEnd();
+	glPopAttrib();
+}
 
 void rchill_repaintDirtyScale()
 {
@@ -263,6 +358,8 @@ void rchill_repaintDirtyScale()
 		float b=0.0;
 		int note = (i % 12);
 		int isInScale = inScale & (1<<note);
+		float octaveBottomFactor = (i/12.0)/30;
+		float octaveTopFactor = ((i+12)/12.0)/20;
 		if( minor == note)
 		{
 			r=0.8; b=0.8f;
@@ -280,56 +377,28 @@ void rchill_repaintDirtyScale()
 		
 		if(1) //r>0.0 || g>0.0 || b>0.0)
 		{
-			glColor3f(r,g,b);
 			rchill_noteToPoint(i+12,&x,&y,&z);
 			rchill_noteToPoint(i+1+12,&x2,&y2,&z2);
 			rchill_noteToPoint(i+1,&x3,&y3,&z3);
 			rchill_noteToPoint(i+0,&x4,&y4,&z4);
 			
+			glColor3f(octaveTopFactor*r,octaveTopFactor*g,octaveTopFactor*b);
 			glVertex3f(x,y,z);
 			glVertex3f(x2,y2,z2);
+			glColor3f(octaveBottomFactor*r,octaveBottomFactor*g,octaveBottomFactor*b);
 			glVertex3f(x3,y3,z3);
 			glVertex3f(x4,y4,z4);
 		}
 	}
-	/*
-	for(i=0;i<7;i++)
-	{
-		int note = musicTheory_pickNote(i) % 12; 
-		int mode = ((i%7 + (3*musicTheory_sharpCount())%7)) %7; 
-		if( 2 == mode)
-		{
-			glColor3f(0.0,0.8,0.8f);
-		}
-		else
-			if( 0 == mode )
-			{
-				glColor3f(0.8,0,0.8f);
-			}
-			else
-			{
-				glColor3f(0,0,0);
-			}
-		
-		rchill_noteToPoint(note+1, &x, &y,&z);
-		glVertex3f(x,y,z);
-		rchill_noteToPoint(note, &x, &y,&z);
-		glVertex3f(x,y,z);
-		rchill_noteToPoint(note+12*12, &x, &y,&z);
-		
-		glColor3f(0,0,0.25f);
-		glVertex3f(x,y,z);
-		rchill_noteToPoint(note+12*12+1, &x, &y,&z);
-		glVertex3f(x,y,z);
-	}		
-	 */
 	glEnd();		
 	
 	glBegin(GL_LINE_STRIP);
 	
+	glLineWidth(2.0);
 	for(i=0;i<128;i++)
 	{
-		glColor3f(0.0,/*(i/64.0-1.0)* */ 0.8,0.0);
+		float a = (i)/128.0;
+		glColor4f(0.0,0.8,0.0,a);
 		
 		rchill_noteToPoint(i+12,&x,&y,&z);
 		rchill_noteToPoint(i+1+12,&x2,&y2,&z2);
@@ -342,20 +411,22 @@ void rchill_repaintDirtyScale()
 		glVertex3f(x2,y2,z2);
 	}
 	glEnd();
+	glLineWidth(1.0);
 	glEndList();
 	
 	glNewList(PORTABLEUI_STARLIST,GL_COMPILE);
-	//Draw a star representing what happens with the circle of fifths
 	glBegin(GL_LINE_STRIP);
 	for(i=0;i<13;i++)
 	{
 		int fifth = ((musicTheory_sharpCount()+i)*7)%12; 
-		glColor3f((12-i)/(10.0f + 1*(12-i)*i) ,0.0, i/(10.0f + 1*(12-i)*i));
+		double a = (12-i)/(10.0f + (12-i)*i);
+		double b = i/(10.0f + 1*(12-i)*i);
+		glColor3f(a ,0.0, b);
 		rchill_noteToPoint(fifth+12*8,&x2,&y2,&z2);
 		rchill_noteToPoint(fifth+1+12*8,&x3,&y3,&z3);
 		x = (x2+x3)/8;
 		y = (y2+y3)/8;
-		z = (z2+z3)/64;
+		z = (z2+z3)/8;
 		
 		glVertex3f(x,y,z+2);
 	}
@@ -375,7 +446,7 @@ void rchill_repaintDirtyScale()
 		}
 		else
 		{
-			glColor3f(0.0,0.2,0.0);
+			glColor3f(0.0,0.5,0.0);
 		}
 		rchill_renderBitmapString(noteName,x,y);	
 	}
@@ -463,6 +534,7 @@ void portableui_repaintCleanScale()
 								  &portableui.offset.downCenter[1],
 								  &portableui.offset.downCenter[2]
 				);					
+				glUniform3fvARB(glGetUniformLocationARB(particle_shaders, "Center"), 1, portableui.offset.downCenter);
 			}
 			else
 			if(noteNumber>=0)
@@ -494,14 +566,18 @@ void portableui_repaint()
 		
 	int* downNotes = (int*)musicTheory_notes();
 	int lastNote = musicTheory_note();
+	GLfloat fogFactor = 0.7;
+	GLfloat brightFactor = 1.0;
 	
 	GLfloat lightPosition[] = {3, 3, 5, 0.0};
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT); // | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	
-	glUniform1fARB(glGetUniformLocationARB(program_object, "scaleIn"), portableui.offset.delta[0]);
-	glUniform3fvARB(glGetUniformLocationARB(program_object, "color"), 1, portableui_getoffset());
-	glUniform3fvARB(glGetUniformLocationARB(program_object, "center"), 1, portableui.offset.downCenter);
+	glUseProgramObjectARB(noise_shaders);
+	glUniform1fARB(glGetUniformLocationARB(noise_shaders, "scaleIn"), portableui.offset.delta[0]);
+	glUniform3fvARB(glGetUniformLocationARB(noise_shaders, "center"), 1, portableui.offset.downCenter);
+	glUniform1fvARB(glGetUniformLocationARB(noise_shaders, "factor"), 1, &fogFactor);
 	for(i=0;i<255;i++)
 	{
 		int noteNumber = downNotes[i];
@@ -519,7 +595,6 @@ void portableui_repaint()
 	z = 3.0f * (1.0f + (0x2000-musicTheory_wheel())/(0x2000 * 12.0));
 	gluLookAt(
 			  bumpX*0.02,bumpY*0.02,z,
-			  //rchill.radius * sin(rchill.theta) , 0, rchill.radius * cos(rchill.theta), 
 			  -bumpX*0.01, -bumpY*0.01, -bumpZ*0.01, 
 			  0, 1, 0
 			  );
@@ -528,7 +603,7 @@ void portableui_repaint()
 	
 	glTranslatef(0,0,0);
 	
-	glUniform3fvARB(glGetUniformLocationARB(program_object, "offset"), 1, portableui_getoffset());
+	glUniform3fvARB(glGetUniformLocationARB(noise_shaders, "offset"), 1, portableui_getoffset());
 	
 	if(musicTheory_dirtyScale())
 	{
@@ -536,11 +611,17 @@ void portableui_repaint()
 	}
 	glCallList(PORTABLEUI_DIRTYLIST);
 	
+	glUniform1fvARB(glGetUniformLocationARB(noise_shaders, "factor"), 1, &brightFactor);
 	portableui_repaintCleanScale();
-	
+		
 	glCallList(PORTABLEUI_STARLIST);
+		
+	//particletime+=0.1;
+	glUseProgramObjectARB(particle_shaders);
+	portableui_particleDraw();
+	glUseProgramObjectARB(NULL);
 	
-	glColor4f(1.0,0.7,1.0,0.9);
+	glColor4f(1.0,0.5,1.0,0.5);	
 	rchill_renderBitmapString(musicTheory_keyBuffer(),-2,-1.5);	
 	
 	glFinish();
