@@ -19,6 +19,10 @@
 
 /* Particle set*/
 #define PARTICLECOUNT 1000
+
+#define RAND_EXPECT_ZERO() (((float)rand()/(float)RAND_MAX)-0.5)
+#define RAND_EXPECT_HALF() (((float)rand()/(float)RAND_MAX))
+
 GLfloat particles[PARTICLECOUNT * sizeof(GLfloat) * 4];
 
 /* Parameter */
@@ -29,8 +33,6 @@ struct Parameter {
 	float delta   [4];	
 	float downCenter[4];
 };
-
-GLfloat particletime=0.0;
 
 struct
 {
@@ -47,15 +49,15 @@ void portableui_particleinit()
 	int i;
 	for (i = 0; i < PARTICLECOUNT; i++)
 	{
-		float r = ((float)rand()/(float)RAND_MAX)*5;
-		float a = 2 * ((float)rand()/(float)RAND_MAX) * M_PI;
-		float b = 10 * ((float)rand()/(float)RAND_MAX);
+		float r = RAND_EXPECT_HALF()*5;
+		float a = 2 * RAND_EXPECT_HALF() * M_PI;
+		float b = 10 * RAND_EXPECT_HALF();
 		float x = cos(a) - sin(a);
 		float y = sin(a) + cos(a);
 		particles[i*4 + 0] = r * x;
 		particles[i*4 + 1] = r * y;
 		particles[i*4 + 2] = b;
-		particles[i*4 + 3] = ((float)rand()/(float)RAND_MAX) * 2 * M_PI;
+		particles[i*4 + 3] = RAND_EXPECT_HALF() * 2 * M_PI;
 	}	
 }
 
@@ -250,6 +252,26 @@ void rchill_quadCenter(int noteNumber,float* xC,float* yC,float* zC)
 	*zC = (z4+z2)/2;
 }
 
+void portableui_particleDrawPoints(int* downNotes,int notesDown,GLfloat pointSize,GLfloat a)
+{
+	glPointSize(pointSize);
+	glBegin(GL_POINTS);
+	for (int i = 0; i < PARTICLECOUNT; i++)
+	{
+		float alpha = particles[4*i+3];
+		if(musicTheory_microtonalMode())
+		{
+			glColor4f(alpha/(2*M_PI), 1.0, 0.2, a);
+		}
+		else
+		{
+			glColor4f(1.0, alpha/(2*M_PI), 0.2, a);
+		}
+		glVertex3fv(&particles[i*4]);
+	}	
+	glEnd();
+}
+
 void portableui_particleDraw()
 {
 	int notesDown = 0;
@@ -267,7 +289,7 @@ void portableui_particleDraw()
 			float alpha = particles[4*i+3];
 			float x = cos(alpha) - sin(alpha);
 			float y = sin(alpha) + cos(alpha);
-			particles[4*i+3] += (((float)rand()/(float)RAND_MAX)-0.5);
+			particles[4*i+3] += RAND_EXPECT_ZERO();
 			particles[4*i+0] += x/4;
 			particles[4*i+1] += y/4;
 			for(int k=0;k<3;k++)
@@ -293,44 +315,11 @@ void portableui_particleDraw()
 			}
 		}
 	}
+	
 	/////Fireworks!
 	glPushAttrib(GL_POINT_BIT);
-	glPointSize(5.0);
-	glBegin(GL_POINTS);
-	for (int i = 0; i < PARTICLECOUNT; i++)
-	{
-		float alpha = particles[4*i+3];
-		if(musicTheory_microtonalMode())
-		{
-			glColor4f(alpha/(2*M_PI), 1.0, 0.2, 0.15);
-		}
-		else
-		{
-			glColor4f(1.0, alpha/(2*M_PI), 0.2, 0.15);
-		}
-		glVertex3fv(&particles[i*4]);
-	}	
-	//glColor3f(1.0,0,0);
-	//glVertex3f(portableui.offset.downCenter[0],portableui.offset.downCenter[1],portableui.offset.downCenter[2]);
-	glEnd();
-	glPointSize(1.0);
-	glBegin(GL_POINTS);
-	for (int i = 0; i < PARTICLECOUNT; i++)
-	{
-		float alpha = particles[4*i+3];
-		if(musicTheory_microtonalMode())
-		{
-			glColor4f(alpha/(2*M_PI), 1.0, 0.2, 1.0);
-		}
-		else
-		{
-			glColor4f(1.0, alpha/(2*M_PI), 0.2, 1.0);
-		}
-		glVertex3fv(&particles[i*4]);
-	}	
-	//glColor3f(1.0,0,0);
-	//glVertex3f(portableui.offset.downCenter[0],portableui.offset.downCenter[1],portableui.offset.downCenter[2]);
-	glEnd();
+	portableui_particleDrawPoints(downNotes,notesDown,5.0,0.15);
+	portableui_particleDrawPoints(downNotes,notesDown,1.0,1.0);	
 	glPopAttrib();
 }
 
@@ -389,7 +378,6 @@ void rchill_repaintDirtyScale()
 			b=1.0f;
 		}
 		
-		if(1) //r>0.0 || g>0.0 || b>0.0)
 		{
 			rchill_noteToPoint(i+12,&x,&y,&z);
 			rchill_noteToPoint(i+1+12,&x2,&y2,&z2);
@@ -630,7 +618,6 @@ void portableui_repaint()
 		
 	glCallList(PORTABLEUI_STARLIST);
 		
-	//particletime+=0.1;
 	glUseProgramObjectARB(particle_shaders);
 	portableui_particleDraw();
 	glUseProgramObjectARB(NULL);
