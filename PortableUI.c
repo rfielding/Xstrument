@@ -292,14 +292,22 @@ void portableui_particleDraw()
 			float alpha = particles[4*i+3];
 			float x = cos(alpha) - sin(alpha);
 			float y = sin(alpha) + cos(alpha);
-			particles[4*i+3] += RAND_EXPECT_ZERO();
-			particles[4*i+0] += x/10;
-			particles[4*i+1] += y/10;
+			float xa = particles[4*i+0];
+			float ya = particles[4*i+1];
+			float za = particles[4*i+1];
+			float xc = portableui.offset.downCenter[0];
+			float yc = portableui.offset.downCenter[1];
+			float zc = portableui.offset.downCenter[1];
+			float d2 = (xa-xc)*(xa-xc) + (ya-yc)*(ya-yc) + (za-zc)*(za-zc);
+			if(d2<0.0001)d2=0.0001;
+			particles[4*i+3] += RAND_EXPECT_ZERO()*M_PI/4;
+			particles[4*i+0] += x/6;
+			particles[4*i+1] += y/6;
 			for(int k=0;k<3;k++)
 			{
-				particles[4*i+k] = 
-				(particles[4*i+k]*(19+2*notesDown) + 
-				 portableui.offset.downCenter[k])/(20+2*notesDown);
+				particles[4*i+k] +=  portableui.offset.downCenter[k]/d2;
+				//(particles[4*i+k]*(13+notesDown) + 
+				// portableui.offset.downCenter[k])/(14+notesDown);
 			}
 		}
 	}
