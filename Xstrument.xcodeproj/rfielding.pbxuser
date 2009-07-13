@@ -9,7 +9,7 @@
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
-		activeBuildConfigurationName = Debug;
+		activeBuildConfigurationName = Release;
 		activeExecutable = 49853D540FCF7A5A00710767 /* Xstrument */;
 		activeTarget = 8D1107260486CEB800E47090 /* Xstrument */;
 		addToTargets = (
@@ -1527,6 +1527,7 @@
 			49497A3D100AE19600CFD7D7 /* PBXTextBookmark */ = 49497A3D100AE19600CFD7D7 /* PBXTextBookmark */;
 			49497A3F100AE26800CFD7D7 /* PBXTextBookmark */ = 49497A3F100AE26800CFD7D7 /* PBXTextBookmark */;
 			49497A41100AE5B600CFD7D7 /* PBXTextBookmark */ = 49497A41100AE5B600CFD7D7 /* PBXTextBookmark */;
+			49497A43100AE66700CFD7D7 /* PBXTextBookmark */ = 49497A43100AE66700CFD7D7 /* PBXTextBookmark */;
 			499B5AD20FD6296E00ECD979 = 499B5AD20FD6296E00ECD979 /* PBXTextBookmark */;
 			499B5AD40FD6296E00ECD979 = 499B5AD40FD6296E00ECD979 /* PBXTextBookmark */;
 			499B5ADA0FD6296E00ECD979 = 499B5ADA0FD6296E00ECD979 /* PBXTextBookmark */;
@@ -16169,6 +16170,16 @@
 		vrLoc = 6199;
 	};
 	49497A41100AE5B600CFD7D7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 49D7569810059E0000D7D834 /* PortableUI.c */;
+		name = "PortableUI.c: 302";
+		rLen = 0;
+		rLoc = 6835;
+		rType = 0;
+		vrLen = 1063;
+		vrLoc = 6199;
+	};
+	49497A43100AE66700CFD7D7 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 49D7569810059E0000D7D834 /* PortableUI.c */;
 		name = "PortableUI.c: 302";
