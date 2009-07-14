@@ -156,7 +156,7 @@
 	glUniform3fARB(glGetUniformLocationARB(noise_shaders, "SurfaceColor"), 0.5, 0.5, 0.4);
 	glUniform3fARB(glGetUniformLocationARB(noise_shaders, "LightPosition"), 0.0, 0.0, 5.0);
 	glUniform3fvARB(glGetUniformLocationARB(noise_shaders, "offset"), 1, portableui_getoffset());
-	glUniform1fARB(glGetUniformLocationARB(noise_shaders, "scaleOut"), 0.1);	
+	glUniform1fARB(glGetUniformLocationARB(noise_shaders, "scaleOut"), 0.2);	
 
 	vertex_string   = [bundle pathForResource: @"ParticleFountain" ofType: @"vert"];
 	vertex_string   = [NSString stringWithContentsOfFile: vertex_string];
