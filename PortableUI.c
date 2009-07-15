@@ -24,7 +24,8 @@
 #define RAND_EXPECT_HALF() (((float)rand()/(float)RAND_MAX))
 
 // {x,y,z,alpha} -- location with alpha as the x,y plane angle
-GLfloat particles[PARTICLECOUNT * sizeof(GLfloat) * 4];
+GLfloat particles[PARTICLECOUNT * sizeof(GLfloat) * 8];
+#define NTH(i,j) (i*8+j)
 
 /* Parameter */
 struct Parameter {
@@ -33,6 +34,7 @@ struct Parameter {
 	float max     [4];
 	float delta   [4];	
 	float downCenter[4];
+	float prevCenter[4];
 };
 
 struct
@@ -43,6 +45,7 @@ struct
 	float width;
 	float height;
 	struct Parameter offset;
+	int lastDifferentNote;
 } portableui;
 
 void portableui_particleinit()
@@ -55,10 +58,13 @@ void portableui_particleinit()
 		float b = 10 * RAND_EXPECT_HALF();
 		float x = cos(a) - sin(a);
 		float y = sin(a) + cos(a);
-		particles[i*4 + 0] = r * x;
-		particles[i*4 + 1] = r * y;
-		particles[i*4 + 2] = b;
-		particles[i*4 + 3] = RAND_EXPECT_HALF() * 2 * M_PI;
+		particles[NTH(i,0)] = r * x;
+		particles[NTH(i,1)] = r * y;
+		particles[NTH(i,2)] = b;
+		particles[NTH(i,3)] = 1.0;
+		particles[NTH(i,4)] = RAND_EXPECT_HALF() * 2 * M_PI;
+		particles[NTH(i,5)] = RAND_EXPECT_HALF() * 2 * M_PI;
+		particles[NTH(i,6)] = RAND_EXPECT_HALF() * 2 * M_PI;
 	}	
 }
 
@@ -153,6 +159,11 @@ void portableui_init()
 	portableui.offset.downCenter[1] = 0;
 	portableui.offset.downCenter[2] = 0;
 	portableui.offset.downCenter[3] = 1;
+	
+	portableui.offset.prevCenter[0] = 0;
+	portableui.offset.prevCenter[1] = 0;
+	portableui.offset.prevCenter[2] = 0;
+	portableui.offset.prevCenter[3] = 1;
 	
 	portableui_particleinit();
 	
@@ -261,7 +272,7 @@ void portableui_particleDrawPoints(int* downNotes,int notesDown,GLfloat pointSiz
 	glBegin(GL_POINTS);
 	for (int i = 0; i < PARTICLECOUNT; i++)
 	{
-		float alpha = particles[4*i+3];
+		float alpha = particles[NTH(i,5)]*particles[NTH(i,5)]/(2*M_PI);
 		int mode = musicTheory_microtonalMode(); 
 		if(mode==2)
 		{
@@ -277,7 +288,7 @@ void portableui_particleDrawPoints(int* downNotes,int notesDown,GLfloat pointSiz
 		{
 			glColor4f(1.0, alpha/(2*M_PI)*alpha/(2*M_PI),0.0, a/4);
 		}
-		glVertex3fv(&particles[i*4]);
+		glVertex3fv(&particles[NTH(i,0)]);
 	}	
 	glEnd();
 }
@@ -292,50 +303,73 @@ void portableui_particleDraw()
 		if(noteNumber>=0)notesDown++;
 	}
 	
-	//random churn of particles
 	for (int i = 0; i < PARTICLECOUNT; i++)
 	{
-		float alpha = particles[4*i+3];
-		float x = cos(alpha) - sin(alpha);
-		float y = sin(alpha) + cos(alpha);
-		particles[4*i+3] += RAND_EXPECT_ZERO()*M_PI/8;
-		particles[4*i+0] += x / 4;
-		particles[4*i+1] += y / 4;
-	}
-	if(notesDown)
-	{
-		for (int i = 0; i < PARTICLECOUNT; i++)
+		/*
+		     ca  sa  0     cb   0   -sb
+			-sa  ca  0     0    1     0
+			  0   0  1     sb   0    cb
+		 
+             ca*cb    sa   -ca*sb
+			-sa*cb    ca    sa*sb
+		        sb     0     cb
+		 */
+		float xa = particles[NTH(i,0)];
+		float ya = particles[NTH(i,1)];
+		float za = particles[NTH(i,3)];
+		float xc = portableui.offset.downCenter[0];
+		float yc = portableui.offset.downCenter[1];
+		float zc = portableui.offset.downCenter[2];
+		float xp = portableui.offset.prevCenter[0];
+		float yp = portableui.offset.prevCenter[1];
+		float zp = portableui.offset.prevCenter[2];
+		float d2 = (xa-xc)*(xa-xc) + (ya-yc)*(ya-yc) + (za-zc)*(za-zc);
+		float dp2 = (xa-xp)*(xa-xp) + (ya-yp)*(ya-yp) + (za-zp)*(za-zp);
+		float d = sqrt(d2);
+		float dp = sqrt(dp2);
+		float d3 = d*d2;
+		int m=musicTheory_microtonalMode();
+		int chromatic = (musicTheory_note() + 4*musicTheory_sharpCount())% 12; 
+
+		float alpha = particles[NTH(i,4)];
+		float beta = particles[NTH(i,5)];
+		float gamma = particles[NTH(i,5)];
+		float ca = cos(alpha);
+		float sa = sin(alpha);
+		float cb = cos(beta);
+		float sb = sin(beta);
+		float cg = cos(gamma);
+		float sg = sin(gamma);
+		float x = (ca + sa)*(cg-sg);
+		float y = (-sa + ca)*(cb-sb);
+		float z = (cb+sb)*(cg+sg);
+		//int weightc = (notesDown)?5:100;
+		//int weightv = (notesDown)?100:100;
+		
+		//Don't move up if it puts us farther away with notes down
+		float factor = (i%(m+chromatic+1)/2)/(10.0); //RAND_EXPECT_HALF()/5; //sa*sb*sin(z); //(((da2<d2)*notesDown+1)*(m+1));
+		particles[NTH(i,4)] += RAND_EXPECT_ZERO()*M_PI/8;
+		particles[NTH(i,5)] += RAND_EXPECT_ZERO()*M_PI/8;
+		particles[NTH(i,6)] += RAND_EXPECT_ZERO()*M_PI/8;
+		particles[NTH(i,0)] += factor* x;
+		particles[NTH(i,1)] += factor* y;
+		particles[NTH(i,2)] += factor* z;
+		if(d3 < 0.1)
 		{
-			float xa = particles[4*i+0];
-			float ya = particles[4*i+1];
-			float za = particles[4*i+2];
-			float xc = portableui.offset.downCenter[0];
-			float yc = portableui.offset.downCenter[1];
-			float zc = portableui.offset.downCenter[2];
-			float d2 = (xa-xc)*(xa-xc) + (ya-yc)*(ya-yc) + (za-zc)*(za-zc);
-			//if(d2<0.1)d2=0.1;
-			for(int k=0;k<2;k++)
-			{
-				particles[4*i+k] += 
-				  (portableui.offset.downCenter[k]-particles[4*i+k])/(d2); 
-				particles[4*i+k] += (portableui.offset.downCenter[k]-particles[4*i+k])/50;
-				//(particles[4*i+k] + 
-				// portableui.offset.downCenter[k]/(d2*d2))/(1+d2);
-			}
+			d3=0.5;
 		}
-	}
-	else
-	{
-		for (int i = 0; i < PARTICLECOUNT; i++)
+		for(int k=0;k<3;k++)
 		{
-			//if(!notesDown)
+			float n = (portableui.offset.downCenter[k]-particles[NTH(i,k)])/d;
+			float np = (portableui.offset.prevCenter[k]-particles[NTH(i,k)])/dp;
+			particles[NTH(i,k)] += n/d2 - np/(dp2*log(dp2));
+			if(notesDown==0 && i%2)
 			{
-				for(int k=0;k<3;k++)
-				{
-					particles[4*i+k] = 
-					(particles[4*i+k]/2 + 
-					 portableui.offset.downCenter[k])/2;
-				}
+				particles[NTH(i,k)] = (portableui.offset.downCenter[k]*2 + particles[NTH(i,k)])/3;
+			}
+			else
+			{
+				particles[NTH(i,k)] += 20*(i%(chromatic+5))*n/(d3);
 			}
 		}
 	}
@@ -505,6 +539,16 @@ void portableui_repaintCleanScale()
 	int* downNotes = (int*)musicTheory_notes();
 	int* downCounts = (int*)musicTheory_downCounts();
 	int lastNote = musicTheory_note();
+	if(lastNote != portableui.lastDifferentNote)
+	{
+		rchill_quadCenter(
+						  portableui.lastDifferentNote,
+						  &portableui.offset.prevCenter[0],
+						  &portableui.offset.prevCenter[1],
+						  &portableui.offset.prevCenter[2]
+						  );	
+		portableui.lastDifferentNote=lastNote;
+	}
 	
 	glBegin(GL_QUADS);
 	

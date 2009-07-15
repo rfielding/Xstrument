@@ -231,6 +231,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -274,7 +276,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>20</integer>
+									<integer>6</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -309,14 +311,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>PortableUI.c</string>
+								<string>MusicTheory.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -324,11 +324,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>PortableUI.c</string>
+										<string>MusicTheory.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>499807BF100C7C9A004E4E33</string>
+										<string>49980A63100DCAF2004E4E33</string>
 										<key>history</key>
 										<array>
 											<string>493266760FD1CF4A006FBFB5</string>
@@ -340,7 +340,6 @@
 											<string>492459F00FE1F0B7009F081D</string>
 											<string>49EF21311005831600F1A5F3</string>
 											<string>49EF21A510058D5A00F1A5F3</string>
-											<string>49EF21A610058D5A00F1A5F3</string>
 											<string>49D7565310059A7000D7D834</string>
 											<string>4949721F10079DCD00CFD7D7</string>
 											<string>494972F910083EFD00CFD7D7</string>
@@ -349,12 +348,13 @@
 											<string>494974781009190B00CFD7D7</string>
 											<string>494975AE1009462300CFD7D7</string>
 											<string>494978251009821F00CFD7D7</string>
-											<string>4949799810099CFE00CFD7D7</string>
-											<string>49497A0E100ADA3400CFD7D7</string>
 											<string>49497A0F100ADA3400CFD7D7</string>
-											<string>499805A0100C2321004E4E33</string>
-											<string>499805F8100C372E004E4E33</string>
-											<string>499805F9100C372E004E4E33</string>
+											<string>499807C4100D73F9004E4E33</string>
+											<string>499807C5100D73F9004E4E33</string>
+											<string>499807C6100D73F9004E4E33</string>
+											<string>499809E3100DBBAF004E4E33</string>
+											<string>499809E4100DBBAF004E4E33</string>
+											<string>499809E5100DBBAF004E4E33</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -386,6 +386,14 @@
 											<string>499805A3100C2321004E4E33</string>
 											<string>499805FA100C372E004E4E33</string>
 											<string>499805FB100C372E004E4E33</string>
+											<string>499807C9100D73F9004E4E33</string>
+											<string>499807CA100D73F9004E4E33</string>
+											<string>499807CB100D73F9004E4E33</string>
+											<string>499807CC100D73F9004E4E33</string>
+											<string>499807CD100D73F9004E4E33</string>
+											<string>499809E6100DBBAF004E4E33</string>
+											<string>499809E7100DBBAF004E4E33</string>
+											<string>499809E8100DBBAF004E4E33</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -579,10 +587,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>49853D770FCF811700710767</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/rfielding/cocoa/Xstrument/Xstrument.xcodeproj</string>
+		<string>49853D770FCF811700710767</string>
 	</array>
 	<key>WindowString</key>
 	<string>157 116 1176 762 0 0 1440 878 </string>
@@ -601,26 +609,28 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>PortableUI.c</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1440, 629}}</string>
+								<string>{{0, 0}, {859, 534}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 111 1440 767 0 0 1440 878 </string>
+								<string>50 206 859 672 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>629pt</string>
+							<string>534pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -637,9 +647,9 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 634}, {1440, 92}}</string>
+								<string>{{0, 539}, {859, 92}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 111 1440 767 0 0 1440 878 </string>
+								<string>50 206 859 672 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
@@ -648,7 +658,7 @@
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>726pt</string>
+					<string>631pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -669,11 +679,11 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.buildV3</string>
 			<key>WindowString</key>
-			<string>0 111 1440 767 0 0 1440 878 </string>
+			<string>50 206 859 672 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>49853D770FCF811700710767</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -954,7 +964,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
