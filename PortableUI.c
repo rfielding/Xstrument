@@ -276,17 +276,17 @@ void portableui_particleDrawPoints(int* downNotes,int notesDown,GLfloat pointSiz
 		int mode = musicTheory_microtonalMode(); 
 		if(mode==2)
 		{
-			glColor4f(alpha/(2*M_PI), 1.0, 0.2, a/4);
+			glColor4f(alpha/(2*M_PI), 1.0, 0.2, a);
 		}
 		else
 		if(mode==1)
 		{
 			float x = alpha/(2*M_PI);
-			glColor4f(x*x,1/(x*x*x),x*x, a/4);
+			glColor4f(x*x,1/(x*x*x),x*x, a);
 		}
 		else
 		{
-			glColor4f(1.0, alpha/(2*M_PI)*alpha/(2*M_PI),0.0, a/4);
+			glColor4f(1.0, alpha/(2*M_PI)*alpha/(2*M_PI),0.0, a);
 		}
 		glVertex3fv(&particles[NTH(i,0)]);
 	}	
@@ -376,8 +376,9 @@ void portableui_particleDraw()
 	
 	/////Fireworks!
 	glPushAttrib(GL_POINT_BIT);
-	portableui_particleDrawPoints(downNotes,notesDown,5.0,0.25);
-	portableui_particleDrawPoints(downNotes,notesDown,1.0,1.0);	
+	portableui_particleDrawPoints(downNotes,notesDown,5.0,0.05);
+	portableui_particleDrawPoints(downNotes,notesDown,3.0,0.05);
+	portableui_particleDrawPoints(downNotes,notesDown,1.0,0.5);	
 	glPopAttrib();
 }
 
