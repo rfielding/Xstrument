@@ -18,7 +18,7 @@
 #define PORTABLEUI_STARLIST 1001
 
 /* Particle set*/
-#define PARTICLECOUNT 10000
+#define PARTICLECOUNT 1000
 
 #define RAND_EXPECT_ZERO() (((float)rand()/(float)RAND_MAX)-0.5)
 #define RAND_EXPECT_HALF() (((float)rand()/(float)RAND_MAX))
@@ -272,7 +272,7 @@ void portableui_particleDrawPoints(int* downNotes,int notesDown,GLfloat pointSiz
 	glBegin(GL_POINTS);
 	for (int i = 0; i < PARTICLECOUNT; i++)
 	{
-		float alpha = particles[NTH(i,5)]*particles[NTH(i,5)]/(2*M_PI);
+		float alpha = particles[NTH(i,4)];
 		int mode = musicTheory_microtonalMode(); 
 		if(mode==2)
 		{
@@ -293,6 +293,32 @@ void portableui_particleDrawPoints(int* downNotes,int notesDown,GLfloat pointSiz
 	glEnd();
 }
 
+int portableui_fifthsDistance(int a,int b)
+{
+	switch((a-b+12)%12)
+	{
+		case 0: 
+			return 0;
+		case 5: 
+		case 7:
+			return 1;
+		case 10:
+		case 2:
+			return 2;
+		case 3:
+		case 9:
+			return 3;
+		case 8:
+		case 4:
+			return 4;
+		case 1:
+		case 11:
+			return 5;
+		case 6:
+			return 6;
+	}
+	return 0;
+}
 void portableui_particleDraw()
 {
 	int notesDown = 0;
@@ -303,6 +329,9 @@ void portableui_particleDraw()
 		if(noteNumber>=0)notesDown++;
 	}
 	
+	float xc = portableui.offset.downCenter[0];
+	float yc = portableui.offset.downCenter[1];
+	float zc = portableui.offset.downCenter[2];
 	for (int i = 0; i < PARTICLECOUNT; i++)
 	{
 		/*
@@ -317,60 +346,58 @@ void portableui_particleDraw()
 		float xa = particles[NTH(i,0)];
 		float ya = particles[NTH(i,1)];
 		float za = particles[NTH(i,3)];
-		float xc = portableui.offset.downCenter[0];
-		float yc = portableui.offset.downCenter[1];
-		float zc = portableui.offset.downCenter[2];
-		float xp = portableui.offset.prevCenter[0];
-		float yp = portableui.offset.prevCenter[1];
-		float zp = portableui.offset.prevCenter[2];
 		float d2 = (xa-xc)*(xa-xc) + (ya-yc)*(ya-yc) + (za-zc)*(za-zc);
-		float dp2 = (xa-xp)*(xa-xp) + (ya-yp)*(ya-yp) + (za-zp)*(za-zp);
 		float d = sqrt(d2);
-		float dp = sqrt(dp2);
-		float d3 = d*d2;
-		int m=musicTheory_microtonalMode();
-		int chromatic = (musicTheory_note() + 4*musicTheory_sharpCount())% 12; 
+		int chromatic = musicTheory_note()%12; 
+		int fd = portableui_fifthsDistance(i%12,chromatic);
+		float factor = (1+notesDown+fd)/62.0;			
 
 		float alpha = particles[NTH(i,4)];
 		float beta = particles[NTH(i,5)];
-		float gamma = particles[NTH(i,5)];
+		float gamma = particles[NTH(i,6)];
 		float ca = cos(alpha);
 		float sa = sin(alpha);
 		float cb = cos(beta);
 		float sb = sin(beta);
 		float cg = cos(gamma);
 		float sg = sin(gamma);
-		float x = (ca + sa)*(cg-sg);
-		float y = (-sa + ca)*(cb-sb);
-		float z = (cb+sb)*(cg+sg);
-		//int weightc = (notesDown)?5:100;
-		//int weightv = (notesDown)?100:100;
+		float x = 1;//(ca + sa);//*(cg-sg);
+		float y = 1;//(-sa + ca);//*(cb-sb);
+		float z = 1;//*(cb+sb)*(cg+sg);
 		
+		x *= (ca+sa); y*= (ca-sa);
+		if(fd>3)
+		{
+			x *= (cb-sb); z *= (cb+sb);
+			if(fd>5)
+			{
+				y *= (cg+sg); z *= (cg-sg);
+			}
+		}
 		//Don't move up if it puts us farther away with notes down
-		float factor = (i%(m+chromatic+1)/2)/(10.0); //RAND_EXPECT_HALF()/5; //sa*sb*sin(z); //(((da2<d2)*notesDown+1)*(m+1));
+		//factor *= 0.5+RAND_EXPECT_HALF();
 		particles[NTH(i,4)] += RAND_EXPECT_ZERO()*M_PI/8;
 		particles[NTH(i,5)] += RAND_EXPECT_ZERO()*M_PI/8;
 		particles[NTH(i,6)] += RAND_EXPECT_ZERO()*M_PI/8;
 		particles[NTH(i,0)] += factor* x;
 		particles[NTH(i,1)] += factor* y;
 		particles[NTH(i,2)] += factor* z;
-		if(d3 < 0.1)
-		{
-			d3=0.5;
-		}
 		for(int k=0;k<3;k++)
 		{
-			float n = (portableui.offset.downCenter[k]-particles[NTH(i,k)])/d;
-			float np = (portableui.offset.prevCenter[k]-particles[NTH(i,k)])/dp;
-			particles[NTH(i,k)] += n/d2 - np/(dp2*log(dp2));
-			if(notesDown==0 && i%2)
+			float v = (portableui.offset.downCenter[k]-particles[NTH(i,k)]);
+			if(notesDown==0 && fd<4)
 			{
-				particles[NTH(i,k)] = (portableui.offset.downCenter[k]*2 + particles[NTH(i,k)])/3;
+				particles[NTH(i,k)] = portableui.offset.downCenter[k];
 			}
 			else
 			{
-				particles[NTH(i,k)] += 20*(i%(chromatic+5))*n/(d3);
+				if(fd<3)
+				{
+					particles[NTH(i,k)] += 4*v/(d2*d);
+				}
 			}
+			if(fd<6)
+			particles[NTH(i,k)] += fd*v/(d2*d);
 		}
 	}
 	
@@ -378,7 +405,7 @@ void portableui_particleDraw()
 	glPushAttrib(GL_POINT_BIT);
 	portableui_particleDrawPoints(downNotes,notesDown,5.0,0.05);
 	portableui_particleDrawPoints(downNotes,notesDown,3.0,0.05);
-	portableui_particleDrawPoints(downNotes,notesDown,1.0,0.5);	
+	portableui_particleDrawPoints(downNotes,notesDown,1.0,1.0);	
 	glPopAttrib();
 }
 
@@ -540,16 +567,6 @@ void portableui_repaintCleanScale()
 	int* downNotes = (int*)musicTheory_notes();
 	int* downCounts = (int*)musicTheory_downCounts();
 	int lastNote = musicTheory_note();
-	if(lastNote != portableui.lastDifferentNote)
-	{
-		rchill_quadCenter(
-						  portableui.lastDifferentNote,
-						  &portableui.offset.prevCenter[0],
-						  &portableui.offset.prevCenter[1],
-						  &portableui.offset.prevCenter[2]
-						  );	
-		portableui.lastDifferentNote=lastNote;
-	}
 	
 	glBegin(GL_QUADS);
 	
