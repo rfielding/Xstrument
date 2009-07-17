@@ -328,7 +328,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>499B72B0101019B700B76CEA</string>
+										<string>499B731310102F5600B76CEA</string>
 										<key>history</key>
 										<array>
 											<string>493266760FD1CF4A006FBFB5</string>
@@ -581,8 +581,8 @@
 	<array>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>49853D770FCF811700710767</string>
 		<string>/Users/rfielding/cocoa/Xstrument/Xstrument.xcodeproj</string>
+		<string>49853D770FCF811700710767</string>
 	</array>
 	<key>WindowString</key>
 	<string>16 157 1003 721 0 0 1440 878 </string>
@@ -675,7 +675,7 @@
 			<key>WindowToolGUID</key>
 			<string>49853D770FCF811700710767</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

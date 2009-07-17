@@ -47,6 +47,7 @@ struct
 	struct Parameter offset;
 	int lastDifferentNote;
 	int frameTick;
+	int previouslyNoNotes;
 } portableui;
 
 void portableui_particleinit()
@@ -210,6 +211,7 @@ void portableui_init()
 	portableui.offset.prevCenter[3] = 1;
 	
 	portableui.frameTick=0;
+	portableui.previouslyNoNotes=1;
 	
 	rchill_quadCenter(
 					  0,
@@ -283,23 +285,22 @@ void portableui_particleDrawPoints(int* downNotes,int notesDown,GLfloat pointSiz
 {
 	glPointSize(pointSize);
 	glBegin(GL_POINTS);
+	int mode = musicTheory_microtonalMode(); 
 	for (int i = 0; i < PARTICLECOUNT; i++)
 	{
-		float alpha = particles[NTH(i,4)];
-		int mode = musicTheory_microtonalMode(); 
+		float alpha = particles[NTH(i,4)]/(M_PI);
 		if(mode==2)
 		{
-			glColor4f(alpha/(2*M_PI), 1.0, 0.2, a);
+			glColor4f(alpha, 1.0, 0.2, a);
 		}
 		else
 		if(mode==1)
 		{
-			float x = alpha/(2*M_PI);
-			glColor4f(x*x,1/(x*x*x),x*x, a);
+			glColor4f(alpha*alpha,1/(alpha*alpha*alpha),alpha*alpha, a);
 		}
 		else
 		{
-			glColor4f(1.0, alpha/(2*M_PI)*alpha/(2*M_PI),0.0, a);
+			glColor4f(1.0, alpha*alpha,0.0, a);
 		}
 		glVertex3fv(&particles[NTH(i,0)]);
 	}	
@@ -342,7 +343,7 @@ void portableui_particleDraw()
 		int noteNumber = downNotes[i];
 		if(noteNumber>=0)notesDown++;
 	}
-	
+	int burst=portableui.previouslyNoNotes && notesDown;
 	float xc = portableui.offset.downCenter[0];
 	float yc = portableui.offset.downCenter[1];
 	float zc = portableui.offset.downCenter[2];
@@ -375,21 +376,22 @@ void portableui_particleDraw()
 		float sb = sin(beta);
 		float cg = cos(gamma);
 		float sg = sin(gamma);
-		float x = 1;//(ca + sa);//*(cg-sg);
-		float y = 1;//(-sa + ca);//*(cb-sb);
-		float z = 1;//*(cb+sb)*(cg+sg);
+		float x = 1;
+		float y = 1;
+		float z = 1;
 		
-		x *= (ca+sa); y*= (ca-sa);
+		if(notesDown==0 || fd>0)
+		{
+			x *= (ca+sa); y*= (ca-sa);
+		}
 		if(notesDown==0 || fd>3)
 		{
 			x *= (cb-sb); z *= (cb+sb);
-			if(fd>5)
-			{
-				y *= (cg+sg); z *= (cg-sg);
-			}
 		}
-		//Don't move up if it puts us farther away with notes down
-		//factor *= 0.5+RAND_EXPECT_HALF();
+		if(notesDown==0 || fd>5)
+		{
+			y *= (cg+sg); z *= (cg-sg);
+		}
 		particles[NTH(i,4)] += RAND_EXPECT_ZERO()*M_PI/8;
 		particles[NTH(i,5)] += RAND_EXPECT_ZERO()*M_PI/8;
 		particles[NTH(i,6)] += RAND_EXPECT_ZERO()*M_PI/8;
@@ -398,29 +400,41 @@ void portableui_particleDraw()
 		particles[NTH(i,2)] += factor* z;
 		for(int k=0;k<3;k++)
 		{
-			float v = (portableui.offset.downCenter[k]-particles[NTH(i,k)]);
-			if(notesDown==0 && fd<4)
+			int j = NTH(i,k);
+			float v = (portableui.offset.downCenter[k]-particles[j]);
+			if(burst && fd<3)particles[j] = portableui.offset.downCenter[k];
+			if(notesDown)
 			{
-				particles[NTH(i,k)] = portableui.offset.downCenter[k];
-			}
-			else
-			{
-				if(fd<5)
+				if(fd<3)
 				{
-					particles[NTH(i,k)] += 4*v/(d2*d);
+					particles[j] += 100*v/(d2*d2);
 				}
 			}
 			if(fd<5)
-			particles[NTH(i,k)] += fd*v/(d2*d);
+				particles[j] += 10*fd*v/(d2*d2);
 		}
 	}
 	
 	/////Fireworks!
 	glPushAttrib(GL_POINT_BIT);
-	portableui_particleDrawPoints(downNotes,notesDown,5.0,0.1);
-	portableui_particleDrawPoints(downNotes,notesDown,3.0,0.1);
+	portableui_particleDrawPoints(downNotes,notesDown,7.0,0.05);
+	portableui_particleDrawPoints(downNotes,notesDown,5.0,0.05);
+	portableui_particleDrawPoints(downNotes,notesDown,3.0,0.05);
 	portableui_particleDrawPoints(downNotes,notesDown,1.0,1.0);	
 	glPopAttrib();
+	
+	//Make sure that if no notes down on first frame we notice.
+	if(burst)
+	{
+		portableui.previouslyNoNotes=0;
+	}
+	else
+	{
+		if(notesDown==0)
+		{
+		   portableui.previouslyNoNotes=1;
+		}
+	}
 }
 
 void rchill_repaintDirtyScale()
