@@ -207,7 +207,7 @@
 - (void)invalidateLoop
 {
 	[self intervalTick];
-	[self performSelector:@selector(invalidateLoop) withObject:self afterDelay:1/24.0];
+	[self performSelector:@selector(invalidateLoop) withObject:self afterDelay:1/20.0];
 }
 
 - (void)intervalTick

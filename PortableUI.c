@@ -18,7 +18,7 @@
 #define PORTABLEUI_STARLIST 1001
 
 /* Particle set*/
-#define PARTICLECOUNT 1000
+#define PARTICLECOUNT 2000//00
 
 #define RAND_EXPECT_ZERO() (((float)rand()/(float)RAND_MAX)-0.5)
 #define RAND_EXPECT_HALF() (((float)rand()/(float)RAND_MAX))
@@ -46,6 +46,7 @@ struct
 	float height;
 	struct Parameter offset;
 	int lastDifferentNote;
+	int frameTick;
 } portableui;
 
 void portableui_particleinit()
@@ -112,6 +113,49 @@ float* portableui_getoffset()
 	return portableui.offset.current;
 }
 
+//Abstract away the points to notes transform so that we can move to 3d with no changes
+void rchill_noteToPoint(int note,float* pX,float* pY,float* pZ)
+{
+	int offset = 0;
+	
+	if(musicTheory_scaleBend(note) < CENTERTONE)offset=-1;
+	if(musicTheory_scaleBend(note) > CENTERTONE)offset=+1;
+	
+	float startAngle = (((M_PI*2)/(12*HALFTONE)) * ((HALFTONE*(note-2)+musicTheory_scaleBend(note)) % (12*HALFTONE)));
+	float startRadius = 1;
+	(*pX) = startRadius * cos(startAngle);
+	(*pY) = -startRadius * sin(startAngle);
+	(*pZ) = note/8.0 - 14; //0;
+}
+
+void rchill_quadCenter(int noteNumber,float* xC,float* yC,float* zC)
+{
+	float x=0;
+	float y=0;
+	float z=0;
+	
+	float x2=0;
+	float y2=0;
+	float z2=0;
+	
+	float x3=0;
+	float y3=0;
+	float z3=0;
+	
+	float x4=0;
+	float y4=0;
+	float z4=0;
+	
+	rchill_noteToPoint(noteNumber+12,&x,&y,&z);
+	rchill_noteToPoint(noteNumber+1+12,&x2,&y2,&z2);
+	rchill_noteToPoint(noteNumber+1,&x3,&y3,&z3);
+	rchill_noteToPoint(noteNumber+0,&x4,&y4,&z4);
+	
+	*xC = (x4+x2)/2;
+	*yC = (y4+y2)/2;
+	*zC = (z4+z2)/2;
+}
+
 void portableui_init()
 {
 	glShadeModel(GL_SMOOTH);
@@ -165,6 +209,15 @@ void portableui_init()
 	portableui.offset.prevCenter[2] = 0;
 	portableui.offset.prevCenter[3] = 1;
 	
+	portableui.frameTick=0;
+	
+	rchill_quadCenter(
+					  0,
+					  &portableui.offset.downCenter[0],
+					  &portableui.offset.downCenter[1],
+					  &portableui.offset.downCenter[2]
+					  );					
+	
 	portableui_particleinit();
 	
 	musicTheory_init();
@@ -192,20 +245,7 @@ void rchill_renderBitmapString(char* string, float xarg, float yarg)
 	glEnable(GL_LIGHTING);
 }
 
-//Abstract away the points to notes transform so that we can move to 3d with no changes
-void rchill_noteToPoint(int note,float* pX,float* pY,float* pZ)
-{
-	int offset = 0;
-	
-	if(musicTheory_scaleBend(note) < CENTERTONE)offset=-1;
-	if(musicTheory_scaleBend(note) > CENTERTONE)offset=+1;
-	
-	float startAngle = (((M_PI*2)/(12*HALFTONE)) * ((HALFTONE*(note-2)+musicTheory_scaleBend(note)) % (12*HALFTONE)));
-	float startRadius = 1;
-	(*pX) = startRadius * cos(startAngle);
-	(*pY) = -startRadius * sin(startAngle);
-	(*pZ) = note/8.0 - 14; //0;
-}
+
 
 void rchill_drawQuadShaded(int noteNumber,float xC,float yC,float zC)
 {
@@ -238,33 +278,6 @@ void rchill_drawQuadShaded(int noteNumber,float xC,float yC,float zC)
 	glVertex3f(x4,y4,z4);
 }
 
-void rchill_quadCenter(int noteNumber,float* xC,float* yC,float* zC)
-{
-	float x=0;
-	float y=0;
-	float z=0;
-	
-	float x2=0;
-	float y2=0;
-	float z2=0;
-	
-	float x3=0;
-	float y3=0;
-	float z3=0;
-	
-	float x4=0;
-	float y4=0;
-	float z4=0;
-	
-	rchill_noteToPoint(noteNumber+12,&x,&y,&z);
-	rchill_noteToPoint(noteNumber+1+12,&x2,&y2,&z2);
-	rchill_noteToPoint(noteNumber+1,&x3,&y3,&z3);
-	rchill_noteToPoint(noteNumber+0,&x4,&y4,&z4);
-	
-	*xC = (x4+x2)/2;
-	*yC = (y4+y2)/2;
-	*zC = (z4+z2)/2;
-}
 
 void portableui_particleDrawPoints(int* downNotes,int notesDown,GLfloat pointSize,GLfloat a)
 {
@@ -319,6 +332,7 @@ int portableui_fifthsDistance(int a,int b)
 	}
 	return 0;
 }
+
 void portableui_particleDraw()
 {
 	int notesDown = 0;
@@ -350,7 +364,7 @@ void portableui_particleDraw()
 		float d = sqrt(d2);
 		int chromatic = musicTheory_note()%12; 
 		int fd = portableui_fifthsDistance(i%12,chromatic);
-		float factor = (1+notesDown+fd)/62.0;			
+		float factor = (1+notesDown+fd)/70.0;			
 
 		float alpha = particles[NTH(i,4)];
 		float beta = particles[NTH(i,5)];
@@ -366,7 +380,7 @@ void portableui_particleDraw()
 		float z = 1;//*(cb+sb)*(cg+sg);
 		
 		x *= (ca+sa); y*= (ca-sa);
-		if(fd>3)
+		if(notesDown==0 || fd>3)
 		{
 			x *= (cb-sb); z *= (cb+sb);
 			if(fd>5)
@@ -391,20 +405,20 @@ void portableui_particleDraw()
 			}
 			else
 			{
-				if(fd<3)
+				if(fd<5)
 				{
 					particles[NTH(i,k)] += 4*v/(d2*d);
 				}
 			}
-			if(fd<6)
+			if(fd<5)
 			particles[NTH(i,k)] += fd*v/(d2*d);
 		}
 	}
 	
 	/////Fireworks!
 	glPushAttrib(GL_POINT_BIT);
-	portableui_particleDrawPoints(downNotes,notesDown,5.0,0.05);
-	portableui_particleDrawPoints(downNotes,notesDown,3.0,0.05);
+	portableui_particleDrawPoints(downNotes,notesDown,5.0,0.1);
+	portableui_particleDrawPoints(downNotes,notesDown,3.0,0.1);
 	portableui_particleDrawPoints(downNotes,notesDown,1.0,1.0);	
 	glPopAttrib();
 }
@@ -658,7 +672,7 @@ void portableui_repaint()
 	
 	GLfloat lightPosition[] = {3, 3, 5, 0.0};
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);// | GL_DEPTH_BUFFER_BIT);
 
 	
 	glUseProgramObjectARB(noise_shaders);
@@ -711,5 +725,6 @@ void portableui_repaint()
 	rchill_renderBitmapString(musicTheory_keyBuffer(),-2,-1.5);	
 	
 	glFinish();
+	portableui.frameTick++;
 }
 
