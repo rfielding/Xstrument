@@ -362,7 +362,7 @@ void portableui_particleDraw()
 		float ya = particles[NTH(i,1)];
 		float za = particles[NTH(i,3)];
 		float d2 = (xa-xc)*(xa-xc) + (ya-yc)*(ya-yc) + (za-zc)*(za-zc);
-		float d = sqrt(d2);
+		//float d = sqrt(d2);
 		int chromatic = musicTheory_note()%12; 
 		int fd = portableui_fifthsDistance(i%12,chromatic);
 		float factor = (1+notesDown+fd)/70.0;			
@@ -380,15 +380,15 @@ void portableui_particleDraw()
 		float y = 1;
 		float z = 1;
 		
-		if(notesDown==0 || fd>0)
+		//if(notesDown==0 || fd>0)
 		{
 			x *= (ca+sa); y*= (ca-sa);
 		}
-		if(notesDown==0 || fd>3)
+		if(notesDown==0 || fd>2)
 		{
 			x *= (cb-sb); z *= (cb+sb);
 		}
-		if(notesDown==0 || fd>5)
+		if(notesDown==0 || fd>3)
 		{
 			y *= (cg+sg); z *= (cg-sg);
 		}
