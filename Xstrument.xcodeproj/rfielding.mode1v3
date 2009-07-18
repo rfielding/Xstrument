@@ -328,7 +328,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>499B73201010A9B500B76CEA</string>
+										<string>499B732910117DA100B76CEA</string>
 										<key>history</key>
 										<array>
 											<string>493266760FD1CF4A006FBFB5</string>
@@ -353,8 +353,8 @@
 											<string>49980A69100EC371004E4E33</string>
 											<string>49980A6A100EC371004E4E33</string>
 											<string>49980A6B100EC371004E4E33</string>
-											<string>499B72AD101019B700B76CEA</string>
-											<string>499B72AE101019B700B76CEA</string>
+											<string>499B732410117D0800B76CEA</string>
+											<string>499B732510117D0800B76CEA</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -386,6 +386,8 @@
 											<string>499B72721010118E00B76CEA</string>
 											<string>499B72A41010180700B76CEA</string>
 											<string>499B72AF101019B700B76CEA</string>
+											<string>499B732610117D0800B76CEA</string>
+											<string>499B732710117D0800B76CEA</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -581,8 +583,8 @@
 	<array>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>/Users/rfielding/cocoa/Xstrument/Xstrument.xcodeproj</string>
 		<string>49853D770FCF811700710767</string>
+		<string>/Users/rfielding/cocoa/Xstrument/Xstrument.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>16 157 1003 721 0 0 1440 878 </string>

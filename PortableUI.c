@@ -334,6 +334,21 @@ int portableui_fifthsDistance(int a,int b)
 	return 0;
 }
 
+/*
+ The worst function in the house.  Empirically tweaking this crap until it looks "cool".
+ It changes frequently because I really don't know what the hell I'm doing.  Summary?
+ 
+ When you press a key, some number of the particles (picked roughly according to current note)
+ start flying off from the current note.  Dividing v by d gives a part of a normal, but instead of
+ (v/d)/d2 --- which is normal part div by dist squared, I added in other factors to try to warp the shapes
+ out of circular shapes.
+ 
+ The factors around x,y,z are such that at a minimum it randomly walks around a plane (producing flat circles),
+ but walking around the other two perpendicular planes I don't get something that looks exactly circular.
+ (Do I need more of a quaternion struct where I twist around direction radius then bend a few degrees for that?)
+ 
+ So, I add in random factors that try to add visual variety and tradeoff on performance.
+ */
 void portableui_particleDraw()
 {
 	int notesDown = 0;
