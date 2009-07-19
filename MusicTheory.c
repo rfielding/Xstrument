@@ -147,9 +147,19 @@ void musicTheory_limitRange()
 int musicTheory_scaleBend(int n)
 {
 	int basis = (n+(5*musicTheory.sharps))%12;
-	if(musicTheory.microTonal==1 && (basis==3 || basis==8))
+	if(musicTheory.microTonal==1)
 	{
-		return CENTERTONE + QUARTERTONE;
+		if(basis==3 || basis==8)
+		{
+			return CENTERTONE + QUARTERTONE;
+		}
+		else
+		{
+			if(basis==11)
+			{
+				return CENTERTONE - QUARTERTONE;
+			}
+		}
 	}
 	if(musicTheory.microTonal==2)
 	{
