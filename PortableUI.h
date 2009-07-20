@@ -27,7 +27,7 @@ void portableui_repaint();
  */
 void portableui_reshape(float width,float height);
 
-float* portableui_getoffset();
+float* portableui_offset_get();
 
-void portableui_animate();
-void portableui_kick();
+void portableui_offset_animate();
+void portableui_offset_kick();

@@ -155,7 +155,7 @@
 	glUseProgramObjectARB(noise_shaders);
 	glUniform3fARB(glGetUniformLocationARB(noise_shaders, "SurfaceColor"), 0.5, 0.5, 0.4);
 	glUniform3fARB(glGetUniformLocationARB(noise_shaders, "LightPosition"), 0.0, 0.0, 5.0);
-	glUniform3fvARB(glGetUniformLocationARB(noise_shaders, "offset"), 1, portableui_getoffset());
+	glUniform3fvARB(glGetUniformLocationARB(noise_shaders, "offset"), 1, portableui_offset_get());
 	glUniform1fARB(glGetUniformLocationARB(noise_shaders, "scaleOut"), 0.2);	
 
 	vertex_string   = [bundle pathForResource: @"ParticleFountain" ofType: @"vert"];
@@ -213,7 +213,7 @@
 - (void)intervalTick
 {
 	//uint64_t now = mach_absolute_time();
-	portableui_animate();
+	portableui_offset_animate();
 	[self setNeedsDisplay:YES];
 }
 
@@ -231,7 +231,7 @@
 		{
 			unichar c = [chars characterAtIndex:i];
 			musicTheory_keyDown(c);
-			portableui_kick();
+			portableui_offset_kick();
 		}		
 	}
 	[self setNeedsDisplay:YES];
