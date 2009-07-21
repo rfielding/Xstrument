@@ -153,19 +153,12 @@ int musicTheory_scaleBend(int n)
 		{
 			return CENTERTONE + QUARTERTONE;
 		}
-		else
-		{
-			if(basis==11)
-			{
-				return CENTERTONE - QUARTERTONE;
-			}
-		}
 	}
 	if(musicTheory.microTonal==2)
 	{
 		if(basis==2)return CENTERTONE - QUARTERTONE;
 		if(basis==7)return CENTERTONE - QUARTERTONE;
-		//if(basis==11 && musicTheory.twist==1)return 0x2000 - (0x2000>>2);
+		if(basis==0 && musicTheory.twist==1)return CENTERTONE - QUARTERTONE;
 	}
 	return 0x2000;
 }
@@ -225,12 +218,13 @@ int musicTheory_pickNote(int n)
 	}
 	else
 	{
-		if(musicTheory.twist>0)
+		if(musicTheory.twist>0 && musicTheory.microTonal == 0)
 		{
 			if(((n+3*musicTheory.sharps)%7) == 6)
 			{
 				answer++;
 			}
+			else
 			if(musicTheory.twist==2 && ((n+3*musicTheory.sharps)%7)==5)
 			{
 				answer++;

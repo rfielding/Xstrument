@@ -466,14 +466,16 @@ void rchill_repaintDirtyScale()
 	char stringBuffer[16];
 	
 	glNewList(PORTABLEUI_DIRTYLIST,GL_COMPILE);
-	int minor = (7*musicTheory_sharpCount())%12;
-	int major = (7*musicTheory_sharpCount() + 3)%12;
+	
 	int inScale=0;
 	for(i=0;i<7;i++)
 	{
 		int n = ((musicTheory_pickNote(i+7)%12));
 		inScale |= 1<< n;
 	}
+	
+	int minor = (7*musicTheory_sharpCount())%12;
+	int major = (7*musicTheory_sharpCount() + 3)%12;
 	glBegin(GL_QUADS);
 	for(i=1;i<128;i++)
 	{
