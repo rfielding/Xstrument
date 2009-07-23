@@ -340,38 +340,15 @@ int musicTheory_down(int key)
 		case 'r': distance=-3; break;
 		case 'i': distance=3; break;
 		case 'k': distance=-2; break;
-		case 'c': distance=-7; break;
-		case 'x': distance=-14; break;
-		case ',': distance=7; break;
-		case '.': distance=14; break;
+		case 'c': distance=-7; break; return musicTheory.lastNote-=12;
+		case 'x': distance=-14; break; return musicTheory.lastNote-=24;
+		case ',': distance=7; break; return musicTheory.lastNote+=12;
+		case '.': distance=14; break; return musicTheory.lastNote+=24;
 		case 'p': distance=-4; break;
 		case 'e': distance=4; break;
 		case 'w': distance=5; break;
 		case 'v': distance=-6; break;
 		case 'm': distance=6; break;
-//		case '|': 
-//			musicTheory.microTonal = !musicTheory.microTonal; 
-//			return -1;
-			/*
-		case 'g':
-			musicTheory.y=0x60;
-			return -1;
-		case 't': 
-			musicTheory.y-=0x10;
-			if(musicTheory.y<0x10)
-			{
-				musicTheory.y=0x10;
-			} 
-			return -1;
-			 
-		case 'y': 
-			musicTheory.y+=0x10;
-			if(musicTheory.y>0x7F)
-			{
-				musicTheory.y=0x7F;
-			} 
-			return -1;
-			 */
 		case ';':
 			distance = -5; break;
 		case '\t':

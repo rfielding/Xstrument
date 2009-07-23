@@ -16,6 +16,7 @@
 
 #define PORTABLEUI_DIRTYLIST 1000
 #define PORTABLEUI_STARLIST 1001
+#define PORTABLEUI_WEBLIST 1002
 
 /* Particle set*/
 #define PARTICLECOUNT 2000//00
@@ -465,6 +466,28 @@ void rchill_repaintDirtyScale()
 	int i=0;
 	char stringBuffer[16];
 	
+	glNewList(PORTABLEUI_WEBLIST,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	
+	for(i=1;i<128;i++)
+	{
+		float a = (i)/128.0;
+		glColor4f(0.0,0.8,0.0,a);
+		
+		rchill_noteToPointNoMicrotones(i+12,vect[0]);
+		rchill_noteToPointNoMicrotones(i+1+12,vect[1]);
+		rchill_noteToPointNoMicrotones(i+1,vect[2]);
+		rchill_noteToPointNoMicrotones(i+0,vect[3]);
+		
+		glVertex3fv(vect[0]);
+		glVertex3fv(vect[1]);
+		glVertex3fv(vect[2]);
+		glVertex3fv(vect[3]);
+		glVertex3fv(vect[0]);
+	}
+	glEnd();
+	glEndList();
+	
 	glNewList(PORTABLEUI_DIRTYLIST,GL_COMPILE);
 	
 	int inScale=0;
@@ -509,25 +532,6 @@ void rchill_repaintDirtyScale()
 	}
 	glEnd();		
 	
-	glBegin(GL_LINE_STRIP);
-	
-	for(i=1;i<128;i++)
-	{
-		float a = (i)/128.0;
-		glColor4f(0.0,0.8,0.0,a);
-		
-		rchill_noteToPointNoMicrotones(i+12,vect[0]);
-		rchill_noteToPointNoMicrotones(i+1+12,vect[1]);
-		rchill_noteToPointNoMicrotones(i+1,vect[2]);
-		rchill_noteToPointNoMicrotones(i+0,vect[3]);
-		
-		glVertex3fv(vect[0]);
-		glVertex3fv(vect[1]);
-		glVertex3fv(vect[2]);
-		glVertex3fv(vect[3]);
-		glVertex3fv(vect[0]);
-	}
-	glEnd();
 	
 	for(i=0;i<=12;i++)
 	{
@@ -614,7 +618,8 @@ void portableui_repaintCleanScale()
 			colors[0][1]=0.4;
 			colors[0][2]=0.2;
 		}
-		rchill_drawQuadShaded(lastNote,colors[0],colors[0]);
+		portableui_averageAndScale(colors[1], colors[0],colors[0],0);
+		rchill_drawQuadShaded(lastNote,colors[0],colors[1]);
 	}
 	
 	//Draw stuck notes... we can do this on purpose by holding shift before a key is released
@@ -654,8 +659,8 @@ void portableui_repaintCleanScale()
 				colors[0][1]=0.3;
 				colors[0][2]=0.5;
 			}
-			
-			rchill_drawQuadShaded(noteNumber,colors[0],colors[0]);					
+			portableui_averageAndScale(colors[1], colors[0],colors[0],0);
+			rchill_drawQuadShaded(noteNumber,colors[0],colors[1]);					
 		}		
 	}
 	glEnd();
@@ -701,7 +706,7 @@ void portableui_repaint()
 	glLoadIdentity();
 	vect[0][2] = 3.0f * (1.0f + (0x2000-musicTheory_wheel())/(0x2000 * 12.0));
 	gluLookAt(
-			  bumpX*0.04,bumpY*0.03,vect[0][2],
+			  bumpX*0.05,bumpY*0.05,vect[0][2],
 			  -bumpX*0.01, -bumpY*0.01, -bumpZ*0.01, 
 			  0, 1, 0
 			  );
@@ -717,9 +722,12 @@ void portableui_repaint()
 		rchill_repaintDirtyScale();
 	}
 	glCallList(PORTABLEUI_DIRTYLIST);
+	glCallList(PORTABLEUI_WEBLIST);
 	
 	glUniform1fvARB(glGetUniformLocationARB(noise_shaders, "factor"), 1, &brightFactor);
 	portableui_repaintCleanScale();
+//	glUniform1fvARB(glGetUniformLocationARB(noise_shaders, "factor"), 1, &fogFactor);
+	glUniform1fvARB(glGetUniformLocationARB(noise_shaders, "factor"), 1, &brightFactor);
 	
 	portableui_particleDraw();
 	glCallList(PORTABLEUI_STARLIST);
