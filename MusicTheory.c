@@ -361,9 +361,14 @@ int musicTheory_down(int key)
 			musicTheory.sharps--; musicTheory.sharps+=12; musicTheory.sharps%=12; 
 			musicTheory.dirtyScale = 1;
 			return -1;
+		case 'Y':
+			musicTheory.microTonal = 
+				(musicTheory.microTonal==0) ? 2 : 0;
+			musicTheory.dirtyScale = 1;
+			return -1;
 		case 'y':
-			musicTheory.microTonal++;
-			musicTheory.microTonal%=3;
+			musicTheory.microTonal = 
+				(musicTheory.microTonal==0) ? 1 : 0;
 			musicTheory.dirtyScale = 1;
 			return -1;
 		case 'g':
@@ -554,6 +559,7 @@ int musicTheory_silentKey(int k)
 		case '|':
 		case '\t':
 		case 'y':
+		case 'Y':
 		case 't':
 		case 'q':
 			return 1;
