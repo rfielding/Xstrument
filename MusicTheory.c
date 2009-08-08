@@ -47,6 +47,7 @@ struct
 	int pentatonic;
 	int sustain;
 	int accBend;
+	int harmonies;
 } musicTheory;
 
 void musicTheory_setXY(int xArg, int yArg)
@@ -67,8 +68,7 @@ int musicTheory_getY()
 
 void musicTheory_init()
 {
-	int i=0;
-	for(i=0;i<1024;i++)
+	for(int i=0;i<1024;i++)
 	{
 		musicTheory.keyBuffer[i] = '\0';
 	}
@@ -82,7 +82,7 @@ void musicTheory_init()
 	musicTheory.scale[5] = 8;
 	musicTheory.scale[6] = 10;
 	musicTheory.scale[7] = 12;
-	for(i=0;i<8;i++)
+	for(int i=0;i<8;i++)
 	{
 		musicTheory.scale[i + 7] = 12 + musicTheory.scale[i];
 	}
@@ -90,7 +90,7 @@ void musicTheory_init()
 	musicTheory.sharps=3;
 	musicTheory.lastDistance=0;
 	musicTheory.twist=0;
-	for(i=0;i<256;i++)
+	for(int i=0;i<256;i++)
 	{
 		musicTheory.downNotes[i]=-1;
 	}
@@ -116,6 +116,7 @@ void musicTheory_init()
 	musicTheory.pentatonic=0;
 	musicTheory.sustain=0;
 	musicTheory.accBend=0;
+	musicTheory.harmonies=0;
 	midiPlatform_init();
 }
 
@@ -165,7 +166,6 @@ int musicTheory_scaleBend(int n)
 
 int musicTheory_pickNote(int n)
 {
-	int note=0;
 	if(musicTheory.sharps<0)musicTheory.sharps+=7;
 	if(n<0)
 	{
@@ -179,7 +179,7 @@ int musicTheory_pickNote(int n)
 	int answer = octaveBase + musicTheory.scale[ (n%7 + (3*musicTheory.sharps)%7)] - (5*musicTheory.sharps)%12;
 	if(musicTheory.pentatonic>0)
 	{
-		note = (n+3*musicTheory.sharps)%7;
+		int note = (n+3*musicTheory.sharps)%7;
 		switch(musicTheory.twist)
 		{
 			case 0:
@@ -377,6 +377,8 @@ int musicTheory_down(int key)
 		case 't':
 			musicTheory.dirtyScale = 1;
 			musicTheory.pentatonic=!musicTheory.pentatonic; return -1;
+		case 'b':
+			musicTheory.harmonies = !musicTheory.harmonies; return -1;
 		case 'u':
 			tryPosition = musicTheory_pickNote(musicTheory.scalePosition+1);
 			if(musicTheory.lastNote+1 < tryPosition)
@@ -504,8 +506,7 @@ int musicTheory_downCountOf(int n)
 
 void musicTheory_clearAllDown()
 {
-	int i=0;
-	for(i=0; i< 256; i++)
+	for(int i=0; i< 256; i++)
 	{
 		musicTheory.downCounts[i] = 0;
 		musicTheory.downNotes[i] = -1;
@@ -560,6 +561,7 @@ int musicTheory_silentKey(int k)
 		case '\t':
 		case 'y':
 		case 'Y':
+		case 'b':
 		case 't':
 		case 'q':
 			return 1;
@@ -614,6 +616,8 @@ void musicTheory_keyDown(int k)
 		if(note>=0)
 		{
 			int loud = musicTheory_getY();
+			if(musicTheory.harmonies)
+				midiPlatform_sendMidiPacket(0x90,note+7,loud);
 			midiPlatform_sendMidiPacket(0x90,note,loud);
 		}
 	}
@@ -631,6 +635,8 @@ void musicTheory_keyUp(int k)
 	{
 		if(!musicTheory.sustain && musicTheory_downCount(note)<=0)
 		{
+			if(musicTheory.harmonies)
+				midiPlatform_sendMidiPacket(0x90,note+7,0x00);
 			midiPlatform_sendMidiPacket(0x90, note, 0x00);
 		}
 	}

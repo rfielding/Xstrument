@@ -17,6 +17,7 @@
 #define PORTABLEUI_DIRTYLIST 1000
 #define PORTABLEUI_STARLIST 1001
 #define PORTABLEUI_WEBLIST 1002
+#define PORTABLEUI_JULIALIST 1003
 
 /* Particle set*/
 #define PARTICLECOUNT 2000//00
@@ -56,8 +57,7 @@ struct
 
 void portableui_particleinit()
 {
-	int i;
-	for (i = 0; i < PARTICLECOUNT; i++)
+	for (int i = 0; i < PARTICLECOUNT; i++)
 	{
 		float r = RAND_EXPECT_HALF()*5;
 		float a = 2 * RAND_EXPECT_HALF() * M_PI;
@@ -76,8 +76,7 @@ void portableui_particleinit()
 
 void portableui_offset_animate()
 {
-	int i; 
-	for (i = 0; i < 4; i ++) 
+	for (int i = 0; i < 4; i ++) 
 	{
 		//make delta drop down gradually
 		offset.current[i] += offset.delta[i];
@@ -245,9 +244,8 @@ void portableui_reshape(float width, float height)
 void rchill_renderBitmapString(char* string, float xarg, float yarg)
 {
 	glDisable(GL_LIGHTING);
-	char* c;
 	glRasterPos2f(xarg,yarg);
-	for(c=string; *c != '\0'; c++)
+	for(char* c=string; *c != '\0'; c++)
 	{
 		glutBitmapCharacter((void*)portableui.font, *c);
 	}
@@ -463,13 +461,12 @@ void portableui_particleDraw()
 
 void rchill_repaintDirtyScale()
 {
-	int i=0;
 	char stringBuffer[16];
 	
 	glNewList(PORTABLEUI_WEBLIST,GL_COMPILE);
 	glBegin(GL_LINE_STRIP);
 	
-	for(i=1;i<128;i++)
+	for(int i=1;i<128;i++)
 	{
 		float a = (i)/128.0;
 		glColor4f(0.0,0.8,0.0,a);
@@ -491,7 +488,7 @@ void rchill_repaintDirtyScale()
 	glNewList(PORTABLEUI_DIRTYLIST,GL_COMPILE);
 	
 	int inScale=0;
-	for(i=0;i<7;i++)
+	for(int i=0;i<7;i++)
 	{
 		int n = ((musicTheory_pickNote(i+7)%12));
 		inScale |= 1<< n;
@@ -500,7 +497,7 @@ void rchill_repaintDirtyScale()
 	int minor = (7*musicTheory_sharpCount())%12;
 	int major = (7*musicTheory_sharpCount() + 3)%12;
 	glBegin(GL_QUADS);
-	for(i=1;i<128;i++)
+	for(int i=1;i<128;i++)
 	{
 		colors[0][0]=0.0;
 		colors[0][1]=0.0;
@@ -533,7 +530,7 @@ void rchill_repaintDirtyScale()
 	glEnd();		
 	
 	
-	for(i=0;i<=12;i++)
+	for(int i=0;i<=12;i++)
 	{
 		int isInScale = inScale & (1<<i);
 		rchill_noteToPointNoMicrotones(i+12*5,vect[1]);
@@ -556,7 +553,7 @@ void rchill_repaintDirtyScale()
 	 
 	
 	glColor3d(1.0,1,1.0);
-	for(i=0;i<=7;i++)
+	for(int i=0;i<=7;i++)
 	{
 		int note = musicTheory_pickNote(i) % 12; 
 		int mode = ((i%7 + (3*musicTheory_sharpCount())%7)) %7; 
@@ -570,7 +567,7 @@ void rchill_repaintDirtyScale()
 	
 	glNewList(PORTABLEUI_STARLIST,GL_COMPILE);
 	glBegin(GL_LINE_STRIP);
-	for(i=0;i<13;i++)
+	for(int i=0;i<13;i++)
 	{
 		int fifth = ((musicTheory_sharpCount()+i)*7)%12; 
 		double a = (12-i)/(10.0f + (12-i)*i);
@@ -591,8 +588,6 @@ void rchill_repaintDirtyScale()
 
 void portableui_repaintCleanScale()
 {
-	int i=0;
-	
 	colors[0][0]=0;
 	colors[0][1]=0;
 	colors[0][2]=0;
@@ -623,7 +618,7 @@ void portableui_repaintCleanScale()
 	}
 	
 	//Draw stuck notes... we can do this on purpose by holding shift before a key is released
-	for(i=0;i<255;i++)
+	for(int i=0;i<255;i++)
 	{
 		int downCount = downCounts[i];	
 		if(downCount>0)
@@ -636,7 +631,7 @@ void portableui_repaintCleanScale()
 	}
 	
 	//Draw down notes 
-	for(i=0;i<255;i++)
+	for(int i=0;i<255;i++)
 	{
 		int noteNumber = downNotes[i];
 		if(
@@ -666,12 +661,22 @@ void portableui_repaintCleanScale()
 	glEnd();
 }
 
-
+void doJulia()
+{
+	float dist = 150;
+	float r = 100;
+	glUseProgramObjectARB(particle_shaders);
+	glColor4f(1.0,1.0,1.0,1.0);
+	glBegin(GL_QUADS);
+	glVertex3f(-r,-r,-dist);
+	glVertex3f(-r, r,-dist);
+	glVertex3f( r, r,-dist);
+	glVertex3f( r,-r,-dist);
+	glEnd();
+}
 
 void portableui_repaint()
 {
-	int i=0;
-	
 	float bumpX=0;
 	float bumpY=0;
 	float bumpZ=0;
@@ -683,14 +688,10 @@ void portableui_repaint()
 	
 	GLfloat lightPosition[] = {3, 3, 5, 0.0};
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT);// | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	
-	glUseProgramObjectARB(noise_shaders);
-	glUniform1fARB(glGetUniformLocationARB(noise_shaders, "scaleIn"), offset.delta[0]);
-	glUniform3fvARB(glGetUniformLocationARB(noise_shaders, "center"), 1, downCenter);
-	glUniform1fvARB(glGetUniformLocationARB(noise_shaders, "factor"), 1, &fogFactor);
-	for(i=0;i<255;i++)
+	for(int i=0;i<255;i++)
 	{
 		int noteNumber = downNotes[i];
 		if(noteNumber >= 0)
@@ -714,6 +715,12 @@ void portableui_repaint()
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	
 	glTranslatef(0,0,0);
+	//doJulia();
+	
+	glUseProgramObjectARB(noise_shaders);
+	glUniform1fARB(glGetUniformLocationARB(noise_shaders, "scaleIn"), offset.delta[0]);
+	glUniform3fvARB(glGetUniformLocationARB(noise_shaders, "center"), 1, downCenter);
+	glUniform1fvARB(glGetUniformLocationARB(noise_shaders, "factor"), 1, &fogFactor);
 	
 	glUniform3fvARB(glGetUniformLocationARB(noise_shaders, "offset"), 1, portableui_offset_get());
 	
