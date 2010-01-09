@@ -2,7 +2,7 @@ Before you start Xstrument.app, you will need a place for the instrument to plug
 
 Once you have done that, you should start up an application that takes MIDI input such as Garage band, or plug in a MIDI keyboard (as an output device). When using a recording studio like Garage band, you will need to make sure that a MIDI track is selected and is prepared to respond to MIDI events. It is important that you start your MIDI device  (GarageBand, Reason, etc) before starting Xstrument.app - because Xstrument looks for the list of places to send MIDI events on startup.
 
-I built this with XCode 3.1 on OSX Leopard.  I don't know if it still runs on Tiger, but this is code derived from code originally written for Tiger.  The organization is such that a Win32 port should be trivial, and hostable in the same project.  This is how that is achieved:
+I started this project with XCode 3.1 on OSX Leopard, and run it on Snow Leopard now.  I don't know if it still runs on Tiger, but this is code derived from code originally written for Tiger.  The organization is such that a Win32 port should be trivial, and hostable in the same project.  This is how that is achieved:
 
 XstrumentView
   - Objective-C
