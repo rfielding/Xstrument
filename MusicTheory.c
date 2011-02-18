@@ -9,6 +9,19 @@
 //
 //
 //  Leon Gruenbaum has a patent on the Samchillian.  
+//
+//  (FYI: As far as I can tell, that pertains to his specific keyboard layout
+//  and almost certainly to his unrelated embedded hardware implementation.
+//  Anything outside of this file would be totally unencumbered, and is in fact
+//  quite different from what Leon is doing.  I include this notice
+//  as a courtesy to Leon, and to inform you that you cannot take this 
+//  source code and secretly peddle a commercial product based on it.  
+//
+//  If you like (or hate!) this instrument then you can do whatever you want for 
+//  non-commercial use only.  If you want to do something commercial,
+//  you should talk to Leon.  I would be more than happy to help
+//  anyone wishing to work on this project for any reason.)
+//
 //  This implementation was done with his permission.
 //  Any derived works must have Leon's permission.
 //
